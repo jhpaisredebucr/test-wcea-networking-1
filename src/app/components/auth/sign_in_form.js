@@ -20,7 +20,7 @@ export default function SignInForm() {
 
         if (data.success) {
         console.log("Logged In: ", data.users);
-        router.replace("/");
+        router.replace("/dashboard");
         } else {
         console.log("Login Failed");
         }

@@ -11,9 +11,9 @@ export default function Home() {
   useEffect(() => {
     const isLoggedIn = true;
     if (!isLoggedIn) {
-      // router.push("/auth/signin")
+      router.push("/auth/signin")
     }
-    router.push("/dashboard/admin")
+    // router.push("/dashboard/admin")
   });
 
   return (
