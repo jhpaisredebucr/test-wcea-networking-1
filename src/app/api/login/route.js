@@ -1,24 +1,56 @@
-import { Result } from "pg";
 import { query } from "../../../../lib/db";
 import bcrypt from "bcrypt";
 
 export async function POST(req) {
-    const body = await req.json();
-    const {username, password} = body;
+    try {
+        const body = await req.json();
+        let { username, password } = body;
 
-    const users = await query(
-        "SELECT * FROM users WHERE username=$1", 
-        [username]
-    );
+        if (!username || !password) {
+            return Response.json({
+                success: false,
+                message: "Missing fields"
+            });
+        }
 
-    if (users.length === 0) {
-        return Response.json({success: false, message: "No user"})
+        username = username.toLowerCase();
+
+        const users = await query(
+            "SELECT id, username, password FROM users WHERE username=$1",
+            [username]
+        );
+
+        if (users.length === 0) {
+            return Response.json({
+                success: false,
+                message: "Invalid credentials"
+            });
+        }
+
+        const user = users[0];
+
+        const valid = await bcrypt.compare(password, user.password);
+
+        if (!valid) {
+            return Response.json({
+                success: false,
+                message: "Invalid credentials"
+            });
+        }
+
+        return Response.json({
+            success: true,
+            message: "Successfully logged in",
+            user: {
+                id: user.id,
+                username: user.username
+            }
+        });
+
+    } catch (err) {
+        return Response.json({
+            success: false,
+            message: "Server error"
+        });
     }
-
-    const valid = await bcrypt.compare(password, users[0].password);
-
-    if (valid) {
-        return Response.json({success: true, message: "Successfuly logged in", users})
-    }
-    return Response.json({success: false, message: "Wrong password", users})
 }
