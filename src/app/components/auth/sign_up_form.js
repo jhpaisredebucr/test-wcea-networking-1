@@ -36,7 +36,7 @@ export default function SignUpForm() {
             {/* Logo at the top */}
             <div className="flex justify-center mb-6">
                 <Image
-                    src="/images/wcea-logo.png" // replace with your logo path
+                    src="/images/wcea-logo.png" // replace with logo 
                     alt="Logo"
                     width={80}
                     height={80}

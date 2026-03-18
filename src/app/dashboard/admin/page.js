@@ -13,7 +13,7 @@ export default function Dashboard() {
         <div className="w-full flex">
             {/* SIDEBAR */}
             <div className="fixed left-0 top-0 h-screen w-56 bg-white p-6 shadow-md">
-                <p className="text-3xl font-semibold mb-6">Member</p>
+                <p className="text-3xl font-semibold mb-6">Admin</p>
 
                 <div className="space-y-2">
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
@@ -49,7 +49,7 @@ export default function Dashboard() {
                             height={40}
                             className="rounded-full"
                         />
-                        <p>Paulo Reeve Buta</p>
+                        <p>Placeholder Name</p>
                     </button>
                 </div>
 
