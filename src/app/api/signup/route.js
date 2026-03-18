@@ -38,7 +38,12 @@ export async function POST(req) {
 
         return Response.json({
             success: true,
-            message: "User created"
+            message: "Successfully signed up",
+            user: {
+                id: user.id,
+                username: user.username,
+                role: user.role
+            }
         });
 
     } catch (err) {
