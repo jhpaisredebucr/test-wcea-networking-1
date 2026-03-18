@@ -20,10 +20,14 @@ export default function SignUpForm() {
         const data = await res.json();
 
         if (data.success) {
-            console.log("Logged In: ", data.users);
-            router.replace("/");
+            console.log("Logged In: ", data.user.username);
+            if (data.user.role === "admin") {
+                router.replace("/dashboard/admin");
+            } else {
+                router.replace("/dashboard/member");
+            }
         } else {
-            console.log("Sign Up Failed");
+            console.log("Login Failed");
         }
     }    
 
