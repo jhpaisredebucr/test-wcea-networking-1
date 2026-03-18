@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Input from "../ui/input";
-import Button from "../ui/button";
+import Input from "../components/ui/input";
+import Button from "../components/ui/button";
 
 export default function Profile() {
     // Simulate getting user info dynamically
@@ -25,7 +25,6 @@ export default function Profile() {
             <p className="text-gray-500 mb-4">@{name.toLowerCase()}</p>
             <p className="mb-6">{bio}</p>
 
-            {/* Example of editing the name */}
             <div className="flex flex-col gap-3">
                 <Input
                     label="Edit Name"

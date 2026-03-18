@@ -40,7 +40,7 @@ export default function SignInForm() {
             {/* Logo at the top */}
             <div className="flex justify-center mb-6">
                 <Image
-                    src="/logo.png" // Replace with your logo path
+                    src="/images/wcea-logo.png" // replace with logo 
                     alt="Logo"
                     width={80}
                     height={80}
