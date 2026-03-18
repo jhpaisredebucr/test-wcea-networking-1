@@ -1,6 +1,7 @@
 "use client";
-import Input from "../ui/input"
+import Input from "../ui/input";
 import Button from "../ui/button";
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -11,9 +12,9 @@ export default function SignInForm() {
 
     async function HandleLogIn() {
         const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({username, password})
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({username, password})
         });
 
         const data = await res.json();
@@ -25,23 +26,40 @@ export default function SignInForm() {
             } else {
                 router.replace("/dashboard/member");
             }
-            console.log(data);
         } else {
-        console.log("Login Failed");
+            console.log("Login Failed");
         }
     }   
     
     function HandleSignUp() {
-        router.push("/auth/signup")
+        router.push("/auth/signup");
     }
 
     return (
-        <div>
+        <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-xl shadow-md text-center">
+            {/* Logo at the top */}
+            <div className="flex justify-center mb-6">
+                <Image
+                    src="/logo.png" // Replace with your logo path
+                    alt="Logo"
+                    width={80}
+                    height={80}
+                />
+            </div>
+
             <p className="text-3xl font-bold mb-10">Sign In</p>
-            <Input label="Username" type="text" value={username} onChange={setUsername}/>
-            <Input label="Password" type="password" value={password} onChange={setPassword}/>
-            <button onClick={HandleSignUp} className="my-2 text-blue-500 flex justify-end">Create an account</button>
+
+            <Input label="Username" type="text" value={username} onChange={setUsername} />
+            <Input label="Password" type="password" value={password} onChange={setPassword} />
+            
+            <button 
+                onClick={HandleSignUp} 
+                className="my-2 text-blue-500 flex justify-end"
+            >
+                Create an account
+            </button>
+            
             <Button onClick={HandleLogIn}>Log In</Button>
         </div>
-    )
+    );
 }
