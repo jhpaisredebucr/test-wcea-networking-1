@@ -17,11 +17,11 @@ export async function POST(req) {
         username = username.toLowerCase();
 
         const existing = await query(
-            `SELECT 1 FROM users WHERE username=$1`,
+            `SELECT * FROM users WHERE username=$1`,
             [username]
         );
 
-        if (existing.rows.length > 0) {
+        if (existing.length > 0) {
             return Response.json({
                 success: false,
                 message: "Username already exists"
@@ -37,7 +37,7 @@ export async function POST(req) {
             [username, hashedPass]
         );
 
-        const user = result.rows[0];
+        const user = result[0];
 
         return Response.json({
             success: true,
