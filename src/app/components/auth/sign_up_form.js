@@ -20,8 +20,13 @@ export default function SignUpForm() {
 
 
         if (data.success) {
-            console.log("Logged In: ", data.users);
-            router.replace("/dashboard");
+            console.log("Logged In: ", data.user.username);
+            if (data.user.role === "admin") {
+                router.replace("/dashboard/admin");
+            } else {
+                router.replace("/dashboard/member");
+            }
+            console.log(data);
         } else {
             console.log("Sign Up Failed");
         }
