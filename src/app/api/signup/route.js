@@ -37,7 +37,7 @@ export async function POST(req) {
             [username, hashedPass]
         );
 
-        const user = result.rows[0];
+        const user = result[0];
 
         return Response.json({
             success: true,
