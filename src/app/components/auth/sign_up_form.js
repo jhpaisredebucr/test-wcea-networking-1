@@ -21,7 +21,7 @@ export default function SignUpForm() {
 
         if (data.success) {
             console.log("Logged In: ", data.users);
-            router.replace("/");
+            router.replace("/dashboard");
         } else {
             console.log("Sign Up Failed");
         }

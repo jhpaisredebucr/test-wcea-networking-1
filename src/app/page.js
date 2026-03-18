@@ -9,11 +9,11 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
     if (!isLoggedIn) {
-      // router.push("/auth/signin")
+      router.push("/auth/signin")
     }
-    router.push("/dashboard/admin")
+    // router.push("/dashboard/admin")
   });
 
   return (
