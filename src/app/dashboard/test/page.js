@@ -9,6 +9,9 @@ export default function Dashboard() {
         router.push("/profile");
     }
 
+    function GoAdvisoryInfo(){
+        router.push("/advisory-info")
+    }
     return (
         <div className="w-full flex">
             {/* SIDEBAR */}
@@ -33,7 +36,7 @@ export default function Dashboard() {
                 <hr className="my-6" />
 
                 <div className="space-y-2">
-                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition" onClick={GoAdvisoryInfo}>
                         About
                     </button>
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
