@@ -30,11 +30,14 @@ export async function POST(req) {
 
         const hashedPass = await bcrypt.hash(password, 10);
 
-        await query(
+        const result = await query(
             `INSERT INTO users (username, password)
-             VALUES ($1, $2)`,
+            VALUES ($1, $2)
+            RETURNING *`,
             [username, hashedPass]
         );
+
+        const user = result[0];
 
         return Response.json({
             success: true,
