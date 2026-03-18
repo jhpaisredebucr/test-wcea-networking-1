@@ -29,6 +29,7 @@ export default function SignUpForm() {
             console.log(data);
         } else {
             console.log("Sign Up Failed");
+            console.log(data.message);
         }
         }    
 
