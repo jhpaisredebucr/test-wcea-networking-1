@@ -43,7 +43,8 @@ export async function POST(req) {
             message: "Successfully logged in",
             user: {
                 id: user.id,
-                username: user.username
+                username: user.username,
+                role: user.role
             }
         });
 
