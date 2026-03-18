@@ -1,4 +1,4 @@
-import SignInForm from "@/app/components/auth/sign_in_form"
+import SignUpForm from "@/app/components/auth/sign_test_form"
 
 export const metadata = {
   title: "Sign In"
@@ -7,7 +7,7 @@ export const metadata = {
 export default function SignIn() {
   return (
     <div>
-      <SignInForm/>
+      <SignUpForm/>
     </div>
   )
 }
