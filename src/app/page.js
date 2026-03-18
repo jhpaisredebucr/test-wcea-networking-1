@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <p>PRODUCTS</p>
+      <p>Loading WCEA Networking Website...</p>
     </div>
   );
 }
