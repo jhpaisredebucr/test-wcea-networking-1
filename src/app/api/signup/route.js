@@ -1,5 +1,7 @@
 import { query } from "../../../../lib/db";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(req) {
     try {
@@ -38,6 +40,18 @@ export async function POST(req) {
         );
 
         const user = result[0];
+
+        const token = jwt.sign(
+            { id: user.id, username: user.username, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        cookies().set("token", token, {
+            httpOnly: true,
+            secure: true,
+            path: "/",
+        });
 
         return Response.json({
             success: true,
