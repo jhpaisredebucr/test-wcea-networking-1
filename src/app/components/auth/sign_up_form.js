@@ -37,7 +37,7 @@ export default function SignUpForm() {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-xl shadow-md text-center">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
             {/* Logo at the top */}
             <div className="flex justify-center mb-6">
                 <Image
@@ -48,7 +48,7 @@ export default function SignUpForm() {
                 />
             </div>
 
-            <p className="text-3xl font-bold mb-10">Sign Up</p>
+            <p className="text-3xl font-bold mb-10 text-center">Sign Up</p>
             <Input label="Username" type="text" value={username} onChange={setUsername} />
             <Input label="Password" type="password" value={password} onChange={setPassword} />
             

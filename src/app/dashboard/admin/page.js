@@ -22,17 +22,27 @@ export default function Dashboard() {
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
                         Products
                     </button>
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        Referral
+                    </button>
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        Members
+                    </button>
                 </div>
 
                 <hr className="my-6" />
 
                 <div className="space-y-2">
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+                        About
+                    </button>
+                    <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
                         Settings
                     </button>
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition text-red-500">
                         Sign Out
                     </button>
+
                 </div>
             </div>
 
