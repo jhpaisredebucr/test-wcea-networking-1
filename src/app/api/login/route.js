@@ -16,7 +16,7 @@ export async function POST(req) {
         username = username.toLowerCase();
 
         const users = await query(
-            "SELECT id, username, password FROM users WHERE username=$1",
+            "SELECT * FROM users WHERE username=$1",
             [username]
         );
 

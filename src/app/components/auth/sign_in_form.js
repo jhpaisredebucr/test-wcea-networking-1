@@ -19,8 +19,8 @@ export default function SignInForm() {
         const data = await res.json();
 
         if (data.success) {
-            console.log("Logged In: ", data.username);
-            if (data.role === "admin") {
+            console.log("Logged In: ", data.user.username);
+            if (data.user.role === "admin") {
                 router.replace("/dashboard/admin");
             } else {
                 router.replace("/dashboard/member");
