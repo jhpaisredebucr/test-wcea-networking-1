@@ -56,7 +56,7 @@ export default function SignUpForm() {
                 onClick={HandleSignIn} 
                 className="my-2 text-blue-500 flex justify-end"
             >
-                Already have an account
+                Already have an account?
             </button>
             
             <Button onClick={HandleSignUp}>Sign Up</Button>
