@@ -1,8 +1,6 @@
 "use client"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
 
 export default function Dashboard() {
     const router = useRouter();
@@ -11,19 +9,11 @@ export default function Dashboard() {
         router.push("/profile");
     }
 
-    const token = cookies().get("token")?.value;
-
-    if (!token) {
-        return <div>Not logged in</div>;
-    }
-
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-
     return (
         <div className="w-full flex">
             {/* SIDEBAR */}
             <div className="fixed left-0 top-0 h-screen w-56 bg-white p-6 shadow-md">
-                <p className="text-3xl font-semibold mb-6"> {user.role}</p>
+                <p className="text-3xl font-semibold mb-6">Member</p>
 
                 <div className="space-y-2">
                     <button className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition">
