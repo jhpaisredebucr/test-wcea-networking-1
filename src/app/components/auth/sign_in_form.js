@@ -28,6 +28,7 @@ export default function SignInForm() {
             }
         } else {
             console.log("Login Failed");
+            console.log(data.message);
         }
     }   
     

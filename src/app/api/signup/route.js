@@ -17,7 +17,7 @@ export async function POST(req) {
         username = username.toLowerCase();
 
         const existing = await query(
-            `SELECT 1 FROM users WHERE username=$1`,
+            `SELECT * FROM users WHERE username=$1`,
             [username]
         );
 
@@ -52,7 +52,7 @@ export async function POST(req) {
     } catch (err) {
         return Response.json({
             success: false,
-            message: "Server error"
+            message: err
         });
     }
 }
