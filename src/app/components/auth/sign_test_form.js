@@ -54,22 +54,22 @@ export default function SignUpForm() {
             <Input label="Username" type="text" value={username} onChange={setUsername} />
 
             {/* Password Input with Eye Toggle */}
-            <div className="relative">
+                <div className="relative">
                 <Input 
                     label="Password"
                     type={showPassword ? "text" : "password"} 
                     value={password} 
                     onChange={setPassword} 
+                    className="pr-12" // add padding to make space for the button
                 />
                 <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute top-[38px] right-3 text-gray-700 text-sm font-medium"
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-700 text-sm font-medium"
                 >
-                    {showPassword ? "Hide" : "Show"} 
+                    {showPassword ? "Hide" : "Show"}
                 </button>
-            </div>
-            
+                </div>
             <button 
                 onClick={HandleSignIn} 
                 className="my-2 text-blue-500 flex justify-end"
