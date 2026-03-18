@@ -28,6 +28,7 @@ export default function SignUpForm() {
             }
         } else {
             console.log("Login Failed");
+            console.log(data.message);
         }
     }    
 
