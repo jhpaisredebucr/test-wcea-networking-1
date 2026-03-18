@@ -19,12 +19,13 @@ export default function SignInForm() {
         const data = await res.json();
 
         if (data.success) {
-            console.log("Logged In: ", data.users);
+            console.log("Logged In: ", data.username);
             if (data.role === "admin") {
                 router.replace("/dashboard/admin");
             } else {
                 router.replace("/dashboard/member");
             }
+            console.log(data);
         } else {
         console.log("Login Failed");
         }
