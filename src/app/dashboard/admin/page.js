@@ -1,12 +1,13 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Dashboard from "../page";
+import Dashboard from "./DashboardUI";
+
+export const dynamic = "force-dynamic";
 
 export default function Page() {
     const token = cookies().get("token")?.value;
 
-    // 🚫 Not logged in → redirect
     if (!token) {
         redirect("/login");
     }
