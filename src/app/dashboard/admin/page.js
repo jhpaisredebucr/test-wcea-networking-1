@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Dashboard from "./DashboardUI";
+import Dashboard from "../page";
 
 export const dynamic = "force-dynamic";
 
