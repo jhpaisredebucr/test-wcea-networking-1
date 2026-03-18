@@ -21,7 +21,7 @@ export async function POST(req) {
             [username]
         );
 
-        if (existing.length > 0) {
+        if (existing.rows.length > 0) {
             return Response.json({
                 success: false,
                 message: "Username already exists"

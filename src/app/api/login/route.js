@@ -20,7 +20,7 @@ export async function POST(req) {
             [username]
         );
 
-        if (users.length === 0) {
+        if (users.rows.length === 0) {
             return Response.json({
                 success: false,
                 message: "Invalid credentials"
