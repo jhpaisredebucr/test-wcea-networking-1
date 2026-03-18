@@ -37,7 +37,7 @@ export default function SignUpForm() {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-20 p-6 bg-white rounded-xl shadow-md text-center">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md text-center">
             {/* Logo at the top */}
             <div className="flex justify-center mb-6">
                 <Image
