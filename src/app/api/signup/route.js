@@ -4,50 +4,72 @@ import bcrypt from "bcrypt";
 export async function POST(req) {
     try {
         const body = await req.json();
-        let { username, email, contactNumber, referralCode, password } = body;
-
-        if (!username || !email || !contactNumber || !referralCode || !password) {
-            return Response.json({ success: false, message: "Missing fields" });
-        }
-
-        if (password.length < 6) {
-            return Response.json({ success: false, message: "Password too short" });
-        }
-
-        username = username.toLowerCase();
-
-        const existing = await query(
-            `SELECT * FROM users WHERE username=$1`,
-            [username]
-        );
-
-        if (existing.length > 0) {
-            return Response.json({
-                success: false,
-                message: "Username already exists"
-            });
-        }
+        const {
+            //users
+            username,
+            referralCode,
+            password,
+            //user_contacts
+            email,
+            contactNumber,
+            // user_profiles
+            firstName,
+            middleName,
+            lastName,
+            dob,
+            city,
+            barangay,
+            streetAddress,
+            postalCode,
+            // Step 3
+            planId,
+            // Step 4
+            paymentMethod,
+            // Step 5
+            status
+        } = body;
 
         const hashedPass = await bcrypt.hash(password, 10);
 
+        //users
         const result = await query(
             `
-                INSERT INTO users (username, referred_by, password)
+                INSERT INTO users (username, password, referred_by)
                 VALUES ($1, $2, $3)
                 RETURNING *
             `,
-            [username, referralCode, hashedPass]
+            [username, hashedPass, referralCode]
         );
 
         const user = result[0];
+        const userID = user.id;
 
+        //user contacts
         await query(
             `
                 INSERT INTO user_contacts (user_id, email, contact_no)
                 VALUES ($1, $2, $3)
             `,
-            [user.id, email, contactNumber]
-        )
+            [userID, email, contactNumber]
+        );
+
+        //user profiles
+        await query(
+            `
+                INSERT INTO user_profiles (user_id, first_name, middle_name, last_name, dob)
+                VALUES ($1, $2, $3, $4, $5)
+            `,
+            [userID, firstName, middleName, lastName, dob]
+        );
+
+        //user addresses
+        await query(
+            `
+                INSERT INTO user_addresses (user_id, city, barangay, postal_code, street_address)
+                VALUES ($1, $2, $3, $4, $5)
+            `,
+            [userID, city, barangay, postalCode, streetAddress]
+        );
 
         return Response.json({
             success: true,

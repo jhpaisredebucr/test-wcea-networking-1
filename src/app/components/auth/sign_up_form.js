@@ -2,7 +2,9 @@
 import { useState } from "react";
 import SignUpInfo from "./sign_up_info";
 import SignUpBackgroundInfo from "./sign_up_background_info";
+import SignUpPlan from "./sign_up_plan";
 import SignUpPayment from "./sign_up_payment";
+import SignUpApproval from "./sign_up_approval";
 
 export default function SignUpForm() {
   const [step, setStep] = useState(1);
@@ -28,9 +30,8 @@ export default function SignUpForm() {
     planId: null,
     // Step 4
     paymentMethod: "",
-    paymentConfirmed: false,
     // Step 5
-    approved: false
+    status: "pending"
   });
 
   return (
@@ -52,7 +53,23 @@ export default function SignUpForm() {
         />
       )}
       {step === 3 && (
+        <SignUpPlan
+          formData={formData}
+          setFormData={setFormData}
+          nextStep={() => setStep(prev => prev + 1)}
+          prevStep={() => setStep(prev => prev - 1)}
+        />
+      )}
+      {step === 4 && (
         <SignUpPayment
+          formData={formData}
+          setFormData={setFormData}
+          nextStep={() => setStep(prev => prev + 1)}
+          prevStep={() => setStep(prev => prev - 1)}
+        />
+      )}
+      {step === 5 && (
+        <SignUpApproval
           formData={formData}
           setFormData={setFormData}
           nextStep={() => setStep(prev => prev + 1)}

@@ -3,12 +3,25 @@ import Input from "../ui/input"
 export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, prevStep }) {
     function Next() {
         console.log(formData);
+        const isMissing = CheckMissingFields();
+        if (isMissing) {
+            return;
+        }
         nextStep();
     }
 
     function Prev() {
         console.log(formData);
         prevStep();
+    }
+
+    function CheckMissingFields() {
+        const { firstName, middleName, lastName, dob, city, barangay, streetAddress, postalCode } = formData;
+
+        if (!firstName || !middleName || !lastName || !dob || !city || !barangay || !streetAddress || !postalCode) {
+            alert("Please fill in all required fields.");
+            return true;
+        }
     }
 
     return (
