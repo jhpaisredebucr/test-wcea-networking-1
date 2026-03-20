@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 export async function POST(req) {
     try {
         const body = await req.json();
-        let { username, password } = body;
+        let { username, email, contactNumber, referralCode, password } = body;
 
-        if (!username || !password) {
+        if (!username || !email || !contactNumber || !referralCode || !password) {
             return Response.json({ success: false, message: "Missing fields" });
         }
 
@@ -31,13 +31,23 @@ export async function POST(req) {
         const hashedPass = await bcrypt.hash(password, 10);
 
         const result = await query(
-            `INSERT INTO users (username, password)
-            VALUES ($1, $2)
-            RETURNING *`,
-            [username, hashedPass]
+            `
+                INSERT INTO users (username, referred_by, password)
+                VALUES ($1, $2, $3)
+                RETURNING *
+            `,
+            [username, referralCode, hashedPass]
         );
 
         const user = result[0];
+
+        await query(
+            `
+                INSERT INTO user_contacts (user_id, email, contact_no)
+                VALUES ($1, $2, $3)
+            `,
+            [user.id, email, contactNumber]
+        )
 
         return Response.json({
             success: true,

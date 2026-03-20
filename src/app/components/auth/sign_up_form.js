@@ -1,20 +1,28 @@
-"use client";
-import Input from "../ui/input";
-import Button from "../ui/button";
+"use client"
+import Input from "../ui/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function SignUpForm() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const router = useRouter();
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNumber, setContactNum] = useState("");
+    const [referralCode, setReferralCode] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     async function HandleSignUp() {
+        console.log(username);
+        console.log(email);
+        console.log(contactNumber);
+        console.log(referralCode);
+        console.log(password);
+        console.log(confirmPassword);
         const res = await fetch("/api/signup", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username, email, contactNumber, referralCode, password})
         });
 
         const data = await res.json();
@@ -22,44 +30,43 @@ export default function SignUpForm() {
         if (data.success) {
             console.log("Logged In: ", data.user.username);
             if (data.user.role === "admin") {
-                router.replace("/dashboard/admin");
+                router.replace("/user-page/dashboard/admin");
             } else {
-                router.replace("/dashboard/member");
+                router.replace("/user-page/dashboard/member");
             }
         } else {
             console.log("Login Failed");
             console.log(data.message);
         }
-    }    
+    }
 
     function HandleSignIn() {
-        router.push("/auth/signin");
+        router.push("/landing-page/auth/signin");
     }
 
     return (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
-            {/* Logo at the top */}
-            <div className="flex justify-center mb-6">
-                <Image
-                    src="/images/wcea-logo.png" // replace with logo 
-                    alt="Logo"
-                    width={80}
-                    height={80}
-                />
+        <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
+            <div className="w-full mb-10">
+                <p className="font-semibold text-2xl text-gray-600">Create Account</p>
+                <p className="text-gray-600">Please fill in your details to join our community portal.</p>
             </div>
-
-            <p className="text-3xl font-bold mb-10 text-center">Sign Up</p>
-            <Input label="Username" type="text" value={username} onChange={setUsername} />
-            <Input label="Password" type="password" value={password} onChange={setPassword} />
-
-            <button 
-                onClick={HandleSignIn} 
-                className="my-2 text-blue-500 flex justify-end"
-            >
-                Already have an account?
-            </button>
-            
-            <Button onClick={HandleSignUp}>Sign Up</Button>
+            <div className="w-full grid grid-cols-2 gap-x-5">
+                <Input label="Username" type="text" value={username} onChange={setUsername} />
+                <Input label="Email Address" type="text" value={email} onChange={setEmail} />
+                <Input label="Contact Number" type="text" value={contactNumber} onChange={setContactNum} />
+                <Input label="Referral Code" type="text" value={referralCode} onChange={setReferralCode} />
+                <Input label="Password" type="text" value={password} onChange={setPassword} />
+                <Input label="Confirm Password" type="text" value={confirmPassword} onChange={setConfirmPassword} />
+                <button onClick={HandleSignUp} className="w-full h-13 bg-blue-400 col-span-2 p-2 rounded-md text-white">Create Account</button>
+                <div className="col-span-2 flex flex-col my-2">
+                    <p className="text-gray-600">
+                        Already have an account?
+                        <button onClick={HandleSignIn} className="inline ml-2 text-blue-500 hover:underline">
+                            Sign In Here
+                        </button>
+                    </p>
+                </div>
+            </div>
         </div>
-    );
+    )
 }

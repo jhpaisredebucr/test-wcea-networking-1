@@ -1,16 +1,16 @@
-"use client";
-import Input from "../ui/input";
-import Button from "../ui/button";
-import Image from "next/image";
+"use client"
+import Input from "../ui/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SignInForm() {
+    const router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const router = useRouter();
 
-    async function HandleLogIn() {
+    async function HandleSignIn() {
+        console.log(username);
+        console.log(password);
         const res = await fetch("/api/login", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -22,45 +22,39 @@ export default function SignInForm() {
         if (data.success) {
             console.log("Logged In: ", data.user.username);
             if (data.user.role === "admin") {
-                router.replace("/dashboard/admin");
+                router.replace("/user-page/dashboard/admin");
             } else {
-                router.replace("/dashboard/member");
+                router.replace("/user-page/dashboard/member");
             }
         } else {
             console.log("Login Failed");
             console.log(data.message);
         }
-    }   
-    
+    }
+
     function HandleSignUp() {
-        router.push("/auth/signup");
+        router.push("/landing-page/auth/signup");
     }
 
     return (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
-            {/* Logo at the top */}
-            <div className="flex justify-center mb-6">
-                <Image
-                    src="/images/wcea-logo.png" // replace with logo 
-                    alt="Logo"
-                    width={80}
-                    height={80}
-                />
+        <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
+            <div className="w-full mb-10">
+                <p className="font-semibold text-2xl text-gray-600">Log In</p>
+                <p className="text-gray-600">Sign in to access your account profile.</p>
             </div>
-
-            <p className="text-3xl font-bold mb-10 text-center">Sign In</p>
-
-            <Input label="Username" type="text" value={username} onChange={setUsername} />
-            <Input label="Password" type="password" value={password} onChange={setPassword} />
-            
-            <button 
-                onClick={HandleSignUp} 
-                className="my-2 text-blue-500 flex justify-end"
-            >
-                Create an account
-            </button>
-            
-            <Button onClick={HandleLogIn}>Log In</Button>
+            <div className="w-full grid grid-cols-2 gap-x-5">
+                <Input label="Username" type="text" value={username} onChange={setUsername} />
+                <Input label="Password" type="text" value={password} onChange={setPassword} />
+                <button onClick={HandleSignIn} className="w-full h-13 bg-blue-400 col-span-2 p-2 rounded-md text-white">Sign In</button>
+                <div className="col-span-2 flex flex-col my-2">
+                    <p className="text-gray-600">
+                        Don`t have an account?
+                        <button onClick={HandleSignUp} className="inline ml-2 text-blue-500 hover:underline">
+                            Sign Up Here
+                        </button>
+                    </p>
+                </div>
+            </div>
         </div>
-    );
+    )
 }

@@ -6,7 +6,6 @@ export default function Input({ label, type = "text", value, onChange }) {
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder={label} // placeholder shows the label text
                 className="w-full border border-gray-300 rounded-md p-2 mb-2 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
         </div>
