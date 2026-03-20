@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SignUpInfo({ formData, setFormData, nextStep  }) {
-    // const router = useRouter();
+    const router = useRouter();
     // const [username, setUsername] = useState("");
     // const [email, setEmail] = useState("");
     // const [contactNumber, setContactNum] = useState("");

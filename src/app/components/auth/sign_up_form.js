@@ -2,6 +2,7 @@
 import { useState } from "react";
 import SignUpInfo from "./sign_up_info";
 import SignUpBackgroundInfo from "./sign_up_background_info";
+import SignUpPayment from "./sign_up_payment";
 
 export default function SignUpForm() {
   const [step, setStep] = useState(1);
@@ -39,6 +40,7 @@ export default function SignUpForm() {
           formData={formData}
           setFormData={setFormData}
           nextStep={() => setStep(prev => prev + 1)}
+          prevStep={() => setStep(prev => prev - 1)}
         />
       )}
       {step === 2 && (
@@ -46,6 +48,15 @@ export default function SignUpForm() {
           formData={formData}
           setFormData={setFormData}
           nextStep={() => setStep(prev => prev + 1)}
+          prevStep={() => setStep(prev => prev - 1)}
+        />
+      )}
+      {step === 3 && (
+        <SignUpPayment
+          formData={formData}
+          setFormData={setFormData}
+          nextStep={() => setStep(prev => prev + 1)}
+          prevStep={() => setStep(prev => prev - 1)}
         />
       )}
     </>
