@@ -51,7 +51,7 @@ export default function SignUpForm() {
             <p className="text-3xl font-bold mb-10 text-center">Sign Up</p>
             <Input label="Username" type="text" value={username} onChange={setUsername} />
             <Input label="Password" type="password" value={password} onChange={setPassword} />
-            
+
             <button 
                 onClick={HandleSignIn} 
                 className="my-2 text-blue-500 flex justify-end"
