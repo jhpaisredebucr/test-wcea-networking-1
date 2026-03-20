@@ -1,4 +1,3 @@
-import Navbar from "@/app/components/layout/navbar";
 import Sidebar from "@/app/components/layout/sidebar";
 import SignUpForm from "@/app/components/auth/sign_up_form";
 
