@@ -16,11 +16,13 @@ export default function SignInForm() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({username, password})
         });
+        
 
         const data = await res.json();
 
         if (data.success) {
             console.log("Logged In: ", data.user.username);
+            localStorage.setItem("userID", data.user.id);
             if (data.user.role === "admin") {
                 router.replace("/user-page/dashboard/admin");
             } else {

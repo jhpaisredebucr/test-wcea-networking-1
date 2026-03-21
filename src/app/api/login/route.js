@@ -31,6 +31,7 @@ export async function POST(req) {
 
         const valid = await bcrypt.compare(password, user.password);
 
+
         if (!valid) {
             return Response.json({
                 success: false,

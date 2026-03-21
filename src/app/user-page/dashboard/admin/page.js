@@ -1,15 +1,51 @@
 "use client"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { useEffect, useState } from "react";
 import Card from "../../components/card";
 
 export default function Dashboard() {
+    const [userInfo, setUserInfo] = useState(null);
+    const [profile, setUserProfile] = useState(null);
+    const [contacts, setUserContacts] = useState(null);
+    const [address, setUserAddress] = useState(null);
+
     const router = useRouter();
 
     function GoProfile() {
         router.push("/profile");
     }
+
+    // function GetUser() {
+    //     const username = localStorage.getItem("username");
+    //     if (!username) return;
+
+    //     fetch(`/api/users?username=${username}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.success) setUser(data.userInfo);
+    //             console.log(data);
+    //         });
+    // };
+
+    useEffect(() => {
+        const userID = localStorage.getItem("userID");
+        if (!userID) return;
+
+        fetch(`/api/users?user-id=${userID}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setUserInfo(data.userInfo);
+                    setUserProfile(data.profile);
+                    setUserContacts(data.contacts);
+                    setUserAddress(data.address);
+                    console.log(data);
+                }
+            });
+    }, []);
+
+    // GetUser();
 
     return (
         <div className="w-full flex">
@@ -26,7 +62,7 @@ export default function Dashboard() {
                             height={40}
                             className="rounded-full"
                         />
-                        <p>Placeholder Name</p>
+                        <p>{profile?.first_name} {profile?.last_name}</p>
                     </button>
                 </div>
 
