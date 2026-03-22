@@ -5,28 +5,20 @@ import { useEffect, useState } from "react";
 import Card from "../../components/card";
 
 export default function Dashboard() {
+    //User's Data
     const [userInfo, setUserInfo] = useState(null);
     const [profile, setUserProfile] = useState(null);
     const [contacts, setUserContacts] = useState(null);
     const [address, setUserAddress] = useState(null);
+
+    //Analytics
+    const [totalMember, setTotalMember] = useState(null);
 
     const router = useRouter();
 
     function GoProfile() {
         router.push("/profile");
     }
-
-    // function GetUser() {
-    //     const username = localStorage.getItem("username");
-    //     if (!username) return;
-
-    //     fetch(`/api/users?username=${username}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.success) setUser(data.userInfo);
-    //             console.log(data);
-    //         });
-    // };
 
     useEffect(() => {
         const userID = localStorage.getItem("userID");
@@ -43,6 +35,15 @@ export default function Dashboard() {
                     console.log(data);
                 }
             });
+
+        async function Analytics() {
+            const res = await fetch("/api/portal/admin/analytics");
+            const data = await res.json();
+
+            setTotalMember(data.totalMembers);
+        }
+
+        Analytics();
     }, []);
 
     // GetUser();
@@ -68,16 +69,16 @@ export default function Dashboard() {
 
                 {/* DASHBOARD BOXES */}
                 <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
-                    <Card title="Total Members" value="1,254" info="+12% from last week"/>
-                    <Card title="Active Users" value="389" info="+8% today"/>
-                    <Card title="Total Members" value="1,254" info="+12% from last week" rowSpan={2}/>
-                    <Card title="Total Members" value="1,254" info="+12% from last week" rowSpan={2}/>
+                    <Card title="Total Members" value={totalMember} info="+12% from last week"/>
+                    <Card title="Active Users" value="0" info="+8% today"/>
+                    <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
+                    <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
                     <Card title="System Alerts" value="No alerts" info=" "/>
-                    <Card title="Revenue" value="$12,430" info="+5% from last month"/>
-                    <Card title="Top Referrers" value="1,254" info="+12% from last week" colSpan={2} rowSpan={2}/>
-                    <Card title="Pending Requests" value="8" info="2 approved today"/>
+                    <Card title="Revenue" value="$0" info="+5% from last month"/>
+                    <Card title="Top Referrers" value="0" info="+12% from last week" colSpan={2} rowSpan={2}/>
+                    <Card title="Pending Requests" value="0" info="0 approved today"/>
                     <Card title="Recent Activity" value="JohnDoe signed in" info=" "/>
-                    <Card title="Total Members" value="1,254" info="+12% from last week"/>
+                    <Card title="Total Members" value="0" info="+12% from last week"/>
                     <Card title="Server Status" value="All Green" info="No downtime"/>
                 </div>
             </div>
