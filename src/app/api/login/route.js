@@ -29,6 +29,10 @@ export async function POST(req) {
 
         const user = users[0];
 
+        if (user.status === "pending") {
+            return Response.json({ success: false, message: "Still waiting for approvement" })
+        }
+
         const valid = await bcrypt.compare(password, user.password);
 
 

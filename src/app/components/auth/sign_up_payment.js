@@ -13,17 +13,17 @@ export default function SignUpPayment({ formData, setFormData, nextStep, prevSte
 
         const data = await res.json();
 
-        if (data.success) {
-            console.log("Logged In: ", data.user.username);
-            if (data.user.role === "admin") {
-                router.replace("/user-page/dashboard/admin");
-            } else {
-                router.replace("/user-page/dashboard/member");
-            }
-        } else {
-            console.log("Login Failed");
-            console.log(data.message);
-        }
+        // if (data.success) {
+        //     console.log("Logged In: ", data.user.username);
+        //     if (data.user.role === "admin") {
+        //         router.replace("/user-page/dashboard/admin");
+        //     } else {
+        //         router.replace("/user-page/dashboard/member");
+        //     }
+        // } else {
+        //     console.log("Login Failed");
+        //     console.log(data.message);
+        // }
     }  
 
     function Next() {
