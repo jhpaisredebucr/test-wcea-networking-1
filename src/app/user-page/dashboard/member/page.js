@@ -1,13 +1,38 @@
 "use client"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Card from "../../components/card";
 
 export default function Dashboard() {
+    //User's Data
+    const [userInfo, setUserInfo] = useState(null);
+    const [profile, setUserProfile] = useState(null);
+    const [contacts, setUserContacts] = useState(null);
+    const [address, setUserAddress] = useState(null);
+
     const router = useRouter();
 
     function GoProfile() {
         router.push("/profile");
     }
+
+        useEffect(() => {
+        const userID = localStorage.getItem("userID");
+        if (!userID) return;
+
+        fetch(`/api/users?user-id=${userID}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setUserInfo(data.userInfo);
+                    setUserProfile(data.profile);
+                    setUserContacts(data.contacts);
+                    setUserAddress(data.address);
+                    console.log(data);
+                }
+            });
+    }, []);
 
     return (
         <div className="w-full flex">
@@ -24,23 +49,23 @@ export default function Dashboard() {
                             height={40}
                             className="rounded-full"
                         />
-                        <p>Placeholder Name</p>
+                        <p>{profile?.first_name} {profile?.last_name}</p>
                     </button>
                 </div>
 
                 {/* DASHBOARD BOXES */}
                 <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl row-span-2 shadow-sm"></div>
-                    <div className="bg-white rounded-2xl row-span-2 shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl col-span-2 row-span-2 shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
-                    <div className="bg-white rounded-2xl shadow-sm"></div>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info="" rowSpan={2}/>
+                    <Card title="" value="" info="" rowSpan={2}/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info="" colSpan={2} rowSpan={2}/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info=""/>
+                    <Card title="" value="" info=""/>
                 </div>
             </div>
         </div>

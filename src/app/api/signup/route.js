@@ -31,14 +31,29 @@ export async function POST(req) {
 
         const hashedPass = await bcrypt.hash(password, 10);
 
+        //user referral code
+        function generateReferralCode() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            let code = "MEM-";
+
+            for (let i = 0; i < 6; i++) {
+                code += chars[Math.floor(Math.random() * chars.length)];
+            }
+
+            return code;
+        }
+
+        const code = generateReferralCode();
+
         //users
         const result = await query(
             `
-                INSERT INTO users (username, password, referred_by)
-                VALUES ($1, $2, $3)
+                INSERT INTO users (username, password, referred_by, referral_code)
+                VALUES ($1, $2, $3, $4)
                 RETURNING *
             `,
-            [username, hashedPass, referralCode]
+            [username, hashedPass, referralCode, code]
         );
 
         const user = result[0];
@@ -77,7 +92,8 @@ export async function POST(req) {
             user: {
                 id: user.id,
                 username: user.username,
-                role: user.role
+                role: user.role,
+                referral_code: user.referral_code
             }
         });
 

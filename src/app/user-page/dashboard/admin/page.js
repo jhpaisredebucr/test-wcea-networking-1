@@ -12,7 +12,7 @@ export default function Dashboard() {
     const [address, setUserAddress] = useState(null);
 
     //Analytics
-    const [totalMember, setTotalMember] = useState(null);
+    const [dashboardData, setDashboardData] = useState(null);
 
     const router = useRouter();
 
@@ -40,7 +40,7 @@ export default function Dashboard() {
             const res = await fetch("/api/portal/admin/analytics");
             const data = await res.json();
 
-            setTotalMember(data.totalMembers);
+            setDashboardData(data.dashboardData);
         }
 
         Analytics();
@@ -69,14 +69,14 @@ export default function Dashboard() {
 
                 {/* DASHBOARD BOXES */}
                 <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
-                    <Card title="Total Members" value={totalMember} info="+12% from last week"/>
+                    <Card title="Total Members" value={dashboardData?.totalMembers} info="+12% from last week"/>
                     <Card title="Active Users" value="0" info="+8% today"/>
                     <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
                     <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
                     <Card title="System Alerts" value="No alerts" info=" "/>
                     <Card title="Revenue" value="$0" info="+5% from last month"/>
                     <Card title="Top Referrers" value="0" info="+12% from last week" colSpan={2} rowSpan={2}/>
-                    <Card title="Pending Requests" value="0" info="0 approved today"/>
+                    <Card title="Pending Requests" value={dashboardData?.totalRequest} info="0 approved today"/>
                     <Card title="Recent Activity" value="JohnDoe signed in" info=" "/>
                     <Card title="Total Members" value="0" info="+12% from last week"/>
                     <Card title="Server Status" value="All Green" info="No downtime"/>

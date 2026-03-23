@@ -3,10 +3,14 @@
 
     export async function GET(req) {
         //Total Members
-        const result = await query("SELECT COUNT(*) FROM users");
-        const totalMembers = Number(result[0].count);
+        const totalUser = await query("SELECT COUNT(*) FROM users");
+        const totalMembers = Number(totalUser[0].count);
 
-        //Total Active Users
+        //Pending Request
+        const pendingRequest = await query("SELECT * FROM users where status=$1",["pending"]);
+        const totalPendingRequest = await query("SELECT COUNT(*) FROM users where status=$1",["pending"]);
+        const totalRequest = Number(totalPendingRequest[0].count);
+        const dashboardData = {totalMembers, pendingRequest, totalRequest}
         
-        return NextResponse.json({ totalMembers });
+        return NextResponse.json({ dashboardData });
     }
