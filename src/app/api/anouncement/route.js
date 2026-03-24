@@ -1,0 +1,8 @@
+import { NextResponse } from "next/server";
+import { query } from "../../../../lib/db";
+
+export async function GET(req) {
+    const announcements = await query("SELECT * FROM anouncement"); 
+
+    return NextResponse.json({announcements});
+}

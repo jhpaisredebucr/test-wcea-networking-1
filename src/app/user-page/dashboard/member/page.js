@@ -8,6 +8,7 @@ import ProductsMember from "../../components/pages/product_shop";
 import OrdersMember from "../../components/pages/my_orders";
 import ReferralsMember from "../../components/pages/referrals";
 import SideBar from "../../components/sidebar";
+import Profile from "@/app/components/ui/profile";
 
 export default function Dashboard() {
     //User's Data
@@ -16,9 +17,12 @@ export default function Dashboard() {
     const [contacts, setUserContacts] = useState(null);
     const [address, setUserAddress] = useState(null);
 
+    const [announcements, setAnouncement] = useState(null);
+
     const [page, setPage] = useState(1);
 
     const router = useRouter();
+
 
     function GoProfile() {
         router.push("/profile");
@@ -39,6 +43,14 @@ export default function Dashboard() {
                     console.log(data);
                 }
             });
+
+        async function GetAnouncement() {
+            const res = await fetch("/api/anouncement");
+            const data = await res.json();
+            setAnouncement(data.announcements);
+        }
+
+        GetAnouncement();
     }, []);
 
     return (
@@ -49,20 +61,15 @@ export default function Dashboard() {
                 {/* MAIN CONTENT */}
                 <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
                     <div className="flex items-center justify-between mb-6">
-                        <p className="text-3xl font-semibold">Analytics</p>
+                        {page === 1 && <p className="text-3xl font-semibold">Anouncement</p>}
+                        {page === 2 && <p className="text-3xl font-semibold">Dashboard</p>}
+                        {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
+                        {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
+                        {page === 5 && <p className="text-3xl font-semibold">Referrals</p>}
 
-                        <button onClick={GoProfile} className="flex items-center gap-2 hover:opacity-80 transition">
-                            <Image
-                                src="/images/no-profile.png"
-                                alt="profile picture"
-                                width={40}
-                                height={40}
-                                className="rounded-full"
-                            />
-                            <p>{profile?.first_name} {profile?.last_name}</p>
-                        </button>
+                        <Profile GoProfile={GoProfile} first_name={profile?.first_name} last_name={profile?.last_name}/>
                     </div>
-                    {page === 1 && <AnouncementMember/>}
+                    {page === 1 && <AnouncementMember announcements={announcements}/>}
                     {page === 2 && <DashboardMember/>}
                     {page === 3 && <ProductsMember/>}
                     {page === 4 && <OrdersMember/>}
