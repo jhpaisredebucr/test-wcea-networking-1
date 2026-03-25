@@ -6,7 +6,7 @@ export default function SideBar({ page, setPage, userInfo }) {
             <p className="text-3xl font-semibold mb-6">Member</p>
 
             <div className="space-y-2">
-                <SidebarButton buttonID={1} page={page} setPage={() => setPage(1)}>Anouncement</SidebarButton>
+                <SidebarButton buttonID={1} page={page} setPage={() => setPage(1)}>Announcement</SidebarButton>
                 <SidebarButton buttonID={2} page={page} setPage={() => setPage(2)}>Dashboard</SidebarButton>
                 <SidebarButton buttonID={3} page={page} setPage={() => setPage(3)}>Product Shop</SidebarButton>
                 <SidebarButton buttonID={4} page={page} setPage={() => setPage(4)}>My Orders</SidebarButton>

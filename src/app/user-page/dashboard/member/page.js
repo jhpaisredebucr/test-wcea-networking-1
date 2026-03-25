@@ -46,7 +46,7 @@ export default function Dashboard() {
             });
 
         async function GetAnouncement() {
-            const res = await fetch("/api/anouncement");
+            const res = await fetch("/api/announcement");
             const data = await res.json();
             setAnouncement(data.announcements);
         }
@@ -69,7 +69,7 @@ export default function Dashboard() {
                 {/* MAIN CONTENT */}
                 <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
                     <div className="flex items-center justify-between mb-6">
-                        {page === 1 && <p className="text-3xl font-semibold">Anouncement</p>}
+                        {page === 1 && <p className="text-3xl font-semibold">Announcement</p>}
                         {page === 2 && <p className="text-3xl font-semibold">Dashboard</p>}
                         {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
                         {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
