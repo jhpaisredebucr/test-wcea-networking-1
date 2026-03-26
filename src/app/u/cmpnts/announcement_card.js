@@ -1,4 +1,4 @@
-import Profile from "@/app/components/ui/profile"
+import Profile from "@/app/cmpnts/ui/profile"
 
 export default function AnouncementCard({ annoucements }) {
     return (

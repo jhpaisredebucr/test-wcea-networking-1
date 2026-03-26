@@ -1,4 +1,4 @@
-import Profile from "@/app/components/ui/profile"
+import Profile from "@/app/cmpnts/ui/profile"
 import { useState } from "react";
 
 export default function ProductCard({ products, userInfo }) {

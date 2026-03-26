@@ -1,16 +1,20 @@
 'use client'
 
-import { useRouter } from "next/navigation"
-import Input from "@/app/components/ui/input"
+import { useRouter, useSearchParams } from "next/navigation"
+import Input from "@/app/cmpnts/ui/input"
 import { useState } from "react";
 
 export default function TestUI(){
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
- 
-  
+    const searchParams = useSearchParams();
+
+
     return (
         <>
+            <div>
+
+            </div>
             <p className="z-100 text-red-600 justify-center flex items-center mt-10 hover:animate-spin transition duration-10 select-none">This is a test UI page</p>
             <div className="flex h-100 w-full items-center justify-center">
 

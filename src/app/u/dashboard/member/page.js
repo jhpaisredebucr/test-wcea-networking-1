@@ -2,13 +2,13 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import AnouncementMember from "../../components/pages/anouncement";
-import DashboardMember from "../../components/pages/dashboard";
-import ProductsMember from "../../components/pages/product_shop";
-import OrdersMember from "../../components/pages/my_orders";
-import ReferralsMember from "../../components/pages/referrals";
-import SideBar from "../../components/sidebar";
-import Profile from "@/app/components/ui/profile";
+import AnouncementMember from "../../cmpnts/pages/anouncement";
+import DashboardMember from "../../cmpnts/pages/dashboard";
+import ProductsMember from "../../cmpnts/pages/product_shop";
+import OrdersMember from "../../cmpnts/pages/my_orders";
+import ReferralsMember from "../../cmpnts/pages/referrals";
+import SideBar from "../../cmpnts/sidebar";
+import Profile from "@/app/cmpnts/ui/profile";
 
 export default function Dashboard() {
     //User's Data

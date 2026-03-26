@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const isLoggedIn = false;
     if (!isLoggedIn) {
-      router.push("/landing-page/auth/signin")
+      router.push("/landing-page/")
     }
     // router.push("/dashboard/admin")
   });

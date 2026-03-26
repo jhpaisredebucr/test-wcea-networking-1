@@ -1,6 +1,6 @@
-import SignInForm from "@/app/components/auth/sign_in_form";
-import Navbar from "@/app/components/layout/navbar";
-import Sidebar from "@/app/components/layout/sidebar";
+import SignInForm from "@/app/cmpnts/auth/sign_in_form";
+import Navbar from "@/app/cmpnts/layout/navbar";
+import Sidebar from "@/app/cmpnts/layout/sidebar";
 
 export const metadata = {
   title: "Sign In"

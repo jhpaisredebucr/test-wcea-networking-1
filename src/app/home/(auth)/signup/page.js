@@ -1,5 +1,5 @@
-import Sidebar from "@/app/components/layout/sidebar";
-import SignUpForm from "@/app/components/auth/sign_up_form";
+import Sidebar from "@/app/cmpnts/layout/sidebar";
+import SignUpForm from "@/app/cmpnts/auth/sign_up_form";
 
 export const metadata = {
   title: "Sign Up"
