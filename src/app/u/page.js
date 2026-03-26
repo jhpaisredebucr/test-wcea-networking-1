@@ -17,8 +17,6 @@ export default function Page(){
 
     return (
         <>
-          <TopBar/>
-
         </>
     )
 }
