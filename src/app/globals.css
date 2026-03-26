@@ -4,8 +4,8 @@
 :root {
   --background: #ffffff;
   --foreground:   #555555;
-  --primary: #1d4ed8;   /* example primary color */
-  --secondary: #6bf84e; /* example secondary color */
+  --primary: rgb(138, 164, 236);   /* example primary color */
+  --secondary: #97d88a; /* example secondary color */
 }
 
 /* ---------- Theme 2: Dark ---------- */
