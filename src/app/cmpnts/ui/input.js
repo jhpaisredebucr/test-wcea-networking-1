@@ -21,7 +21,7 @@ function Input({ label, type = "text", value, onChange, require, className = "" 
     return (
         
         <div className="mb-4">
-            <p className="text-sm text-gray-500">{label}</p>
+            <p className="text-sm">{label}</p>
             <input
                 required={require}
                 type={type}

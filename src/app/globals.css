@@ -3,7 +3,7 @@
 /* ---------- Theme 1: Light ---------- */
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground:   #555555;
   --primary: #1d4ed8;   /* example primary color */
   --secondary: #6bf84e; /* example secondary color */
 }
@@ -23,7 +23,7 @@
   --primary: #e4aeca;
   --secondary: #82d2f5;
 }
-
+/* 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #161616;
@@ -31,16 +31,16 @@
     --primary: #6b9ae6;
     --secondary: #7beb8a;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Default global styles */
 * {
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: var(--foreground);
+  
 }

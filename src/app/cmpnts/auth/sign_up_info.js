@@ -50,8 +50,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep  }) {
     return (
         <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
             <div className="w-full mb-10">
-                <p className="font-semibold text-2xl text-gray-600">Create Account</p>
-                <p className="text-gray-600">Please fill in your details to join our community portal.</p>
+                <p className="font-semibold text-2xl">Create Account</p>
+                <p>Please fill in your details to join our community portal.</p>
             </div>
             <div className="w-full grid grid-cols-2 gap-x-5">
                 <Input label="Username" type="text" require value={formData.username} onChange={(val) => setFormData({ ...formData, username: val })}/>
@@ -62,7 +62,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep  }) {
                 <Input label="Confirm Password" type="text" value={formData.confirmPassword} onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
                 <button onClick={HandleSignUp} className="w-full h-13 bg-blue-400 col-span-2 p-2 rounded-md text-white">Create Account</button>
                 <div className="col-span-2 flex flex-col my-2">
-                    <p className="text-gray-600">
+                    <p>
                         Already have an account?
                         <button onClick={HandleSignIn} className="inline ml-2 text-blue-500 hover:underline">
                             Sign In Here
