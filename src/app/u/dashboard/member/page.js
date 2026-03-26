@@ -88,7 +88,7 @@ export default function Dashboard() {
                     {page === 1 && <AnouncementMember announcements={announcements}/>}
                     {page === 2 && <DashboardMember/>}
                     {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
-                    {page === 4 && <OrdersMember orders={orders}/>}
+                    {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
                     {page === 5 && <ReferralsMember userInfo={userInfo}/>}
                 </div>
             </div>

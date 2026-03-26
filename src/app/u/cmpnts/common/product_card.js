@@ -5,7 +5,6 @@ export default function ProductCard({ products, userInfo }) {
         const data = {
             user_id: userInfo?.id,
             product_id: products?.id,
-            product_name: products?.product_name
         };
 
         const res = await fetch("/api/products/buy", {
