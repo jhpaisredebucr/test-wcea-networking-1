@@ -1,12 +1,13 @@
 import Profile from "@/app/cmpnts/common/profile"
+import { formatDistanceToNow } from "date-fns";
 
-export default function AnouncementCard({ annoucements }) {
+export default function AnouncementCard({ announcements }) {
     return (
         <div>
             <div className="p-5 rounded-lg bg-white">
-                <Profile first_name="Keisac" last_name="Buta"/>
-                <p className="font-bold my-5">{annoucements?.title}</p>
-                <p>{annoucements?.short_description}</p>
+                <Profile first_name="Keisac" last_name="Buta"><p className="text-sm">{formatDistanceToNow(new Date(announcements?.created_at), { addSuffix: true })}</p></Profile>
+                <p className="font-bold my-5">{announcements?.title}</p>
+                <p>{announcements?.short_description}</p>
             </div>
         </div>
     )

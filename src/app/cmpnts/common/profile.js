@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default function Profile({GoProfile, first_name, last_name}) {
+export default function Profile({GoProfile, first_name, last_name, children}) {
     if (GoProfile === null) {
         return;
     }
@@ -13,7 +13,11 @@ export default function Profile({GoProfile, first_name, last_name}) {
                 height={40}
                 className="rounded-full"
             />
-            <p>{first_name} {last_name}</p>
+            <div className="flex flex-col items-start">
+                <p>{first_name} {last_name}</p>
+                {children}
+            </div>
+            
         </button>
     )
 }

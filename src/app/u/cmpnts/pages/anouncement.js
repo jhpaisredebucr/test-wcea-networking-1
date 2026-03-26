@@ -10,7 +10,7 @@ export default function AnouncementMember({announcements}) {
             {announcements.map((announcement) => (
                 <AnouncementCard
                     key={announcement.id}
-                    annoucements={announcement}
+                    announcements={announcement}
                 />
             ))}
         </div>
