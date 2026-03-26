@@ -16,6 +16,7 @@ export default function Dashboard() {
     const [profile, setUserProfile] = useState(null);
     const [contacts, setUserContacts] = useState(null);
     const [address, setUserAddress] = useState(null);
+    const [dashboardData, setDashboardData] = useState(null);
 
     const [announcements, setAnouncement] = useState(null);
     const [products, setProducts] = useState(null);
@@ -69,6 +70,21 @@ export default function Dashboard() {
         GetOrders();
     }, []);
 
+    useEffect(() => {
+        if (!userInfo?.referral_code) return;
+
+        async function GetDashboardData() {
+            const res = await fetch(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
+            const data = await res.json();
+            setDashboardData(data.dashboardData);
+        }
+
+        GetDashboardData();
+
+    }, [userInfo]);
+
+
+
     return (
         <>
             <SideBar page={page} setPage={setPage}/>
@@ -86,7 +102,7 @@ export default function Dashboard() {
                         <Profile GoProfile={GoProfile} first_name={profile?.first_name} last_name={profile?.last_name}/>
                     </div>
                     {page === 1 && <AnouncementMember announcements={announcements}/>}
-                    {page === 2 && <DashboardMember/>}
+                    {page === 2 && <DashboardMember dashboardData={dashboardData}/>}
                     {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
                     {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
                     {page === 5 && <ReferralsMember userInfo={userInfo}/>}
