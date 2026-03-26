@@ -1,35 +1,16 @@
 name: Discord Commit Notifier
 
-# Trigger on push
 on:
   push:
-    branches: [ main ]  # or whichever branch you want to monitor
+    branches: [ main ]
 
 jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify Discord
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const webhook = process.env.DISCORD_WEBHOOK;
-            const commits = context.payload.commits;
-
-            if (!commits || commits.length === 0) {
-              console.log("No commits found");
-              return;
-            }
-
-            for (const commit of commits) {
-              const message = `📌 **${commit.author.name}** pushed to **${context.payload.repository.name}**:\n> ${commit.message}\n${commit.url}`;
-              
-              await require('node-fetch')(webhook, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ content: message })
-              });
-            }
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Send Discord webhook
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**: ${GITHUB_SHA}\"}" \
+               ${{ secrets.DISCORD_WEBHOOK }}
