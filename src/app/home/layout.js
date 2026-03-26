@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <TopBar/>
       <Navbar/>
       {children}

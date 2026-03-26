@@ -8,30 +8,46 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         ...(dashboardData?.approvedMembers || [])
     ];
 
-    async function Approve(userID, plan, amount) {
-        async function ApprovePendingUser() {
-            const res = await fetch("/api/portal/admin/members", {
-                method: "PATCH",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({userId: userID})
-            });
+    async function Approve(userID, plan, referred_by) {
+        let initialAmount = 0;
+        if (plan === "1") initialAmount = 300;
+        else if (plan === "2") initialAmount = 900;
+        else if (plan === "3") initialAmount = 1500;
 
-            const data = await res.json();
-            console.log(data);
-        }
+        const amount = initialAmount * 0.20;
 
-        async function Transaction() {
-            const res = await fetch("/api/portal/admin/transactions", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ user_id: userID, type: plan, amount })
-            });
+        console.log(referred_by, userID, amount);
+        const resApprove  = await fetch("/api/portal/admin/members", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({userId: userID})
+        });
 
-            const data = await res.json();
-            console.log(data);
-        }
+        const dataApprove  = await resApprove.json();
+        console.log(dataApprove);
 
-        ApprovePendingUser();
+
+        //TRANSACTIONS
+        const resTransaction  = await fetch("/api/portal/admin/transactions", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ user_id: userID, type: "Plan", amount: initialAmount })
+        });
+
+        const dataTransaction  = await resTransaction.json();
+        console.log(dataTransaction);
+
+        //REFERAL REWARDS
+        const resReferral  = await fetch("/api/portal/admin/transactions/referral-reward", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ referral_code: referred_by, referred_id: userID, reward_amount: amount })
+        });
+
+        const dataReferral  = await resReferral.json();
+        console.log(dataReferral);
+
+        
     }
 
     return (
@@ -59,7 +75,7 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
                     <div className="flex items-center justify-between">
                         {user.status}
                         {user.status === "pending" &&
-                        <button onClick={() => Approve(user.id, user.plan)} className="p-1 rounded-sm bg-blue-400 text-white text-sm">
+                        <button onClick={() => Approve(user.id, user.plan, user.referred_by)} className="p-1 rounded-sm bg-blue-400 text-white text-sm">
                             Approve
                         </button>}
                     </div>

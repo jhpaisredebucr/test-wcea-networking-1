@@ -14,6 +14,7 @@
                     u.username,
                     u.status,
                     u.plan,
+                    u.referred_by,
                     u.created_at,
                     p.first_name,
                     p.last_name
@@ -31,6 +32,7 @@
                     u.username,
                     u.status,
                     u.plan,
+                    u.referred_by,
                     u.created_at,
                     p.first_name,
                     p.last_name

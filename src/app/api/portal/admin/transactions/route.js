@@ -12,5 +12,5 @@ export async function POST(req) {
         [user_id, type, amount]
     );
 
-    return NextResponse.json({ message: "transaction successful" });
+    return NextResponse.json({ message: "transaction successful", amount });
 }
