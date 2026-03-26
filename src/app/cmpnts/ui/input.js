@@ -32,8 +32,8 @@ function Input({ label, type = "text", value, onChange, require, className = "" 
                     border-gray-400 
                     w-full border rounded-md p-2 mb-2
                     text-gray-800 placeholder-gray-400
-                    focus:outline-none transition duration-200
-                    focus:ring-1 focus:ring-blue-400 focus:border-blue-200
+                    focus:outline-none transition duration-200 
+                    focus:ring-1 focus:ring-blue-300 focus:border-blue-300
                 `}
             />
         </div>

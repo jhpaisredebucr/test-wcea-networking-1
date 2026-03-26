@@ -35,7 +35,7 @@ export default function SignInForm() {
     }
 
     function HandleSignUp() {
-        router.push("/landing-page/auth/signup");
+        router.push("/home/auth/signup");
     }
 
     return (
