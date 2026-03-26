@@ -14,5 +14,6 @@ jobs:
                -X POST \
                -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:
                 \n COMMIT MESSAGE: 
-                \n ```${{ github.event.head_commit.message }}\nhttps://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\```"}"\
+                \n ```${{ github.event.head_commit.message }}```
+                \n https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}"\
                ${{ secrets.DISCORD_WEBHOOK }}
