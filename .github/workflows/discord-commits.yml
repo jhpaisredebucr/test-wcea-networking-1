@@ -12,5 +12,5 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**: ${GITHUB_SHA}\"}" \
+               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n> ${{ github.event.head_commit.message }}\nhttps://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}" \
                ${{ secrets.DISCORD_WEBHOOK }}
