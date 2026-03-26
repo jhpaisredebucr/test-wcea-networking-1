@@ -1,4 +1,3 @@
-import Profile from "@/app/cmpnts/ui/profile"
 import Image from "next/image";
 
 export default function ProductCard({ products, userInfo }) {
