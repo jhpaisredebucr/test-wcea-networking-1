@@ -19,6 +19,7 @@ export default function Dashboard() {
 
     const [announcements, setAnouncement] = useState(null);
     const [products, setProducts] = useState(null);
+    const [orders, setOrders] = useState(null);
 
     const [page, setPage] = useState(1);
 
@@ -57,8 +58,15 @@ export default function Dashboard() {
             setProducts(data.products);
         }
 
+        async function GetOrders() {
+            const res = await fetch("/api/products/orders");
+            const data = await res.json();
+            setOrders(data.orders);
+        }
+
         GetAnouncement();
         GetProducts();
+        GetOrders();
     }, []);
 
     return (
@@ -79,8 +87,8 @@ export default function Dashboard() {
                     </div>
                     {page === 1 && <AnouncementMember announcements={announcements}/>}
                     {page === 2 && <DashboardMember/>}
-                    {page === 3 && <ProductsMember products={products}/>}
-                    {page === 4 && <OrdersMember/>}
+                    {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
+                    {page === 4 && <OrdersMember orders={orders}/>}
                     {page === 5 && <ReferralsMember userInfo={userInfo}/>}
                 </div>
             </div>
