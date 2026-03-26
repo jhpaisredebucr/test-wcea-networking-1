@@ -1,6 +1,6 @@
 'use client'
 
-import Input from "@/app/cmpnts/ui/input"
+import Input from "@/app/cmpnts/common/input"
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Button from "../cmpnts/ui/button";
+import Button from "../cmpnts/common/button";
 
 export default function AdvisoryPage() {
     // Toggle states for collapsible sections

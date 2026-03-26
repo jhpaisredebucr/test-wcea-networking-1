@@ -1,5 +1,5 @@
 "use client"
-import Input from "../ui/input"
+import Input from "../common/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

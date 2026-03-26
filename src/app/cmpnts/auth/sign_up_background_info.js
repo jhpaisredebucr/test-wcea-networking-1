@@ -1,4 +1,4 @@
-import Input from "../ui/input"
+import Input from "../common/input"
 
 export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, prevStep }) {
     function Next() {
