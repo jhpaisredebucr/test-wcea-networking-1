@@ -1,4 +1,4 @@
-import OrderCard from "../order_card";
+import OrderCard from "../common/order_card";
 
 export default function OrdersMember({orders}) {
     if (!orders) {

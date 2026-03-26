@@ -7,8 +7,8 @@ import DashboardMember from "../../cmpnts/pages/dashboard";
 import ProductsMember from "../../cmpnts/pages/product_shop";
 import OrdersMember from "../../cmpnts/pages/my_orders";
 import ReferralsMember from "../../cmpnts/pages/referrals";
-import SideBar from "../../cmpnts/sidebar";
-import Profile from "@/app/cmpnts/ui/profile";
+import SideBar from "../../cmpnts/common/sidebar";
+import Profile from "@/app/cmpnts/common/profile";
 
 export default function Dashboard() {
     //User's Data

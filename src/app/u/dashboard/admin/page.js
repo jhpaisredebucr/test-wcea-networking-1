@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Card from "../../cmpnts/card";
-import SideBar from "../../cmpnts/sidebar";
+import Card from "../../cmpnts/common/card";
+import SideBar from "../../cmpnts/common/sidebar";
 
 export default function Dashboard() {
     //User's Data
