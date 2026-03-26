@@ -1,12 +1,11 @@
 'use client'
 import { useRouter } from "next/navigation"
 
-
 export default function TopBar(){
     const router = useRouter();
 
     function GoDashboard(){
-        router.push("@/app/u/dashboard");
+        router.push(`../../u/dashboard`);
     }
     
     return (
