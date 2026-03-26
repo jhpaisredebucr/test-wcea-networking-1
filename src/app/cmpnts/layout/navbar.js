@@ -23,8 +23,11 @@ export default function Navbar() {
 
     return (
         <nav className="flex 0 w-screen border-b-2 border-(--foreground)/50 border- h-14 items-center justify-between px-5 ">
-            <img src="/images/logo.ico" alt="logo" className="w-10"/>
-            <h1 className="text-lg">Health and Wellness Hatdog</h1>
+            <div className="flex items-center">
+                <Image src="/images/logo.ico" alt="logo" width={35} height={35}/>
+                <h1 className="text-lg ml-3">Health and Wellness Hatdog</h1>
+            </div>
+            
             <div className="transition duration-50">
                 <button onClick={Home} className="mx-2 p-2 rounded-2xl transition duration-50 hover:bg-(--background) hover:text-(--foreground)">Home</button>
                 <button onClick={About} className="mx-2 p-2 rounded-2xl transition duration-100 hover:bg-gray-100">About Us</button>

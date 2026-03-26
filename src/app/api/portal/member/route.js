@@ -6,10 +6,26 @@ export async function GET(req) {
     const userReferralCode = searchParams.get("userReferralCode");
 
     //TOTAL REFERRED MEMBER
-    const referedMembers = await query("SELECT COUNT(*) FROM users WHERE referred_by=$1", [userReferralCode]);
-    const totalReferredMembers = Number(referedMembers[0].count)
+    const referredMembers = await query(
+        `
+            SELECT 
+                u.username,
+                u.status,
+                u.created_at,
+                p.first_name,
+                p.last_name,
+                COUNT(*) OVER() AS total_count
+            FROM users u
+            JOIN user_profiles p ON p.user_id = u.id
+            WHERE u.referred_by = $1
+        `
+        ,[userReferralCode]
+    );
 
-    const dashboardData = {totalReferredMembers};
+    const totalReferredMembers = referredMembers.length? Number(referredMembers[0].total_count) : 0;
+    const pendingCount = referredMembers.filter(member => member.status === 'pending').length;
+
+    const dashboardData = {totalReferredMembers, pendingCount, referredMembers};
     
     return NextResponse.json({dashboardData});
 }
