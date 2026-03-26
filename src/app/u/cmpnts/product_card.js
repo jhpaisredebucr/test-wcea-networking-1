@@ -1,5 +1,5 @@
 import Profile from "@/app/cmpnts/ui/profile"
-import { useState } from "react";
+import Image from "next/image";
 
 export default function ProductCard({ products, userInfo }) {
     async function Buy() {
@@ -18,8 +18,8 @@ export default function ProductCard({ products, userInfo }) {
 
     return (
         <div>
-            <div className="h-65 p-5 rounded-lg bg-white">
-                <Profile first_name="Keisac" last_name="Buta"/>
+            <div className="h-90 p-5 rounded-lg bg-white">
+                <Image src="/images/example.jpg" alt="Product Picture" width={200} height={60} className="rounded-sm"/>
                 <p className="font-bold my-5">{products?.product_name}</p>
                 <p>{products?.description}</p>
                 <p>Price: {products?.price}</p>
