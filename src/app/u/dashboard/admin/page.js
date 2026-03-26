@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Card from "../../cmpnts/common/card";
 import SideBar from "../../cmpnts/common/sidebar";
+import Profile from "@/app/cmpnts/common/profile";
+import DashboardAdmin from "../../cmpnts/common/admin/dashboard";
+import MembersAdmin from "../../cmpnts/common/admin/members";
 
 export default function Dashboard() {
     //User's Data
@@ -15,6 +18,7 @@ export default function Dashboard() {
     //Analytics
     const [dashboardData, setDashboardData] = useState(null);
 
+    const [page, setPage] = useState(1);
     const router = useRouter();
 
     function GoProfile() {
@@ -51,39 +55,22 @@ export default function Dashboard() {
 
     return (
         <>
-            <SideBar/>
+            <SideBar page={page} setPage={setPage} role="admin"/>
             <div className="w-full flex">
                 {/* MAIN CONTENT */}
                 <div className="w-full ml-56 px-20 py-7  min-h-screen">
                     <div className="flex items-center justify-between mb-6">
-                        <p className="text-3xl font-semibold">Analytics</p>
+                        {page === 1 && <p className="text-3xl font-semibold">Dashboard</p>}
+                        {page === 2 && <p className="text-3xl font-semibold">Members</p>}
+                        {page === 3 && <p className="text-3xl font-semibold">Transactions</p>}
+                        {page === 4 && <p className="text-3xl font-semibold">Announcement</p>}
+                        {page === 5 && <p className="text-3xl font-semibold">Actions</p>}
 
-                        <button onClick={GoProfile} className="flex items-center gap-2 hover:opacity-80 transition">
-                            <Image
-                                src="/images/no-profile.png"
-                                alt="profile picture"
-                                width={40}
-                                height={40}
-                                className="rounded-full"
-                            />
-                            <p>{profile?.first_name} {profile?.last_name}</p>
-                        </button>
+                        <Profile GoProfile={GoProfile} first_name={profile?.first_name} last_name={profile?.last_name}/>
                     </div>
 
-                    {/* DASHBOARD BOXES */}
-                    <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
-                        <Card title="Total Members" value={dashboardData?.totalMembers} info="+12% from last week"/>
-                        <Card title="Active Users" value="0" info="+8% today"/>
-                        <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
-                        <Card title="Total Members" value="0" info="+12% from last week" rowSpan={2}/>
-                        <Card title="System Alerts" value="No alerts" info=" "/>
-                        <Card title="Revenue" value="$0" info="+5% from last month"/>
-                        <Card title="Top Referrers" value="0" info="+12% from last week" colSpan={2} rowSpan={2}/>
-                        <Card title="Pending Requests" value={dashboardData?.totalRequest} info="0 approved today"/>
-                        <Card title="Recent Activity" value="JohnDoe signed in" info=" "/>
-                        <Card title="Total Members" value="0" info="+12% from last week"/>
-                        <Card title="Server Status" value="All Green" info="No downtime"/>
-                    </div>
+                    {page === 1 && <DashboardAdmin dashboardData={dashboardData}/>}
+                    {page === 2 && <MembersAdmin dashboardData={dashboardData}/>}
                 </div>
             </div>
         </>

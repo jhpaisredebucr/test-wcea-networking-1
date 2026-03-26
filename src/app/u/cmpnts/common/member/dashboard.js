@@ -1,4 +1,4 @@
-import Card from "../common/card"
+import Card from "../card"
 
 export default function DashboardMember({dashboardData}) {
     return (

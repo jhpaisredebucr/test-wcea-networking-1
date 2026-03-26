@@ -1,4 +1,4 @@
-import ProductCard from "../common/product_card";
+import ProductCard from "../product_card";
 
 export default function ProductsMember({ products, userInfo }) {
     if (!products) {

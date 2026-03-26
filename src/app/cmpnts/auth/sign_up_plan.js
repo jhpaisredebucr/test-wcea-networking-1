@@ -13,14 +13,14 @@ export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }
         prevStep();
     }   
 
-    function SetPlan(planID) {
-        setFormData(prev => ({ ...prev, planId: planID }));
+    function SetPlan(plan) {
+        setFormData(prev => ({ ...prev, plan: plan }));
     }
 
     function CheckMissingFields() {
-        const { planId} = formData;
+        const { plan} = formData;
 
-        if (!planId) {
+        if (!plan) {
             alert("Please fill in all required fields.");
             return true;
         }

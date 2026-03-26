@@ -1,4 +1,4 @@
-import AnouncementCard from "../common/announcement_card";
+import AnouncementCard from "../announcement_card";
 
 export default function AnouncementMember({announcements}) {
     if (!announcements) {

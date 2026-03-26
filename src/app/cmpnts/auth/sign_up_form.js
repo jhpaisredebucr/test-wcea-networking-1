@@ -27,7 +27,7 @@ export default function SignUpForm() {
     streetAddress: "",
     postalCode: "",
     // Step 3
-    planId: null,
+    plan: null,
     // Step 4
     paymentMethod: "",
     // Step 5

@@ -1,4 +1,4 @@
-import Card from "../common/card";
+import Card from "../card";
 import { format } from "date-fns";
 
 export default function ReferralsMember({ userInfo, dashboardData }) {

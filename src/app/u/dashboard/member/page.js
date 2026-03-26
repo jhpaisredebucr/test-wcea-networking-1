@@ -2,11 +2,11 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import AnouncementMember from "../../cmpnts/pages/anouncement";
-import DashboardMember from "../../cmpnts/pages/dashboard";
-import ProductsMember from "../../cmpnts/pages/product_shop";
-import OrdersMember from "../../cmpnts/pages/my_orders";
-import ReferralsMember from "../../cmpnts/pages/referrals";
+import AnouncementMember from "../../cmpnts/common/member/anouncement";
+import DashboardMember from "../../cmpnts/common/member/dashboard";
+import ProductsMember from "../../cmpnts/common/member/product_shop";
+import OrdersMember from "../../cmpnts/common/member/my_orders";
+import ReferralsMember from "../../cmpnts/common/member/referrals";
 import SideBar from "../../cmpnts/common/sidebar";
 import Profile from "@/app/cmpnts/common/profile";
 
