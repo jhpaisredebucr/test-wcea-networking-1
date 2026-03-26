@@ -9,7 +9,6 @@ export const metadata = {
 export default function SignIn() {
   return (
     <div className="flex h-[calc(100vh-56px)] w-full">
-      <Sidebar/>
       <SignInForm/>
     </div>
   )
