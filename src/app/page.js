@@ -13,6 +13,7 @@ export default function Home() {
     if (!isLoggedIn) {
       router.push("/home")
     }
+    
     // router.push("/dashboard/admin")
   });
 
