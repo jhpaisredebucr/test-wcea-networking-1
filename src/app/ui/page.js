@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter, useSearchParams } from "next/navigation"
 import Input from "@/app/cmpnts/ui/input"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -8,32 +7,11 @@ import { useEffect } from "react";
 export default function TestUI(){
     const router = useRouter();
     const [inputValue, setInputValue] = useState("");
-    const searchParams = useSearchParams();
 
-    const [theme, setTheme] = useState("");
-
-    // Initialize based on system preference
-    useEffect(() => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        setTheme("theme-dark");
-        } else {
-        setTheme(""); // default light
-        }
-    }, []);
-
-    // Apply theme to <html>
-    useEffect(() => {
-        document.documentElement.className = theme;
-    }, [theme]);
 
 
     return (
         <>
-            <div className="p-5 space-x-2">
-                <button onClick={() => setTheme("")}>Light</button>
-                <button onClick={() => setTheme("theme-dark")}>Dark</button>
-                <button onClick={() => setTheme("theme-soft")}>Soft</button>
-            </div>
             <div>
 
             </div>
