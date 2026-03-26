@@ -17,3 +17,4 @@ jobs:
                 \n ```${{ github.event.head_commit.message }}```
                 \n https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}"\
                ${{ secrets.DISCORD_WEBHOOK }}
+               
