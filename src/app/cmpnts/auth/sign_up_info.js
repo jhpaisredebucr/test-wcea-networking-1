@@ -44,7 +44,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep  }) {
     }
 
     function HandleSignIn() {
-        router.push("/landing-page/auth/signin");
+        router.push("/home/signin");
     }   
 
     return (

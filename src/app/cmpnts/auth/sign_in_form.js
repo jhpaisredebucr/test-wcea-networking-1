@@ -24,9 +24,9 @@ export default function SignInForm() {
             console.log("Logged In: ", data.user.username);
             localStorage.setItem("userID", data.user.id);
             if (data.user.role === "admin") {
-                router.replace("/user-page/dashboard/admin");
+                router.replace("/u/dashboard/admin");
             } else {
-                router.replace("/user-page/dashboard/member");
+                router.replace("/u/dashboard/member");
             }
         } else {
             console.log("Login Failed");
@@ -35,7 +35,7 @@ export default function SignInForm() {
     }
 
     function HandleSignUp() {
-        router.push("/home/auth/signup");
+        router.push("/home/signup");
     }
 
     return (
