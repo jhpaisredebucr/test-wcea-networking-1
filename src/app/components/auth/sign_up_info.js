@@ -54,8 +54,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep  }) {
                 <p className="text-gray-600">Please fill in your details to join our community portal.</p>
             </div>
             <div className="w-full grid grid-cols-2 gap-x-5">
-                <Input label="Username" type="text" value={formData.username} onChange={(val) => setFormData({ ...formData, username: val })}/>
-                <Input label="Email Address" type="text" value={formData.email} onChange={(val) => setFormData({ ...formData, email: val })} />
+                <Input label="Username" type="text" require value={formData.username} onChange={(val) => setFormData({ ...formData, username: val })}/>
+                <Input label="Email Address" type="text" require value={formData.email} onChange={(val) => setFormData({ ...formData, email: val })} />
                 <Input label="Contact Number" type="text" value={formData.contactNumber} onChange={(val) => setFormData({ ...formData, contactNumber: val })} />
                 <Input label="Referral Code" type="text" value={formData.referralCode} onChange={(val) => setFormData({ ...formData, referralCode: val })} />
                 <Input label="Password" type="text" value={formData.password} onChange={(val) => setFormData({ ...formData, password: val })} />

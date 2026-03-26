@@ -45,7 +45,7 @@ export default function SignInForm() {
                 <p className="text-gray-600">Sign in to access your account profile.</p>
             </div>
             <div className="w-full grid grid-cols-2 gap-x-5">
-                <Input label="Username" type="text" value={username} onChange={setUsername} />
+                <Input label="Username" type="text" value={username} onChange={setUsername} require={true}/>
                 <Input label="Password" type="text" value={password} onChange={setPassword} />
                 <button onClick={HandleSignIn} className="w-full h-13 bg-blue-400 col-span-2 p-2 rounded-md text-white">Sign In</button>
                 <div className="col-span-2 flex flex-col my-2">
