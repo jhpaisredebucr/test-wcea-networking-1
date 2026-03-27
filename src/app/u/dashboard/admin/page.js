@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import AdminDashboard from "../../cmpnts/common/admin/admin_page";
 import { cookies } from "next/headers";
 
@@ -17,7 +19,7 @@ export default async function AdminPage() {
 
         if (!userID) return null;
 
-        const res = await fetch(`${baseURL}/users?user-id=${userID}`);
+        const res = await fetch(`${baseURL}/api/users?user-id=${userID}`);
         const data = await res.json();
 
         if (data.success) {
