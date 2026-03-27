@@ -55,11 +55,24 @@
                 LIMIT 1;
             `
         );
+        
+        const result = await query(`
+            SELECT
+                users_total_money::float,
+                admin_total_money::float,
+                (admin_total_money - users_total_money)::float AS admin_revenue
+            FROM (
+                SELECT
+                    COALESCE((SELECT SUM(reward_amount) FROM referral_rewards), 0) AS users_total_money,
+                    COALESCE((SELECT SUM(amount) FROM transactions), 0) AS admin_total_money
+            ) totals;
+        `);
+        const revenue = result[0];
 
         const totalPendingRequest = await query("SELECT COUNT(*) FROM users where status=$1",["pending"]);
         const totalRequest = Number(totalPendingRequest[0].count);
 
-        const dashboardData = {totalMembers, totalRequest, pendingRequest, approvedMembers, topReferrer}
+        const dashboardData = {totalMembers, totalRequest, topReferrer, revenue, pendingRequest, approvedMembers}
         
         return NextResponse.json({ dashboardData });
     }
