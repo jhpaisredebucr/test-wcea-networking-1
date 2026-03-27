@@ -1,5 +1,5 @@
 import { query } from "../../../../lib/db";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
 export async function POST(req) {
@@ -46,11 +46,13 @@ export async function POST(req) {
             });
         }
 
-        // ✅ Correct cookie method (Next.js App Router)
+        // Set login cookie (Next.js App Router correct method)
         const cookieStore = await cookies();
 
         cookieStore.set("userID", String(user.id), {
             httpOnly: true,
+            secure: true,        // required in production (Railway uses HTTPS)
+            sameSite: "lax",
             path: "/",
             maxAge: 60 * 60 * 24 // 1 day
         });
@@ -66,7 +68,8 @@ export async function POST(req) {
         });
 
     } catch (err) {
-        console.error(err); // helpful for Railway logs
+        // VERY IMPORTANT for Railway debugging
+        console.error("LOGIN ERROR:", err);
 
         return Response.json({
             success: false,
