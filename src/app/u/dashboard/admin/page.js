@@ -2,6 +2,7 @@ import AdminDashboard from "../../cmpnts/common/admin/admin_page";
 import { cookies } from "next/headers";
 
 export default async function AdminPage() {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
     //USER INFO
     async function GetUserData() {
@@ -16,7 +17,7 @@ export default async function AdminPage() {
 
         if (!userID) return null;
 
-        const res = await fetch(`http://localhost:3000/api/users?user-id=${userID}`);
+        const res = await fetch(`${baseURL}/users?user-id=${userID}`);
         const data = await res.json();
 
         if (data.success) {
@@ -26,7 +27,7 @@ export default async function AdminPage() {
     }
 
     async function Analytics() {
-        const res = await fetch("http://localhost:3000/api/portal/admin/analytics");
+        const res = await fetch(`${baseURL}/api/portal/admin/analytics`);
         const data = await res.json();
         return data.dashboardData;
     }
