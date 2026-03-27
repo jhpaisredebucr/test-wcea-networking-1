@@ -2,6 +2,7 @@
 import Input from "../common/input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function SignInForm() {
     const router = useRouter();
@@ -18,17 +19,12 @@ export default function SignInForm() {
     const [loading, setLoading] = useState(false);
 
     function validate() {
-        let newErrors = {
-            username: "",
-            password: "",
-            general: ""
-        };
+        let newErrors = { username: "", password: "", general: "" };
 
         if (!username) newErrors.username = "Username is required";
         if (!password) newErrors.password = "Password is required";
 
         setErrors(newErrors);
-
         return !newErrors.username && !newErrors.password;
     }
 
@@ -49,18 +45,18 @@ export default function SignInForm() {
             if (data.success) {
                 localStorage.setItem("userID", data.user.id);
 
-                if (data.user.role === "admin") {
-                    router.replace("/u/dashboard/admin");
-                } else {
-                    router.replace("/u/dashboard/member");
-                }
+                router.replace(
+                    data.user.role === "admin"
+                        ? "/u/dashboard/admin"
+                        : "/u/dashboard/member"
+                );
             } else {
                 setErrors(prev => ({
                     ...prev,
                     general: data.message || "Login failed"
                 }));
             }
-        } catch (err) {
+        } catch {
             setErrors(prev => ({
                 ...prev,
                 general: "Something went wrong. Try again."
@@ -75,70 +71,91 @@ export default function SignInForm() {
     }
 
     return (
-        <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
-            
-            <div className="w-full mb-10">
-                <p className="font-semibold text-2xl text-gray-600">Log In</p>
-                <p className="text-gray-600">Sign in to access your account profile.</p>
-            </div>
+        <div className="w-full h-screen grid grid-cols-5">
 
-            <div className="w-full grid grid-cols-2 gap-x-5">
+            {/* LEFT CONTAINER (sign in) */}
+            <div className="col-span-3 flex items-center justify-center p-12">
+                <div className="w-full max-w-md">
 
-                {errors.general && (
-                    <div className="col-span-2 mb-2 p-3 rounded-md bg-red-100 text-red-600 text-sm">
-                        {errors.general}
+                    {/* Header */}
+                    <div className="mb-8">
+                        <p className="font-semibold text-2xl text-gray-700">Log In</p>
+                        <p className="text-gray-500 text-sm">
+                            Sign in to access your account profile.
+                        </p>
                     </div>
-                )}
 
-                <Input
-                    label="Username"
-                    value={username}
-                    onChange={(val) => {
-                        setUsername(val);
-                        setErrors(prev => ({ ...prev, username: "", general: "" }));
-                    }}
-                    error={errors.username}
-                />
+                    {/* Error */}
+                    {errors.general && (
+                        <div className="mb-4 p-3 rounded-md bg-red-100 text-red-600 text-sm">
+                            {errors.general}
+                        </div>
+                    )}
 
-                <Input
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={(val) => {
-                        setPassword(val);
-                        setErrors(prev => ({ ...prev, password: "", general: "" }));
-                    }}
-                    error={errors.password}
-                />
-                <button
-                    onClick={HandleSignIn}
-                    disabled={loading}
-                    className={`
-                        w-full h-13 col-span-2 rounded-md text-white
-                        transition duration-200
+                    {/* Inputs */}
+                    <Input
+                        label="Username"
+                        value={username}
+                        onChange={(val) => {
+                            setUsername(val);
+                            setErrors(prev => ({ ...prev, username: "", general: "" }));
+                        }}
+                        error={errors.username}
+                    />
 
-                        ${loading
-                            ? "bg-blue-300 cursor-not-allowed"
-                            : "bg-blue-500 hover:bg-blue-600"
-                        }
-                    `}
-                >
-                    {loading ? "Signing in..." : "Sign In"}
-                </button>
+                    <Input
+                        label="Password"
+                        type="password"
+                        value={password}
+                        onChange={(val) => {
+                            setPassword(val);
+                            setErrors(prev => ({ ...prev, password: "", general: "" }));
+                        }}
+                        error={errors.password}
+                    />
 
-                <div className="col-span-2 flex flex-col my-2">
-                    <p className="text-gray-600">
+                    {/* Button */}
+                    <button
+                        onClick={HandleSignIn}
+                        disabled={loading}
+                        className={`
+                            w-full h-12 rounded-md text-white mt-2
+                            transition duration-200
+                            ${loading
+                                ? "bg-blue-300 cursor-not-allowed"
+                                : "bg-blue-500 hover:bg-blue-600"
+                            }
+                        `}
+                    >
+                        {loading ? "Signing in..." : "Sign In"}
+                    </button>
+
+                    {/* Sign up */}
+                    <p className="text-gray-600 text-sm mt-4">
                         Don’t have an account?
                         <button
                             onClick={HandleSignUp}
-                            className="inline ml-2 text-(--primary-color) hover:underline"
+                            className="ml-2 text-blue-500 hover:underline"
                         >
-                            Sign Up Here
+                            Sign Up
                         </button>
                     </p>
-                </div>
 
+                </div>
             </div>
+            
+            {/* RIGHT SIE IMAGE */}
+            <div className="col-span-2 relative">
+                <img
+                    src="/images/test-splash.jpg" // REPLACE WITH ANY IMAGE
+                    alt="Sign in visual"
+                    className="w-full h-full object-cover"
+                />
+
+                {/* Optional overlay */}
+                <div className="absolute inset-0 bg-black/20"></div>
+            </div>
+
         </div>
     );
 }
