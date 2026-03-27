@@ -1,41 +1,92 @@
 import { useState } from "react";
 
-function Input({ label, type = "text", value, onChange, require, className = "" }) {
+function Input({
+    label,
+    type = "text",
+    value,
+    onChange,
 
-    // !! [[OPTIONAL]] IMPLEMENTATION FOR REQUIRED FIELDS !!//
+    error,
+    success,
+    disabled = false,
 
-    // const [touched, setTouched] = useState(false);
+    size = "md",       // sm | md | lg
+    variant = "default", // default | error | success
 
-    // const isInvalid = require && touched && !value;
-    // {isInvalid && (
-    //     <p className="text-xs text-red-500">This field is required</p>
-    // )}
+    leftIcon,
+    rightIcon,
 
-    // !! PUT THIS INSIDE CLASS NAME IF IMPLEMENTED //
+    className = ""
+}) {
+    if (error) variant = "error";
+    else if (success) variant = "success";
 
-    // ${isInvalid 
-    //     ? "border-red-500 focus:ring-2 focus:ring-red-400" 
-    //     : "border-gray-300 focus:ring-1 focus:ring-blue-400"}
-    // ${className}
+    const variants = {
+        default: "border-gray-300 focus:ring-blue-400 focus:border-blue-400",
+        error: "border-red-500 focus:ring-red-400 focus:border-red-500",
+        success: "border-green-500 focus:ring-green-400 focus:border-green-500",
+    };
+
+    const sizes = {
+        sm: "text-sm p-1.5",
+        md: "text-base p-2",
+        lg: "text-lg p-3",
+    };
 
     return (
-        
-        <div className="mb-4">
-            <p className="text-sm">{label}</p>
-            <input
-                required={require}
-                type={type}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                // onBlur={() => setTouched(true)}
-                className={`
-                    border-gray-400 
-                    w-full border rounded-md p-2 mb-2
-                    text-gray-800 placeholder-gray-400
-                    focus:outline-none transition duration-200 
-                    focus:ring-1 focus:ring-blue-300 focus:border-blue-300
-                `}
-            />
+        <div className="mb-4 w-full">
+            {label && (
+                <p className="text-sm mb-1 text-gray-600">{label}</p>
+            )}
+
+            <div className="relative flex items-center">
+                
+                {/* Left Icon */}
+                {leftIcon && (
+                    <div className="absolute left-3 text-gray-400">
+                        {leftIcon}
+                    </div>
+                )}
+
+                <input
+                    type={type}
+                    value={value}
+                    disabled={disabled}
+                    onChange={(e) => onChange(e.target.value)}
+                    className={`
+                        w-full rounded-md border
+                        transition duration-200 outline-none
+
+                        ${sizes[size]}
+                        ${variants[variant]}
+
+                        ${leftIcon ? "pl-10" : ""}
+                        ${rightIcon ? "pr-10" : ""}
+
+                        ${disabled ? "bg-gray-100 cursor-not-allowed opacity-70" : ""}
+
+                        focus:ring-1
+
+                        ${className}
+                    `}
+                />
+
+                {/* Right Icon */}
+                {rightIcon && (
+                    <div className="absolute right-3 text-gray-400">
+                        {rightIcon}
+                    </div>
+                )}
+            </div>
+
+            {/* Messages */}
+            {error && (
+                <p className="text-xs text-(--error-color) mt-1">{error}</p>
+            )}
+
+            {!error && success && (
+                <p className="text-xs text-(--success-color) mt-1">{success}</p>
+            )}
         </div>
     );
 }

@@ -2,10 +2,17 @@
 
 /* ---------- Theme 1: Light ---------- */
 :root {
+  
+
   --background: #ffffff;
   --foreground:   #555555;
-  --primary: rgb(138, 164, 236);   /* example primary color */
+  --primary: #6b9ae6;   /* example primary color */
   --secondary: #97d88a; /* example secondary color */
+
+  --neutral-color: #83aeff;
+  --success-color: #83ff83;
+  --error-color: #ff6a6a;
+  --warn-color:  #ffd883;
 }
 
 /* ---------- Theme 2: Dark ---------- */
@@ -23,6 +30,8 @@
   --primary: #e4aeca;
   --secondary: #82d2f5;
 }
+
+
 /* 
 @media (prefers-color-scheme: dark) {
   :root {
