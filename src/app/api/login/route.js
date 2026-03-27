@@ -1,5 +1,6 @@
 import { query } from "../../../../lib/db";
 import bcrypt from "bcrypt";
+import { serialize } from "cookie"; // helper to format cookie
 
 export async function POST(req) {
     try {
@@ -35,7 +36,6 @@ export async function POST(req) {
 
         const valid = await bcrypt.compare(password, user.password);
 
-
         if (!valid) {
             return Response.json({
                 success: false,
@@ -43,13 +43,26 @@ export async function POST(req) {
             });
         }
 
-        return Response.json({
+        // Set cookie while returning JSON
+        const cookie = serialize("userID", String(user.id), {
+            httpOnly: true,
+            path: "/",
+            maxAge: 60 * 60 * 24 // 1 day
+        });
+
+        return new Response(JSON.stringify({
             success: true,
             message: "Successfully logged in",
             user: {
                 id: user.id,
                 username: user.username,
                 role: user.role
+            }
+        }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Set-Cookie": cookie
             }
         });
 
