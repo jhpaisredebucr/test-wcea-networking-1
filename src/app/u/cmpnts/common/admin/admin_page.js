@@ -52,7 +52,7 @@ export default function AdminDashboard({dashboardData, userData}) {
 
                     {page === 1 && <DashboardAdmin dashboardData={dashboardData}/>}
                     {page === 2 && <MembersAdmin dashboardData={dashboardData}/>}
-                    <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button>
+                    {/* <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button> */}
                 </div>
             </div>
         </>
