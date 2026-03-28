@@ -47,7 +47,7 @@ export default function AdminDashboard({dashboardData, userData}) {
                         {page === 4 && <p className="text-3xl font-semibold">Announcement</p>}
                         {page === 5 && <p className="text-3xl font-semibold">Actions</p>}
 
-                        <Profile GoProfile={GoProfile} first_name={userData?.first_name} last_name={userData?.last_name}/>
+                        <Profile GoProfile={GoProfile} first_name={userData?.profile?.first_name} last_name={userData?.profile?.last_name}/>
                     </div>
 
                     {page === 1 && <DashboardAdmin dashboardData={dashboardData}/>}

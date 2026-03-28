@@ -1,38 +1,43 @@
-export const dynamic = "force-dynamic";
-
 import AdminDashboard from "../../cmpnts/common/admin/admin_page";
 import { cookies } from "next/headers";
-import { getAdminAnalytics } from "../../../../../lib/admin_analytics_db";
-import { query } from "../../../../../lib/db";
 
 export default async function AdminPage() {
-  // --- USER INFO ---
-  const cookieStore = await cookies();
-  const userCookieEntry = Array.from(cookieStore).find(([name]) => name === "userID");
-  const userID = userCookieEntry?.[1]?.value;
 
-  if (!userID) {
-    // no user ID cookie → redirect or return null
-    return <div>Please log in</div>;
-  }
+    //USER INFO
+    async function GetUserData() {
+        const cookieStore = await cookies();
 
-  // Fetch user data directly from DB
-  const userResult = await query(
-    `
-      SELECT u.id, u.username, u.role, p.first_name, p.last_name
-      FROM users u
-      LEFT JOIN user_profiles p ON p.user_id = u.id
-      WHERE u.id = $1
-    `,
-    [userID]
-  );
+        const userCookieEntry = Array.from(cookieStore)
+            .find(([name]) => name === "userID");
 
-  const userData = userResult[0] || null;
+        const userID = userCookieEntry?.[1]?.value;
 
-  // --- DASHBOARD DATA ---
-  const dashboardData = await getAdminAnalytics();
+        console.log("userID:", userID);
 
-  return (
-    <AdminDashboard dashboardData={dashboardData} userData={userData} />
-  );
+        if (!userID) return null;
+
+        const res = await fetch(`http://localhost:3000/api/users?user-id=${userID}`);
+        const data = await res.json();
+
+        if (data.success) {
+            return data;
+        }
+        return null;
+    }
+
+    async function Analytics() {
+        const res = await fetch("http://localhost:3000/api/portal/admin/analytics");
+        const data = await res.json();
+        return data.dashboardData;
+    }
+
+    // DASHBOARD DATA
+    const dashboardData = await Analytics();
+    const userData = await GetUserData();
+
+    return (
+        <div>
+            <AdminDashboard dashboardData={dashboardData} userData={userData}/>
+        </div>
+    );
 }

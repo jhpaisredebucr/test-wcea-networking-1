@@ -1,5 +1,5 @@
 import { query } from "../../../../lib/db";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 export async function POST(req) {
     try {

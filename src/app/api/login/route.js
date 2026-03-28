@@ -1,6 +1,6 @@
 import { query } from "../../../../lib/db";
-import bcrypt from "bcryptjs";
-import { cookies } from "next/headers";
+import bcrypt from "bcrypt";
+import { serialize } from "cookie"; // helper to format cookie
 
 export async function POST(req) {
     try {
@@ -31,10 +31,7 @@ export async function POST(req) {
         const user = users[0];
 
         if (user.status === "pending") {
-            return Response.json({
-                success: false,
-                message: "Still waiting for approvement"
-            });
+            return Response.json({ success: false, message: "Still waiting for approvement" })
         }
 
         const valid = await bcrypt.compare(password, user.password);
@@ -46,18 +43,14 @@ export async function POST(req) {
             });
         }
 
-        // Set login cookie (Next.js App Router correct method)
-        const cookieStore = await cookies();
-
-        cookieStore.set("userID", String(user.id), {
+        // Set cookie while returning JSON
+        const cookie = serialize("userID", String(user.id), {
             httpOnly: true,
-            secure: true,        // required in production (Railway uses HTTPS)
-            sameSite: "lax",
             path: "/",
             maxAge: 60 * 60 * 24 // 1 day
         });
 
-        return Response.json({
+        return new Response(JSON.stringify({
             success: true,
             message: "Successfully logged in",
             user: {
@@ -65,12 +58,15 @@ export async function POST(req) {
                 username: user.username,
                 role: user.role
             }
+        }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Set-Cookie": cookie
+            }
         });
 
     } catch (err) {
-        // VERY IMPORTANT for Railway debugging
-        console.error("LOGIN ERROR:", err);
-
         return Response.json({
             success: false,
             message: "Server error"
