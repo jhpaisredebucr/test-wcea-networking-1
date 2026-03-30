@@ -48,12 +48,12 @@ export default function MemberDashboard({ userData, dashboardData, announcements
                         <Profile GoProfile={GoProfile} first_name={userData?.profile?.first_name} last_name={userData?.profile?.last_name}/>
                     </div>
                     {page === 1 && <AnouncementMember announcements={announcements}/>}
-                    {page === 2 && <DashboardMember dashboardData={dashboardData}/>}
+                    {page === 2 && <DashboardMember dashboardData={dashboardData} userData={userData}/>}
                     {page === 3 && <ProductsMember products={products} userData={userData}/>}
                     {page === 4 && <OrdersMember orders={orders} products={products} userData={userData}/>}
                     {page === 5 && <ReferralsMember userData={userData} dashboardData={dashboardData}/>}
                 </div>
-                {/* <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button> */}
+                <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button>
             </div>
         </>
     );

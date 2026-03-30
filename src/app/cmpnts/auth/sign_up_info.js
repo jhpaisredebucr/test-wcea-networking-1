@@ -1,6 +1,7 @@
 "use client"
 import Input from "../common/input"
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SignUpInfo({ formData, setFormData, nextStep  }) {
@@ -46,6 +47,15 @@ export default function SignUpInfo({ formData, setFormData, nextStep  }) {
     function HandleSignIn() {
         router.push("/home/signin");
     }   
+    
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const ref = searchParams.get("ref");
+        if (ref && !formData.referralCode) {
+            setFormData({ ...formData, referralCode: ref });
+        }
+    }, [searchParams]);
 
     return (
         <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
