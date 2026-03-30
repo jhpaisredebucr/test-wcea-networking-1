@@ -6,7 +6,7 @@ import SignUpPlan from "./sign_up_plan";
 import SignUpPayment from "./sign_up_payment";
 import SignUpApproval from "./sign_up_approval";
 
-export default function SignUpForm() {
+export default function SignUpForm({ refCode }) {
   const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ export default function SignUpForm() {
     username: "",
     email: "",
     contactNumber: "",
-    referralCode: "",
+    referralCode: refCode,
     password: "",
     confirmPassword: "",
     // Step 2
@@ -42,6 +42,7 @@ export default function SignUpForm() {
           setFormData={setFormData}
           nextStep={() => setStep(prev => prev + 1)}
           prevStep={() => setStep(prev => prev - 1)}
+          refCode={refCode}
         />
       )}
       {step === 2 && (
