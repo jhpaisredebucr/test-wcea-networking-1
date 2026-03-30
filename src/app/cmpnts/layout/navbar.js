@@ -28,11 +28,11 @@ export default function Navbar() {
                 <h1 className="text-lg ml-3">Health and Wellness Hatdog</h1>
             </div>
             
-            <div className="transition duration-50">
-                <button onClick={Home} className="mx-2 p-2 rounded-2xl transition duration-50 hover:bg-(--background) hover:text-(--foreground)">Home</button>
-                <button onClick={About} className="mx-2 p-2 rounded-2xl transition duration-100 hover:bg-gray-100">About Us</button>
-                <button onClick={Register} className="mx-2 p-2 rounded-2xl  transition duration-100 hover:bg-gray-100">Register</button>
-                <button onClick={Contacts} className="mx-2 p-2 rounded-2xl  transition duration-100 hover:bg-gray-100">Contacts</button>
+            <div className="">
+                <button onClick={Home} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-50 hover:border-b hover:bg-gray-100 hover:text-(--foreground)">Home</button>
+                <button onClick={About} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">About Us</button>
+                <button onClick={Register} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">Register</button>
+                <button onClick={Contacts} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">Contacts</button>
             </div>
       </nav>
     )

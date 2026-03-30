@@ -2,6 +2,7 @@ import SidebarButton from "./sidebar_button"
 import Image from "next/image"
 
 export default function SideBar({ page, setPage, userInfo, role="member" }) {
+
     return (
         <div className="fixed left-0 top-0 h-screen w-56 bg-gray-50 p-6">
             <Image src="/images/logo.ico" alt="logo" width={40} height={40} className="mb-4" />
