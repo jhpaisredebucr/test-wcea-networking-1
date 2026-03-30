@@ -8,23 +8,25 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout the repo
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Get all commits in this push
-      - name: Get commits
+      - name: Get commits in this push
         id: commits
         run: |
-          # Get all commit messages in the push
-          COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"• %h: %s by %an")
+          # If this is the first commit, use HEAD only
+          if [ "${GITHUB_EVENT_BEFORE}" = "0000000000000000000000000000000000000000" ]; then
+            COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
+          else
+            COMMITS=$(git log $GITHUB_EVENT_BEFORE..$GITHUB_SHA --pretty=format:"• %h: %s by %an")
+          fi
 
-          # Handle empty push (e.g., force push with no new commits)
+          # Handle empty result
           if [ -z "$COMMITS" ]; then
             COMMITS="No new commits in this push."
           fi
 
-          # Escape newlines for JSON
+          # Escape for JSON
           ESCAPED_COMMITS=$(echo "$COMMITS" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
 
           echo "COMMITS_ESCAPED=$ESCAPED_COMMITS" >> $GITHUB_ENV
