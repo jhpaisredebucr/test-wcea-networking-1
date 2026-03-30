@@ -14,7 +14,7 @@ export default function SignUpForm({ refCode }) {
     username: "",
     email: "",
     contactNumber: "",
-    referralCode: refCode,
+    referralCode: refCode || " ",
     password: "",
     confirmPassword: "",
     // Step 2

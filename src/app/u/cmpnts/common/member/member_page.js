@@ -53,7 +53,7 @@ export default function MemberDashboard({ userData, dashboardData, announcements
                     {page === 4 && <OrdersMember orders={orders} products={products} userData={userData}/>}
                     {page === 5 && <ReferralsMember userData={userData} dashboardData={dashboardData}/>}
                 </div>
-                <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button>
+                {/* <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button> */}
             </div>
         </>
     );
