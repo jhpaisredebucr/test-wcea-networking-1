@@ -1,11 +1,11 @@
 import OrderCard from "../order_card";
 
-export default function OrdersMember({orders, products, userInfo}) {
+export default function OrdersMember({orders, products, userData}) {
     if (!orders) {
         return <p>Loading products...</p>;
     }
     
-    const userOrders = orders.filter(order => order.user_id === userInfo?.id);
+    const userOrders = orders.filter(order => order.user_id === userData?.userInfo?.id);
         
     return (
         <div >

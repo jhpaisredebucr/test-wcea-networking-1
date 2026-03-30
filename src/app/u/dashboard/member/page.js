@@ -1,113 +1,57 @@
-"use client"
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import AnouncementMember from "../../cmpnts/common/member/anouncement";
-import DashboardMember from "../../cmpnts/common/member/dashboard";
-import ProductsMember from "../../cmpnts/common/member/product_shop";
-import OrdersMember from "../../cmpnts/common/member/my_orders";
-import ReferralsMember from "../../cmpnts/common/member/referrals";
-import SideBar from "../../cmpnts/common/sidebar";
-import Profile from "@/app/cmpnts/common/profile";
+import MemberDashboard from "../../cmpnts/common/member/member_page";
+import { cookies } from "next/headers";
 
-export default function Dashboard() {
-    //User's Data
-    const [userInfo, setUserInfo] = useState(null);
-    const [profile, setUserProfile] = useState(null);
-    const [contacts, setUserContacts] = useState(null);
-    const [address, setUserAddress] = useState(null);
-    const [dashboardData, setDashboardData] = useState(null);
+export default async function MemberPage() {
+    const cookieStore = await cookies();
+    const userID = cookieStore.get("userID")?.value;
 
-    const [announcements, setAnouncement] = useState(null);
-    const [products, setProducts] = useState(null);
-    const [orders, setOrders] = useState(null);
+    async function GetUserData() {
+        const cookieStore = await cookies();
+        const userID = cookieStore.get("userID")?.value;
 
-    const [page, setPage] = useState(1);
+        console.log("userID:", userID);
 
-    const router = useRouter();
+        if (!userID) return null;
 
+        const res = await fetch(`https://test-wcea-networking-1-production.up.railway.app/api/users?user-id=${userID}`);
+        const data = await res.json();
 
-    function GoProfile() {
-        router.push("/profile");
+        console.log("User data response:", data);
+
+        return data.success ? data : null;
     }
 
-        useEffect(() => {
-        const userID = localStorage.getItem("userID");
-        if (!userID) return;
+    async function GetAnouncement() {
+        const res = await fetch("https://test-wcea-networking-1-production.up.railway.app/api/announcement");
+        const data = await res.json();
+        return data.announcements;
+    }
+    
+    async function GetProducts() {
+        const res = await fetch("https://test-wcea-networking-1-production.up.railway.app/api/products");
+        const data = await res.json();
+        return data.products;
+    }
 
-        fetch(`/api/users?user-id=${userID}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    setUserInfo(data.userInfo);
-                    setUserProfile(data.profile);
-                    setUserContacts(data.contacts);
-                    setUserAddress(data.address);
-                    console.log(data);
-                }
-            });
+    async function GetOrders() {
+        const res = await fetch("https://test-wcea-networking-1-production.up.railway.app/api/products/orders");
+        const data = await res.json();
+        return data.orders;
+    }
 
-        async function GetAnouncement() {
-            const res = await fetch("/api/announcement");
-            const data = await res.json();
-            setAnouncement(data.announcements);
-        }
-        
-        async function GetProducts() {
-            const res = await fetch("/api/products");
-            const data = await res.json();
-            setProducts(data.products);
-        }
+    async function GetDashboardData(userReferralCode) {
+        const res = await fetch(`https://test-wcea-networking-1-production.up.railway.app/api/portal/member?userReferralCode=${userReferralCode?.userInfo?.referral_code}`);
+        const data = await res.json();
+        return data.dashboardData;
+    }
 
-        async function GetOrders() {
-            const res = await fetch("/api/products/orders");
-            const data = await res.json();
-            setOrders(data.orders);
-        }
-
-        GetAnouncement();
-        GetProducts();
-        GetOrders();
-    }, []);
-
-    useEffect(() => {
-        if (!userInfo?.referral_code) return;
-
-        async function GetDashboardData() {
-            const res = await fetch(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
-            const data = await res.json();
-            setDashboardData(data.dashboardData);
-        }
-
-        GetDashboardData();
-
-    }, [userInfo]);
-
-
+    const userData = await GetUserData();
+    const announcements = await GetAnouncement();
+    const products = await GetProducts();
+    const orders = await GetOrders();
+    const dashboardData = await GetDashboardData(userData);
 
     return (
-        <>
-            <SideBar page={page} setPage={setPage}/>
-            
-            <div className="w-full flex">
-                {/* MAIN CONTENT */}
-                <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
-                    <div className="flex items-center justify-between mb-6">
-                        {page === 1 && <p className="text-3xl font-semibold">Announcement</p>}
-                        {page === 2 && <p className="text-3xl font-semibold">Dashboard</p>}
-                        {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
-                        {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
-                        {page === 5 && <p className="text-3xl font-semibold">Referrals</p>}
-
-                        <Profile GoProfile={GoProfile} first_name={profile?.first_name} last_name={profile?.last_name}/>
-                    </div>
-                    {page === 1 && <AnouncementMember announcements={announcements}/>}
-                    {page === 2 && <DashboardMember dashboardData={dashboardData}/>}
-                    {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
-                    {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
-                    {page === 5 && <ReferralsMember userInfo={userInfo} dashboardData={dashboardData}/>}
-                </div>
-            </div>
-        </>
-    );
+        <MemberDashboard userData={userData} announcements={announcements} products={products} orders={orders} dashboardData={dashboardData}/>
+    )
 }

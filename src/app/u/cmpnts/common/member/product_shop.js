@@ -1,6 +1,6 @@
 import ProductCard from "../product_card";
 
-export default function ProductsMember({ products, userInfo }) {
+export default function ProductsMember({ products, userData }) {
     if (!products) {
         return <p>Loading products...</p>;
     }
@@ -12,7 +12,7 @@ export default function ProductsMember({ products, userInfo }) {
                     <ProductCard
                         key={product.id}
                         products={product}
-                        userInfo={userInfo}
+                        userData={userData}
                     />
                 ))}
             </div>

@@ -6,7 +6,6 @@ export default async function AdminPage() {
     //USER INFO
     async function GetUserData() {
         const cookieStore = await cookies();
-
         const userID = cookieStore.get("userID")?.value;
 
         console.log("userID:", userID);

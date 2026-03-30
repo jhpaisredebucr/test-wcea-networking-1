@@ -1,13 +1,12 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SideBar from "../sidebar";
 import Profile from "@/app/cmpnts/common/profile";
 import DashboardAdmin from "./dashboard";
 import MembersAdmin from "./members";
 
 export default function AdminDashboard({dashboardData, userData}) {
-    const [profile, setUserProfile] = useState(null);
 
     const [page, setPage] = useState(1);
     const router = useRouter();
@@ -20,19 +19,6 @@ export default function AdminDashboard({dashboardData, userData}) {
         console.log(dashboardData);
         console.log(userData);
     }
-
-    useEffect(() => {
-        const userID = localStorage.getItem("userID");
-        if (!userID) return;
-
-        fetch(`/api/users?user-id=${userID}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    setUserProfile(data.profile);
-                }
-            });
-    }, []);
 
     return (
         <>
