@@ -22,17 +22,18 @@ export async function GET(req) {
         ,[userReferralCode]
     );
 
-    // const totalBalance = await querry(
-    //     `
-    //         SELECT SUM(reward_amount) AS totalBalance FROM users WHERE id = 1$;
-    //     `
-    //     ,[userReferralCode]
-    // )
+    const totalBalance = await query(
+        `
+            SELECT SUM(reward_amount) AS totalBalance FROM referral_rewards
+            WHERE referrer_id = (SELECT id FROM users WHERE referral_code = $1);
+        `
+        ,[userReferralCode]
+    )
 
     const totalReferredMembers = referredMembers.length? Number(referredMembers[0].total_count) : 0;
     const pendingCount = referredMembers.filter(member => member.status === 'pending').length;
 
-    const dashboardData = {totalReferredMembers, pendingCount, referredMembers, test: "working" };
+    const dashboardData = {totalReferredMembers, pendingCount, totalBalance: Number(totalBalance[0]?.totalbalance ?? 0), referredMembers };
     
     return NextResponse.json({dashboardData});
 }
