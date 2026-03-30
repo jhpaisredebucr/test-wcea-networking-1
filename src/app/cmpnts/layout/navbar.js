@@ -1,9 +1,12 @@
 "use client"
 import { useRouter } from "next/navigation"
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Navbar() {
     const router = useRouter();
+    const [open, setOpen] = useState(false);
+
 
     function Home() {
         router.push("/home")
@@ -22,6 +25,7 @@ export default function Navbar() {
     }
 
     
+    
 
     return (
         <nav className="flex 0 w-screen border-b-2 border-(--foreground)/50 border- h-14 items-center justify-between px-5 ">
@@ -35,7 +39,7 @@ export default function Navbar() {
                     active:scale-95 active:bg-gray-200
                     mx-1 p-2 
                     border-b-2 border-transparent 
-                    hover:border-(--primary) hover:bg-gray-100 
+                    hover:border-(--primary)
                     transition duration-200
                 ">
                 Home
@@ -45,7 +49,7 @@ export default function Navbar() {
                     active:scale-95 active:bg-gray-200
                     mx-1 p-2 
                     border-b-2 border-transparent 
-                    hover:border-(--primary) hover:bg-gray-100 
+                    hover:border-(--primary)
                     transition duration-200
                 ">
                 About
@@ -55,7 +59,7 @@ export default function Navbar() {
                     active:scale-95 active:bg-gray-200
                     mx-1 p-2 
                     border-b-2 border-transparent 
-                    hover:border-(--primary) hover:bg-gray-100 
+                    hover:border-(--primary)
                     transition duration-200
                 ">
                 Register
@@ -65,7 +69,7 @@ export default function Navbar() {
                     active:scale-95 active:bg-gray-200
                     mx-1 p-2 
                     border-b-2 border-transparent 
-                    hover:border-(--primary) hover:bg-gray-100 
+                    hover:border-(--primary)
                     transition duration-200
                 ">
                 Contacts

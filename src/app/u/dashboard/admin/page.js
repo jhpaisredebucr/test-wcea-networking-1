@@ -7,10 +7,7 @@ export default async function AdminPage() {
     async function GetUserData() {
         const cookieStore = await cookies();
 
-        const userCookieEntry = Array.from(cookieStore)
-            .find(([name]) => name === "userID");
-
-        const userID = userCookieEntry?.[1]?.value;
+        const userID = cookieStore.get("userID")?.value;
 
         console.log("userID:", userID);
 
@@ -19,10 +16,9 @@ export default async function AdminPage() {
         const res = await fetch(`https://test-wcea-networking-1-production.up.railway.app/api/users?user-id=${userID}`);
         const data = await res.json();
 
-        if (data.success) {
-            return data;
-        }
-        return null;
+        console.log("User data response:", data);
+
+        return data.success ? data : null;
     }
 
     async function Analytics() {
