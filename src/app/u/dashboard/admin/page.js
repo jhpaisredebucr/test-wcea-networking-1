@@ -2,7 +2,7 @@ import AdminDashboard from "../../cmpnts/common/admin/admin_page";
 import { cookies } from "next/headers";
 
 export default async function AdminPage() {
-
+    const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
     //USER INFO
     async function GetUserData() {
         const cookieStore = await cookies();
@@ -12,7 +12,7 @@ export default async function AdminPage() {
 
         if (!userID) return null;
 
-        const res = await fetch(`https://test-wcea-networking-1-production.up.railway.app/api/users?user-id=${userID}`);
+        const res = await fetch(`${API_HOST}/api/users?user-id=${userID}`);
         const data = await res.json();
 
         console.log("User data response:", data);
@@ -21,7 +21,7 @@ export default async function AdminPage() {
     }
 
     async function Analytics() {
-        const res = await fetch("https://test-wcea-networking-1-production.up.railway.app/api/portal/admin/analytics");
+        const res = await fetch(`${API_HOST}/api/portal/admin/analytics`);
         const data = await res.json();
         return data.dashboardData;
     }

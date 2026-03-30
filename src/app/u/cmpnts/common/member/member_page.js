@@ -21,18 +21,6 @@ export default function MemberDashboard({ userData, dashboardData, announcements
         router.push("/profile");
     }
 
-    // useEffect(() => {
-    //     if (!userInfo?.referral_code) return;
-
-    //     async function GetDashboardData() {
-    //         const res = await fetch(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
-    //         const data = await res.json();
-    //         setDashboardData(data.dashboardData);
-    //     }
-
-    //     GetDashboardData();
-
-    // }, [userInfo]);
     function Debug() {
         console.log("dashboard data: ", dashboardData);
         console.log("user data: ",userData);
@@ -65,7 +53,7 @@ export default function MemberDashboard({ userData, dashboardData, announcements
                     {page === 4 && <OrdersMember orders={orders} products={products} userData={userData}/>}
                     {page === 5 && <ReferralsMember userData={userData} dashboardData={dashboardData}/>}
                 </div>
-                <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button>
+                {/* <button onClick={Debug} className="w-20 h-20 bg-gray-400">TEST DEBUG</button> */}
             </div>
         </>
     );
