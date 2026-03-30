@@ -21,18 +21,55 @@ export default function Navbar() {
         router.push("/home/contacts")
     }
 
+    
+
     return (
         <nav className="flex 0 w-screen border-b-2 border-(--foreground)/50 border- h-14 items-center justify-between px-5 ">
             <div className="flex items-center">
                 <Image src="/images/logo.ico" alt="logo" width={35} height={35}/>
-                <h1 className="text-lg ml-3">Health and Wellness Hatdog</h1>
+                <h1 className="text-lg ml-3">World Council Excellence Award</h1>
             </div>
             
             <div className="">
-                <button onClick={Home} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-50 hover:border-b hover:bg-gray-100 hover:text-(--foreground)">Home</button>
-                <button onClick={About} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">About Us</button>
-                <button onClick={Register} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">Register</button>
-                <button onClick={Contacts} className="mx-2 p-2 rounded-2xl border-b-2 transition duration-100 hover:border-b hover:bg-gray-100">Contacts</button>
+               <button onClick={Home} className="
+                    active:scale-95 active:bg-gray-200
+                    mx-1 p-2 
+                    border-b-2 border-transparent 
+                    hover:border-(--primary) hover:bg-gray-100 
+                    transition duration-200
+                ">
+                Home
+                </button>
+
+                <button onClick={About} className="
+                    active:scale-95 active:bg-gray-200
+                    mx-1 p-2 
+                    border-b-2 border-transparent 
+                    hover:border-(--primary) hover:bg-gray-100 
+                    transition duration-200
+                ">
+                About
+                </button>
+
+                <button onClick={Register} className="
+                    active:scale-95 active:bg-gray-200
+                    mx-1 p-2 
+                    border-b-2 border-transparent 
+                    hover:border-(--primary) hover:bg-gray-100 
+                    transition duration-200
+                ">
+                Register
+                </button>
+
+                <button onClick={Contacts} className="
+                    active:scale-95 active:bg-gray-200
+                    mx-1 p-2 
+                    border-b-2 border-transparent 
+                    hover:border-(--primary) hover:bg-gray-100 
+                    transition duration-200
+                ">
+                Contacts
+                </button>
             </div>
       </nav>
     )
