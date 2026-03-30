@@ -10,7 +10,16 @@ jobs:
     steps:
       - name: Send Discord webhook
         run: |
+          # Build commit messages
+          COMMITS=""
+          for commit in $(jq -r '.commits[] | "\(.id)|\(.message)"' <<< "${GITHUB_EVENT_PATH}"); do
+            SHA=$(echo $commit | cut -d '|' -f1)
+            MSG=$(echo $commit | cut -d '|' -f2)
+            COMMITS="$COMMITS\n- [$SHA](https://github.com/${GITHUB_REPOSITORY}/commit/$SHA): $MSG"
+          done
+
+          # Send to Discord
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nCOMMIT MESSAGE:\n\`\`\`${{ github.event.head_commit.message }}\`\`\`\nhttps://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}" \
+               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n$COMMITS\"}" \
                ${{ secrets.DISCORD_WEBHOOK }}
