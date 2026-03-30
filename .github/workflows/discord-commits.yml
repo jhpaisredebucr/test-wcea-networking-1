@@ -8,29 +8,31 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ Checkout full repo history
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # important!
 
-      - name: Get commits in this push
+      # 2️⃣ Get commits in this push
+      - name: Get commits
         id: commits
         run: |
-          # If this is the first commit, use HEAD only
           if [ "${GITHUB_EVENT_BEFORE}" = "0000000000000000000000000000000000000000" ]; then
-            COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
+            # first commit or new branch
+            COMMITS=$(git log -n 10 --pretty=format:"• %h: %s by %an")
           else
             COMMITS=$(git log $GITHUB_EVENT_BEFORE..$GITHUB_SHA --pretty=format:"• %h: %s by %an")
           fi
 
-          # Handle empty result
           if [ -z "$COMMITS" ]; then
             COMMITS="No new commits in this push."
           fi
 
-          # Escape for JSON
           ESCAPED_COMMITS=$(echo "$COMMITS" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
-
           echo "COMMITS_ESCAPED=$ESCAPED_COMMITS" >> $GITHUB_ENV
 
+      # 3️⃣ Send Discord message
       - name: Send Discord message
         run: |
           CHANNEL_ID="1486579386239942676"
