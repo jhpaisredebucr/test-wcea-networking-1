@@ -71,7 +71,7 @@ export default function SignInForm() {
     }
 
     return (
-        <div className="w-full h-screen grid grid-cols-5">
+        <div className="w-full h-[calc(100vh-96px)] grid grid-cols-5">
 
             {/* LEFT CONTAINER (sign in) */}
             <div className="col-span-3 flex items-center justify-center p-12">
@@ -145,15 +145,17 @@ export default function SignInForm() {
             </div>
             
             {/* RIGHT SIE IMAGE */}
-            <div className="col-span-2 relative">
-                <img
+            <div className="col-span-2 relative flex justify-center items-center">
+                {/* <img
                     src="/images/test-splash.jpg" // REPLACE WITH ANY IMAGE
                     alt="Sign in visual"
                     className="w-full h-full object-cover"
-                />
+                /> */}
+
+                <Image src="/images/test-splash.jpg" alt="Sign in visual" width={350} height={350} className="rounded-2xl"/>
 
                 {/* Optional overlay */}
-                <div className="absolute inset-0 bg-black/20"></div>
+                {/* <div className="absolute inset-0 bg-black/20"></div> */}
             </div>
 
         </div>
