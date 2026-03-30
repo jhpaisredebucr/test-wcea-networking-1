@@ -1,4 +1,3 @@
-#1486579386239942676 -- discord commits channel id
 name: Discord Commit Notifier
 
 on:
@@ -18,24 +17,17 @@ jobs:
         id: commits
         run: |
           COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
-          echo "COMMITS<<EOF" >> $GITHUB_ENV
-          echo "$COMMITS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
       # 3️⃣ Send Discord message
       - name: Send Discord message
         run: |
-          # You need your channel ID here
-          CHANNEL_ID="<1486579386239942676>"
-          CHANNEL_ID="1486579386239942676"  # remove < >
+          CHANNEL_ID="1486579386239942676"
 
-          # Optional: delete previous message if MESSAGE_ID is stored (you can keep it in a file in repo)
           # Delete previous message if exists
           if [ -f .last_discord_message_id ]; then
             PREV_ID=$(cat .last_discord_message_id)
             curl -s -X DELETE "https://discord.com/api/v10/channels/$CHANNEL_ID/messages/$PREV_ID" \
-                 -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
               -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
           fi
 
@@ -44,14 +36,10 @@ jobs:
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n${COMMITS}\"}")
-            -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n$COMMITS\"}")
 
-          # Save the message ID to a file to delete it next time
-          echo $RESPONSE | jq -r '.id' > .last_discord_message_id
-          # Save the message ID for next run
+          # Save the message ID for deletion next time
           echo "$RESPONSE" | jq -r '.id' > .last_discord_message_id
 
-      - name: Commit message ID for next workflow run
       # 4️⃣ Commit the message ID file
       - name: Commit last Discord message ID
         uses: EndBug/add-and-commit@v9
