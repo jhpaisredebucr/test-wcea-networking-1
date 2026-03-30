@@ -32,7 +32,7 @@ export async function GET(req) {
     const totalReferredMembers = referredMembers.length? Number(referredMembers[0].total_count) : 0;
     const pendingCount = referredMembers.filter(member => member.status === 'pending').length;
 
-    const dashboardData = {totalReferredMembers, pendingCount, referredMembers};
+    const dashboardData = {totalReferredMembers, pendingCount, referredMembers, test: "working" };
     
     return NextResponse.json({dashboardData});
 }
