@@ -48,7 +48,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
         router.push("/home/signin");
     }   
     
-    
+    const searchParams = useSearchParams();
+    const ref = searchParams.get('ref');
 
     return (
         <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
@@ -57,6 +58,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 <p>Please fill in your details to join our community portal.</p>
             </div>
             <div className="w-full grid grid-cols-2 gap-x-5">
+                <p>{ref}</p>
                 <Input label="Username" type="text" require value={formData.username} onChange={(val) => setFormData({ ...formData, username: val })}/>
                 <Input label="Email Address" type="text" require value={formData.email} onChange={(val) => setFormData({ ...formData, email: val })} />
                 <Input label="Contact Number" type="text" value={formData.contactNumber} onChange={(val) => setFormData({ ...formData, contactNumber: val })} />
