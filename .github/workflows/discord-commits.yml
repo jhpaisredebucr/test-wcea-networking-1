@@ -18,15 +18,17 @@ jobs:
         run: |
           # Get all commit messages in the push
           COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"• %h: %s by %an")
-          
+
           # Handle empty push (e.g., force push with no new commits)
           if [ -z "$COMMITS" ]; then
             COMMITS="No new commits in this push."
           fi
 
-          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
+          # Escape newlines for JSON
+          ESCAPED_COMMITS=$(echo "$COMMITS" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
 
-      # 3️⃣ Send Discord message with all commit messages
+          echo "COMMITS_ESCAPED=$ESCAPED_COMMITS" >> $GITHUB_ENV
+
       - name: Send Discord message
         run: |
           CHANNEL_ID="1486579386239942676"
@@ -35,5 +37,5 @@ jobs:
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d "{
-              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n${COMMITS}\"
+              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n${COMMITS_ESCAPED}\"
             }"
