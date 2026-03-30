@@ -23,7 +23,7 @@ jobs:
       - name: Send Discord message
         run: |
           # You need your channel ID here
-          CHANNEL_ID="<YOUR_CHANNEL_ID>"
+          CHANNEL_ID="<1486579386239942676>"
 
           # Optional: delete previous message if MESSAGE_ID is stored (you can keep it in a file in repo)
           if [ -f .last_discord_message_id ]; then
