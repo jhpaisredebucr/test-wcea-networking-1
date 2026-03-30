@@ -12,21 +12,21 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Get last 5 commits (summary)
-      - name: Get last 5 commits summary
-        id: summary
+      # 2️⃣ Get all commits in this push
+      - name: Get commits
+        id: commits
         run: |
-          COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
+          # Get all commit messages in the push
+          COMMITS=$(git log ${{ github.event.before }}..${{ github.sha }} --pretty=format:"• %h: %s by %an")
+          
+          # Handle empty push (e.g., force push with no new commits)
+          if [ -z "$COMMITS" ]; then
+            COMMITS="No new commits in this push."
+          fi
+
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
-      # 3️⃣ Get last 5 commits (detailed)
-      - name: Get last 5 commits detailed
-        id: detailed
-        run: |
-          COMMITS_DETAILED=$(git log -n 5 --pretty=format:"• %h: %s by %an <%ae> on %ad")
-          echo "COMMITS_DETAILED=$COMMITS_DETAILED" >> $GITHUB_ENV
-
-      # 4️⃣ Send Discord message with both embeds
+      # 3️⃣ Send Discord message with all commit messages
       - name: Send Discord message
         run: |
           CHANNEL_ID="1486579386239942676"
@@ -35,17 +35,5 @@ jobs:
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d "{
-              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**\",
-              \"embeds\": [
-                {
-                  \"title\": \"Last 5 commits summary\",
-                  \"description\": \"${COMMITS}\",
-                  \"color\": 5814783
-                },
-                {
-                  \"title\": \"Detailed View (previous 5 commits)\",
-                  \"description\": \"${COMMITS_DETAILED}\",
-                  \"color\": 16753920
-                }
-              ]
+              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n${COMMITS}\"
             }"
