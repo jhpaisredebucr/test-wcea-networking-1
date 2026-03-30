@@ -3,7 +3,7 @@
 /* ---------- Theme 1: Light ---------- */
 :root {
   
-
+  
   --background: #ffffff;
   --foreground:   #555555;
   --primary: #6b9ae6;   /* example primary color */
@@ -27,7 +27,7 @@
 .theme-soft {
   --background: #fffdf3;
   --foreground: #a069ff;
-  --primary: #e4aeca;
+  --primary: #e4aeca; 
   --secondary: #82d2f5;
 }
 
