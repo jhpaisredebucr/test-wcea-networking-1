@@ -11,14 +11,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Get last 5 commits (detailed)
-        id: commits
+      - name: Get last 5 commits summary
+        id: summary
         run: |
-          # Each commit: hash, subject, author, email, date
-          COMMITS=$(git log -n 5 --pretty=format:"• **%h**: %s by %an <%ae> on %ad")
+          COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
-      - name: Send Discord embed
+      - name: Get last 5 commits detailed
+        id: detailed
+        run: |
+          COMMITS_DETAILED=$(git log -n 5 --pretty=format:"• %h: %s by %an <%ae> on %ad")
+          echo "COMMITS_DETAILED=$COMMITS_DETAILED" >> $GITHUB_ENV
+
+      - name: Send Discord message with "Detailed View" button
         run: |
           CHANNEL_ID="1486579386239942676"
 
@@ -26,11 +31,31 @@ jobs:
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d "{
+              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**\",
               \"embeds\": [
                 {
-                  \"title\": \"📌 ${GITHUB_ACTOR} pushed to ${GITHUB_REPOSITORY}\",
+                  \"title\": \"Last 5 commits summary\",
                   \"description\": \"${COMMITS}\",
-                  \"color\": 5814783
+                  \"color\": 5814783,
+                  \"fields\": [
+                    {
+                      \"name\": \"Detailed View\",
+                      \"value\": \"Click the 'View Detailed Commits' button below\"
+                    }
+                  ]
+                }
+              ],
+              \"components\": [
+                {
+                  \"type\": 1,
+                  \"components\": [
+                    {
+                      \"type\": 2,
+                      \"label\": \"View Detailed Commits\",
+                      \"style\": 1,
+                      \"custom_id\": \"show_details\"
+                    }
+                  ]
                 }
               ]
             }"
