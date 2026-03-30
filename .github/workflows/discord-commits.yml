@@ -8,43 +8,29 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Get last 5 commits
-      - name: Get last 5 commits
+      - name: Get last 5 commits (detailed)
         id: commits
         run: |
-          COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
+          # Each commit: hash, subject, author, email, date
+          COMMITS=$(git log -n 5 --pretty=format:"• **%h**: %s by %an <%ae> on %ad")
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
-      # 3️⃣ Send Discord message
-      - name: Send Discord message
+      - name: Send Discord embed
         run: |
-          CHANNEL_ID="1486579386239942676"  # remove < >
+          CHANNEL_ID="1486579386239942676"
 
-          # Delete previous message if exists
-          if [ -f .last_discord_message_id ]; then
-            PREV_ID=$(cat .last_discord_message_id)
-            curl -s -X DELETE "https://discord.com/api/v10/channels/$CHANNEL_ID/messages/$PREV_ID" \
-              -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
-          fi
-
-          # Send new message
-          RESPONSE=$(curl -s -X POST "https://discord.com/api/v10/channels/$CHANNEL_ID/messages" \
+          curl -s -X POST "https://discord.com/api/v10/channels/$CHANNEL_ID/messages" \
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n$COMMITS\"}")
-
-          # Save the message ID for next run
-          echo "$RESPONSE" | jq -r '.id' > .last_discord_message_id
-
-      # 4️⃣ Commit the message ID file
-      - name: Commit last Discord message ID
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: github-actions
-          author_email: github-actions@github.com
-          message: "Update last Discord message ID"
-          add: ".last_discord_message_id"
+            -d "{
+              \"embeds\": [
+                {
+                  \"title\": \"📌 ${GITHUB_ACTOR} pushed to ${GITHUB_REPOSITORY}\",
+                  \"description\": \"${COMMITS}\",
+                  \"color\": 5814783
+                }
+              ]
+            }"
