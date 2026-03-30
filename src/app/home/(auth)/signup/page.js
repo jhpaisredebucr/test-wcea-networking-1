@@ -1,3 +1,4 @@
+"use client"
 import Sidebar from "@/app/cmpnts/layout/sidebar";
 import SignUpForm from "@/app/cmpnts/auth/sign_up_form";
 

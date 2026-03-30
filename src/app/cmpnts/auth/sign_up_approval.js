@@ -1,3 +1,4 @@
+"use client"
 export default function SignUpApproval() {
     return (
         <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">

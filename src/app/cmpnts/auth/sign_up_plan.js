@@ -1,3 +1,5 @@
+"use client"
+
 export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }) {
     function Next() {
         console.log(formData);
