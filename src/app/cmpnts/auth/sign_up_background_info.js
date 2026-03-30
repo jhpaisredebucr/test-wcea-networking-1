@@ -41,8 +41,8 @@ export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, 
                 <Input label="Street Address" type="text" value={formData.streetAddress} onChange={(val) => setFormData({ ...formData, streetAddress: val })} />
                 <Input label="Postal Code" type="text" value={formData.postalCode} onChange={(val) => setFormData({ ...formData, postalCode: val })} />
                 <div className="flex">
-                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Back</button>
-                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Next</button>
+                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Back</button>
+                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Next</button>
                 </div>
             </div>
         </div>

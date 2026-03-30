@@ -97,8 +97,8 @@ export default function SignUpPayment({ formData, setFormData, nextStep, prevSte
                     <p>PAYMAYA</p>
                 </button>
                 <div className="flex mt-5">
-                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Back</button>
-                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Submit</button>
+                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Back</button>
+                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Submit</button>
                 </div>
             </div>
         </div>

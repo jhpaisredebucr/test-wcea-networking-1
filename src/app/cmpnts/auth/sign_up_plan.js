@@ -48,8 +48,8 @@ export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }
                     <p>price: 1500</p>
                 </button>
                 <div className="flex mt-5">
-                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Back</button>
-                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-400 p-2 rounded-full text-white">Next</button>
+                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Back</button>
+                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Next</button>
                 </div>
             </div>
         </div>

@@ -59,7 +59,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 <Input label="Referral Code" type="text" value={formData.referralCode} onChange={(val) => setFormData({ ...formData, referralCode: val })} />
                 <Input label="Password" type="text" value={formData.password} onChange={(val) => setFormData({ ...formData, password: val })} />
                 <Input label="Confirm Password" type="text" value={formData.confirmPassword} onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
-                <button onClick={HandleSignUp} className="w-full h-13 bg-blue-400 col-span-2 p-2 rounded-md text-white">Create Account</button>
+                <button onClick={HandleSignUp} className="w-full h-13 bg-blue-500 col-span-2 p-2 rounded-md text-white">Create Account</button>
                 <div className="col-span-2 flex flex-col my-2">
                     <p>
                         Already have an account?

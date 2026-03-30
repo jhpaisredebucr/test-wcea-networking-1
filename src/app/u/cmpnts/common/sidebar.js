@@ -4,9 +4,9 @@ import Image from "next/image"
 export default function SideBar({ page, setPage, userInfo, role="member" }) {
 
     return (
-        <div className="fixed left-0 top-0 h-screen w-56 bg-gray-50 p-6">
-            <Image src="/images/logo.ico" alt="logo" width={40} height={40} className="mb-4" />
-            <p className="text-3xl font-semibold mb-6">Member</p>
+        <div className="fixed left-0 top-0 h-[calc(100vh-60px)] mt-15 w-56 bg-white p-6 border-r-2 border-gray-200">
+            {/* <Image src="/images/logo.ico" alt="logo" width={40} height={40} className="mb-4" /> */}
+            
 
             {role === "member" && 
                 <div className="space-y-2">
@@ -27,7 +27,7 @@ export default function SideBar({ page, setPage, userInfo, role="member" }) {
                 </div>
             }
 
-            <hr className="my-6" />
+            <hr className="my-6 border-t-2 border-gray-200" />
 
             <div className="space-y-2">
                 <SidebarButton buttonID={6} page={page} setPage={() => setPage(6)}>About</SidebarButton>

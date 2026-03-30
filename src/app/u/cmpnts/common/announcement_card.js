@@ -5,8 +5,8 @@ export default function AnouncementCard({ announcements }) {
     return (
         <div>
             <div className="p-5 rounded-lg bg-white">
-                <Profile first_name="Keisac" last_name="Buta"><p className="text-sm">{formatDistanceToNow(new Date(announcements?.created_at), { addSuffix: true })}</p></Profile>
-                <p className="font-bold my-5">{announcements?.title}</p>
+                <Profile first_name="WCEA" last_name=""><p className="text-sm">{formatDistanceToNow(new Date(announcements?.created_at), { addSuffix: true })}</p></Profile>
+                <p className="font-semibold my-5">{announcements?.title}</p>
                 <p>{announcements?.short_description}</p>
             </div>
         </div>
