@@ -19,7 +19,15 @@ jobs:
           COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
           echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
-      # 3️⃣ Send Discord message
+      # 3️⃣ Restore previous message ID from cache
+      - name: Restore previous Discord message ID
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: .last_discord_message_id
+          key: discord-message-id
+
+      # 4️⃣ Send Discord message
       - name: Send Discord message
         run: |
           CHANNEL_ID="1486579386239942676"
@@ -37,13 +45,12 @@ jobs:
             -H "Content-Type: application/json" \
             -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n${COMMITS}\"}")
 
-          # Save the message ID for deletion next time
+          # Save the message ID for next run
           echo "$RESPONSE" | jq -r '.id' > .last_discord_message_id
 
-      # 4️⃣ Commit the message ID file
-      - name: Commit last Discord message ID
-        uses: EndBug/add-and-commit@v9
+      # 5️⃣ Save the message ID to cache
+      - name: Cache Discord message ID
+        uses: actions/cache@v3
         with:
-          author_name: github-actions
-          author_email: github-actions@github.com
-          message: "Update last Discord message ID"
+          path: .last_discord_message_id
+          key: discord-message-id
