@@ -1,3 +1,4 @@
+#1486579386239942676 -- discord commits channel id
 name: Discord Commit Notifier
 
 on:
@@ -8,38 +9,53 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout full repo history
+      # 1️⃣ Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # important!
 
-      # 2️⃣ Get commits in this push
-      - name: Get commits
+      # 2️⃣ Get last 5 commits
+      - name: Get last 5 commits
         id: commits
         run: |
-          if [ "${GITHUB_EVENT_BEFORE}" = "0000000000000000000000000000000000000000" ]; then
-            # first commit or new branch
-            COMMITS=$(git log -n 10 --pretty=format:"• %h: %s by %an")
-          else
-            COMMITS=$(git log $GITHUB_EVENT_BEFORE..$GITHUB_SHA --pretty=format:"• %h: %s by %an")
-          fi
-
-          if [ -z "$COMMITS" ]; then
-            COMMITS="No new commits in this push."
-          fi
-
-          ESCAPED_COMMITS=$(echo "$COMMITS" | sed ':a;N;$!ba;s/\n/\\n/g' | sed 's/"/\\"/g')
-          echo "COMMITS_ESCAPED=$ESCAPED_COMMITS" >> $GITHUB_ENV
+          COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
+          echo "COMMITS<<EOF" >> $GITHUB_ENV
+          echo "$COMMITS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
 
       # 3️⃣ Send Discord message
       - name: Send Discord message
         run: |
-          CHANNEL_ID="1486579386239942676"
+          # You need your channel ID here
+          CHANNEL_ID="<1486579386239942676>"
+          CHANNEL_ID="1486579386239942676"  # remove < >
 
-          curl -s -X POST "https://discord.com/api/v10/channels/$CHANNEL_ID/messages" \
+          # Optional: delete previous message if MESSAGE_ID is stored (you can keep it in a file in repo)
+          # Delete previous message if exists
+          if [ -f .last_discord_message_id ]; then
+            PREV_ID=$(cat .last_discord_message_id)
+            curl -s -X DELETE "https://discord.com/api/v10/channels/$CHANNEL_ID/messages/$PREV_ID" \
+                 -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
+              -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
+          fi
+
+          # Send new message
+          RESPONSE=$(curl -s -X POST "https://discord.com/api/v10/channels/$CHANNEL_ID/messages" \
             -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{
-              \"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\n${COMMITS_ESCAPED}\"
-            }"
+            -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n${COMMITS}\"}")
+            -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n$COMMITS\"}")
+
+          # Save the message ID to a file to delete it next time
+          echo $RESPONSE | jq -r '.id' > .last_discord_message_id
+          # Save the message ID for next run
+          echo "$RESPONSE" | jq -r '.id' > .last_discord_message_id
+
+      - name: Commit message ID for next workflow run
+      # 4️⃣ Commit the message ID file
+      - name: Commit last Discord message ID
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github-actions
+          author_email: github-actions@github.com
+          message: "Update last Discord message ID"
