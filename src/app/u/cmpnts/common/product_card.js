@@ -1,7 +1,9 @@
 import Image from "next/image";
 
-export default function ProductCard({ products, userData }) {
+export default function ProductCard({ products, userData, setBuying  }) {
     async function Buy() {
+        setBuying(true);
+        
         const data = {
             user_id: userData?.userInfo?.id,
             product_id: products?.id,
