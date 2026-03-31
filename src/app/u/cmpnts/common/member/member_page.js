@@ -22,7 +22,7 @@ export default function MemberDashboard({ userData, dashboardData, announcements
     return (
         <div className="flex min-h-screen">
             {/* Sidebar */}
-            <SideBar page={page} setPage={setPage} />
+            <SideBar page={page} setPage={setPage} userData={userData}/>
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col bg-[#f5f6fa]">

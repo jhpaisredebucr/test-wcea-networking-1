@@ -20,7 +20,7 @@ export default function ProductCard({ products, userData }) {
                 <Image src="/images/example.jpg" alt="Product Picture" width={200} height={60} className="rounded-sm"/>
                 <p className="font-bold my-5">{products?.product_name}</p>
                 <p>{products?.description}</p>
-                <p>Price: {products?.price}</p>
+                <p>Price: ₱{products?.price}</p>
                 <button onClick={Buy} className="w-full p-3 mt-4 rounded-2xl bg-blue-500"><p className="text-white">Buy</p></button>
             </div>
         </div>

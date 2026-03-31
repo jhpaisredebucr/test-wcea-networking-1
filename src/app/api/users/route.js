@@ -14,9 +14,10 @@ export async function GET(req) {
   const profile = usersProfiles[0];
   const contacts = usersContacts[0];
   const address = usersAddresses[0];
+  const referredByUser = await query("SELECT * FROM users WHERE referral_code =$1", [userInfo.referred_by])
+  const referredBy = referredByUser[0];
 
-
-  return new Response(JSON.stringify({userInfo, profile, contacts, address, success: true}), {
+  return new Response(JSON.stringify({userInfo, profile, contacts, address, referredBy, success: true}), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });
