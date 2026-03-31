@@ -5,7 +5,7 @@ export default function DashboardMember({dashboardData, userData}) {
 
     return (
         <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
-            <Card title="Available Balance" value={`₱${dashboardData?.totalBalance}`} valueSize="text-4xl" clas info="" rowSpan="row-span-2" colSpan="col-span-2"><button className="p-2 bg-blue-500 rounded-lg"><p className="text-white">Withdraw</p></button></Card>
+            <Card title="Available Balance" value={`₱${dashboardData?.userBalance}`} valueSize="text-4xl" clas info="" rowSpan="row-span-2" colSpan="col-span-2"><button className="p-2 bg-blue-500 rounded-lg"><p className="text-white">Withdraw</p></button></Card>
             <Card title="Commissions" value={dashboardData?.totalReferredMembers} info="" colSpan="col-span-2"/>
             <Card title="Total Referred" value={dashboardData?.totalReferredMembers} info="" colSpan="col-span-2"/>
             <Card title="Referral Link" value={

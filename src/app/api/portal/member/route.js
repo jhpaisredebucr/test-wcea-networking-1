@@ -30,10 +30,26 @@ export async function GET(req) {
         ,[userReferralCode]
     )
 
+    const totalOrder = await query(
+        `
+            SELECT COALESCE(SUM(p.price), 0) AS totalSpent
+            FROM orders o
+            JOIN products p ON o.product_id = p.id
+            WHERE o.user_id = (
+            SELECT id FROM users WHERE referral_code = $1);
+        `,
+        [userReferralCode]
+    )
+
+    const totalSpent = Number(totalOrder?.[0]?.totalspent || 0);
+    const totalBalanceValue = Number(totalBalance?.[0]?.totalbalance || 0);
+
+    const userBalance = totalBalanceValue - totalSpent;
+
     const totalReferredMembers = referredMembers.length? Number(referredMembers[0].total_count) : 0;
     const pendingCount = referredMembers.filter(member => member.status === 'pending').length;
 
-    const dashboardData = {totalReferredMembers, pendingCount, totalBalance: Number(totalBalance[0]?.totalbalance ?? 0), referredMembers };
+    const dashboardData = {totalReferredMembers, pendingCount, totalBalanceValue, userBalance, referredMembers };
     
     return NextResponse.json({dashboardData});
 }

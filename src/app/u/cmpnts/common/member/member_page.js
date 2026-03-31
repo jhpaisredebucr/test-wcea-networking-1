@@ -56,7 +56,7 @@ export default function MemberDashboard({ userData, dashboardData, announcements
 
                     {page === 1 && <AnouncementMember announcements={announcements} />}
                     {page === 2 && <DashboardMember dashboardData={dashboardData} userData={userData} />}
-                    {page === 3 && <ProductsMember products={products} userData={userData} />}
+                    {page === 3 && <ProductsMember products={products} userData={userData} dashboardData={dashboardData}/>}
                     {page === 4 && <OrdersMember orders={orders} products={products} userData={userData} />}
                     {page === 5 && <ReferralsMember userData={userData} dashboardData={dashboardData} />}
                 </div>

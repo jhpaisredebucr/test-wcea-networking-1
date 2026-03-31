@@ -3,8 +3,9 @@ import BuyModal from "../buy_modal";
 import ProductCard from "../product_card";
 import { useState } from "react";
 
-export default function ProductsMember({ products, userData }) {
+export default function ProductsMember({ products, userData, dashboardData }) {
     const [buying, setBuying] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     if (!products) {
         return <p>Loading products...</p>;
@@ -12,7 +13,7 @@ export default function ProductsMember({ products, userData }) {
     
     return (
         <div className="grid grid-cols-4">
-            {buying === true && <BuyModal setBuying={setBuying}/>}
+            {buying === true && selectedProduct && <BuyModal setBuying={setBuying} product={selectedProduct} userData={userData} dashboardData={dashboardData}/>}
             <div className="space-y-4">
                 {products.map((product) => (
                     <ProductCard
@@ -20,6 +21,7 @@ export default function ProductsMember({ products, userData }) {
                         products={product}
                         userData={userData}
                         setBuying={setBuying}
+                        setSelectedProduct={setSelectedProduct}
                     />
                 ))}
             </div>

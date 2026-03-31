@@ -5,7 +5,7 @@ export async function POST(req) {
     const body = await req.json();
     const { user_id, product_id} = body;
 
-    const res = await query(
+    const buyRes = await query(
         `
             INSERT INTO orders (user_id, product_id)
             VALUES ($1, $2)
@@ -14,7 +14,13 @@ export async function POST(req) {
         [user_id, product_id]
     )
 
-    const products = await query("SELECT * FROM products WHERE id=$1")
+    // const balanceRes = await query(
+    //     `
 
-    return NextResponse.json({order: res[0], products: products});
+    //     `
+    // )
+
+    const products = await query("SELECT * FROM products WHERE id=$1", [product_id])
+
+    return NextResponse.json({order: buyRes[0], products: products});
 }
