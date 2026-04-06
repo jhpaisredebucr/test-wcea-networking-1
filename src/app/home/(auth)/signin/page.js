@@ -1,4 +1,4 @@
-import SignInForm from "@/app/cmpnts/auth/sign_in_form";
+import SignInForm from "@/app/components/auth/sign_in_form";
 
 export const metadata = {
   title: "Sign In"

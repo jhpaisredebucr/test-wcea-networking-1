@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import SideBar from "../sidebar";
-import Profile from "@/app/cmpnts/common/profile";
+import Profile from "@/app/components/common/profile";
 import DashboardAdmin from "./dashboard";
 import MembersAdmin from "./members";
 

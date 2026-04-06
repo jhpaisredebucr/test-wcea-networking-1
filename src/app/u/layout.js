@@ -1,5 +1,5 @@
 import "@/app/globals.css"
-import TopBar from "../cmpnts/layout/top-bar";
+import TopBar from "../components/layout/top-bar";
 
 export default function RootLayout({ children }) {
   return (

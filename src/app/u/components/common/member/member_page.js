@@ -9,7 +9,7 @@ import ProductsMember from "./product_shop";
 import OrdersMember from "./my_orders";
 import ReferralsMember from "./referrals";
 import SideBar from "../sidebar";
-import Profile from "@/app/cmpnts/common/profile";
+import Profile from "@/app/components/common/profile";
 
 export default function MemberDashboard({ userData, dashboardData, announcements, products, orders }) {
     const [page, setPage] = useState(1);

@@ -1,13 +1,13 @@
 "use client"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import AnouncementMember from "../../cmpnts/common/member/anouncement";
-import DashboardMember from "../../cmpnts/common/member/dashboard";
-import ProductsMember from "../../cmpnts/common/member/product_shop";
-import OrdersMember from "../../cmpnts/common/member/my_orders";
-import ReferralsMember from "../../cmpnts/common/member/referrals";
+import AnouncementMember from "../../components/common/member/anouncement";
+import DashboardMember from "../../components/common/member/dashboard";
+import ProductsMember from "../../components/common/member/product_shop";
+import OrdersMember from "../../components/common/member/my_orders";
+import ReferralsMember from "../../components/common/member/referrals";
 import SideBar from "./sidebar";
-import Profile from "@/app/cmpnts/common/profile";
+import Profile from "@/app/components/common/profile";
 
 export default function Dashboard() {
     const [userInfo, setUserInfo] = useState(null);

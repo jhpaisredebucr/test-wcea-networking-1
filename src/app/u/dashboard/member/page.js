@@ -1,56 +1,113 @@
-import MemberDashboard from "../../cmpnts/common/member/member_page";
-import { cookies } from "next/headers";
+"use client"
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import AnouncementMember from "../../components/common/member/anouncement";
+import DashboardMember from "../../components/common/member/dashboard";
+import ProductsMember from "../../components/common/member/product_shop";
+import OrdersMember from "../../components/common/member/my_orders";
+import ReferralsMember from "../../components/common/member/referrals";
+import SideBar from "../../components/common/sidebar";
+import Profile from "@/app/components/common/profile";
 
-export default async function MemberPage() {
-    const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
+export default function Dashboard() {
+    //User's Data
+    const [userInfo, setUserInfo] = useState(null);
+    const [profile, setUserProfile] = useState(null);
+    const [contacts, setUserContacts] = useState(null);
+    const [address, setUserAddress] = useState(null);
+    const [dashboardData, setDashboardData] = useState(null);
 
-    async function GetUserData() {
-        const cookieStore = await cookies();
-        const userID = cookieStore.get("userID")?.value;
+    const [announcements, setAnouncement] = useState(null);
+    const [products, setProducts] = useState(null);
+    const [orders, setOrders] = useState(null);
 
-        console.log("userID:", userID);
+    const [page, setPage] = useState(1);
 
-        if (!userID) return null;
+    const router = useRouter();
 
-        const res = await fetch(`${API_HOST}/api/users?user-id=${userID}`);
-        const data = await res.json();
 
-        console.log("User data response:", data);
-
-        return data.success ? data : null;
+    function GoProfile() {
+        router.push("/profile");
     }
 
-    async function GetAnouncement() {
-        const res = await fetch(`${API_HOST}/api/announcement`);
-        const data = await res.json();
-        return data.announcements;
-    }
-    
-    async function GetProducts() {
-        const res = await fetch(`${API_HOST}/api/products`);
-        const data = await res.json();
-        return data.products;
-    }
+    useEffect(() => {
+        const userID = localStorage.getItem("userID");
+        if (!userID) return;
 
-    async function GetOrders() {
-        const res = await fetch(`${API_HOST}/api/products/orders`);
-        const data = await res.json();
-        return data.orders;
-    }
+        fetch(`/api/users?user-id=${userID}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setUserInfo(data.userInfo);
+                    setUserProfile(data.profile);
+                    setUserContacts(data.contacts);
+                    setUserAddress(data.address);
+                    console.log(data);
+                }
+            });
 
-    async function GetDashboardData(userReferralCode) {
-        const res = await fetch(`${API_HOST}/api/portal/member?userReferralCode=${userReferralCode?.userInfo?.referral_code}`);
-        const data = await res.json();
-        return data.dashboardData;
-    }
+        async function GetAnouncement() {
+            const res = await fetch("/api/announcement");
+            const data = await res.json();
+            setAnouncement(data.announcements);
+        }
+        
+        async function GetProducts() {
+            const res = await fetch("/api/products");
+            const data = await res.json();
+            setProducts(data.products);
+        }
 
-    const userData = await GetUserData();
-    const announcements = await GetAnouncement();
-    const products = await GetProducts();
-    const orders = await GetOrders();
-    const dashboardData = await GetDashboardData(userData);
+        async function GetOrders() {
+            const res = await fetch("/api/products/orders");
+            const data = await res.json();
+            setOrders(data.orders);
+        }
+
+        GetAnouncement();
+        GetProducts();
+        GetOrders();
+    }, []);
+
+    useEffect(() => {
+        if (!userInfo?.referral_code) return;
+
+        async function GetDashboardData() {
+            const res = await fetch(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
+            const data = await res.json();
+            setDashboardData(data.dashboardData);
+        }
+
+        GetDashboardData();
+
+    }, [userInfo]);
+
+
 
     return (
-        <MemberDashboard userData={userData} announcements={announcements} products={products} orders={orders} dashboardData={dashboardData}/>
-    )
+        <>
+            <SideBar page={page} setPage={setPage}/>
+            
+            <div className="w-full flex">
+                {/* MAIN CONTENT */}
+                <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
+                    <div className="flex items-center justify-between mb-6">
+                        {page === 1 && <p className="text-3xl font-semibold">Announcement</p>}
+                        {page === 2 && <p className="text-3xl font-semibold">Dashboard</p>}
+                        {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
+                        {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
+                        {page === 5 && <p className="text-3xl font-semibold">Referrals</p>}
+
+                        <Profile GoProfile={GoProfile} first_name={profile?.first_name} last_name={profile?.last_name}/>
+                    </div>
+                    {page === 1 && <AnouncementMember announcements={announcements}/>}
+                    {page === 2 && <DashboardMember dashboardData={dashboardData}/>}
+                    {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
+                    {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
+                    {page === 5 && <ReferralsMember userInfo={userInfo} dashboardData={dashboardData}/>}
+                </div>
+            </div>
+        </>
+    );
 }

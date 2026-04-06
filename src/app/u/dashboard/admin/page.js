@@ -1,4 +1,4 @@
-import AdminDashboard from "../../cmpnts/common/admin/admin_page";
+import AdminDashboard from "../../components/common/admin/admin_page";
 import { cookies } from "next/headers";
 
 export default async function AdminPage() {
