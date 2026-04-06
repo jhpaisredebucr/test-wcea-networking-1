@@ -1,5 +1,5 @@
 "use client"
-import Input from "../common/input"
+import Input from "../common/Input"
 
 export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, prevStep }) {
     function Next() {

@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
-import SideBar from "../sidebar";
-import Profile from "@/app/components/common/profile";
-import DashboardAdmin from "./dashboard";
-import MembersAdmin from "./members";
+import SideBar from "../../layout/SideBar";
+import Profile from "@/app/components/common/Profile";
+import DashboardAdmin from "./Dashboard";
+import MembersAdmin from "./Members";
 
 export default function AdminDashboard({ dashboardData, userData }) {
     const [page, setPage] = useState(1);

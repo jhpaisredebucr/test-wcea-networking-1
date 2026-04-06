@@ -1,6 +1,6 @@
 "use client"
-import BuyModal from "../buy_modal";
-import ProductCard from "../product_card";
+import BuyModal from "../../ui/BuyModal";
+import ProductCard from "../../ui/ProductCard";
 import { useState } from "react";
 
 export default function ProductsMember({ products, userData, dashboardData }) {

@@ -3,13 +3,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
-import AnouncementMember from "./anouncement";
-import DashboardMember from "./dashboard";
-import ProductsMember from "./product_shop";
-import OrdersMember from "./my_orders";
-import ReferralsMember from "./referrals";
-import SideBar from "../sidebar";
-import Profile from "@/app/components/common/profile";
+import AnouncementMember from "./Announcement";
+import DashboardMember from "./Dashboard";
+import ProductsMember from "./ProductShop";
+import OrdersMember from "./MyOrders";
+import ReferralsMember from "./Refferals";
+import SideBar from "../../layout/SideBar";
+import Profile from "@/app/components/common/Profile";
 
 export default function MemberDashboard({ userData, dashboardData, announcements, products, orders }) {
     const [page, setPage] = useState(1);

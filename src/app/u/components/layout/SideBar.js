@@ -1,4 +1,4 @@
-import SidebarButton from "./sidebar_button"
+import SidebarButton from "../ui/SideBarButton"
 import Image from "next/image"
 
 export default function SideBar({ page, setPage, userData, role="member" }) {

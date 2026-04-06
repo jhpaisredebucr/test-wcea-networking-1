@@ -1,4 +1,4 @@
-import Card from "../card"
+import Card from "../../ui/Card"
 
 export default function DashboardAdmin({dashboardData}) {
     return (

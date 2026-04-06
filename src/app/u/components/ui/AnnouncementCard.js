@@ -1,4 +1,4 @@
-import Profile from "@/app/components/common/profile"
+import Profile from "@/app/components/common/Profile"
 import { formatDistanceToNow } from "date-fns";
 
 export default function AnouncementCard({ announcements }) {

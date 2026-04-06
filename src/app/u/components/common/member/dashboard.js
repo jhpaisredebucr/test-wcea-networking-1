@@ -1,4 +1,4 @@
-import Card from "../card"
+import Card from "../../ui/Card"
 
 export default function DashboardMember({dashboardData, userData}) {
     const API_HOST = process.env.NEXT_PUBLIC_API_HOST;

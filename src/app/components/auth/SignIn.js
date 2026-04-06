@@ -1,5 +1,5 @@
 "use client"
-import Input from "../common/input"
+import Input from "../common/Input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
