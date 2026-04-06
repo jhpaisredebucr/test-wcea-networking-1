@@ -1,6 +1,6 @@
 "use client";
-import Input from "../common/Input";
-import Button from "../common/Button";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

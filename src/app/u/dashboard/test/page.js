@@ -5,9 +5,9 @@ import AnouncementMember from "../../components/common/member/Announcement";
 import DashboardMember from "../../components/common/member/Dashboard";
 import ProductsMember from "../../components/common/member/ProductShop";
 import OrdersMember from "../../components/common/member/MyOrders";
-import ReferralsMember from "../../components/common/member/Refferals";
+import ReferralsMember from "../../components/common/member/Referrals";
 import SideBar from "./sidebar";
-import Profile from "@/app/components/common/Profile";
+import Profile from "@/app/components/ui/Profile";
 
 export default function Dashboard() {
     const [userInfo, setUserInfo] = useState(null);

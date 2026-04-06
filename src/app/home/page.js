@@ -1,6 +1,6 @@
 'use client"'
 
-import Badge from "../components/common/badge"
+import Badge from "../components/ui/Badge"
 
 export default function Page() {
     return (

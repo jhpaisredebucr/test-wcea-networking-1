@@ -7,9 +7,9 @@ import AnouncementMember from "./Announcement";
 import DashboardMember from "./Dashboard";
 import ProductsMember from "./ProductShop";
 import OrdersMember from "./MyOrders";
-import ReferralsMember from "./Refferals";
+import ReferralsMember from "./Referrals";
 import SideBar from "../../layout/SideBar";
-import Profile from "@/app/components/common/Profile";
+import Profile from "@/app/components/ui/Profile";
 
 export default function MemberDashboard({ userData, dashboardData, announcements, products, orders }) {
     const [page, setPage] = useState(1);
@@ -53,6 +53,9 @@ export default function MemberDashboard({ userData, dashboardData, announcements
                         {page === 4 && "My Orders"}
                         {page === 5 && "Referrals"}
                     </h1>
+
+                    
+    
 
                     {page === 1 && <AnouncementMember announcements={announcements} />}
                     {page === 2 && <DashboardMember dashboardData={dashboardData} userData={userData} />}

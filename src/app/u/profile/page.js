@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Input from "../../components/common/Input";
-import Button from "../../components/common/Button";
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
 
 export default function Profile() {
     // Simulate getting user info dynamically

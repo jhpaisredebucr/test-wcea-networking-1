@@ -1,4 +1,5 @@
 import Card from "../../ui/Card"
+import FormPdf from "./FormPdf";
 
 export default function DashboardMember({dashboardData, userData}) {
     const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
@@ -24,6 +25,8 @@ export default function DashboardMember({dashboardData, userData}) {
             <Card title="" value="" info=""/>
             <Card title="" value="" info=""/>
             <Card title="" value="" info=""/>
+            <Card title="" value="" info=""/>
+            <FormPdf/>  
         </div>
     )
 }

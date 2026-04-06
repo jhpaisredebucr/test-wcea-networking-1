@@ -1,5 +1,5 @@
 "use client"
-import Input from "../common/Input"
+import Input from "../ui/Input"
 import { useRouter } from "next/navigation";
 
 export default function SignUpInfo({ formData, setFormData, nextStep }) {
