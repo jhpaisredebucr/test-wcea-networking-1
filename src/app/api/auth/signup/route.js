@@ -1,5 +1,7 @@
 import { query } from "../../../../lib/db";
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
+import nanoid from "nanoid";
 
 export async function POST(req) {
     try {
@@ -33,14 +35,8 @@ export async function POST(req) {
 
         //user referral code
         function generateReferralCode() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-            let code = "MEM-";
-
-            for (let i = 0; i < 6; i++) {
-                code += chars[Math.floor(Math.random() * chars.length)];
-            }
-
+            let code = `MEM-${nanoid(6).toUpperCase()}`;
+            
             return code;
         }
 
@@ -86,7 +82,7 @@ export async function POST(req) {
             [userID, city, barangay, postalCode, streetAddress]
         );
 
-        return Response.json({
+        return NextResponse.json({
             success: true,
             message: "Successfully signed up",
             user: {
@@ -94,13 +90,14 @@ export async function POST(req) {
                 username: user.username,
                 role: user.role,
                 referral_code: user.referral_code
-            }
-        });
+            }},
+            {status: 201}
+        );
 
     } catch (err) {
-        return Response.json({
+        return NextResponse.json({
             success: false,
             message: err.message
-        });
+        },{status: 500});
     }
 }

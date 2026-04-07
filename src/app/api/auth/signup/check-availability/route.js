@@ -1,34 +1,42 @@
 import { query } from "../../../../../lib/db";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
-    const body = await req.json();
-    let {
-        username,
-        password
-        // email,
-        // contactNumber,
-    } = body;
+    try {
 
-    if (password.length < 6) {
-        return Response.json({ success: false, message: "Password too short" });
-    }
+        const body = await req.json();
+        let {
+            username,
+            password
+            // email,
+            // contactNumber,
+        } = body;
 
-    username = username.toLowerCase();
+        if (password.length < 6) {
+            return NextResponse.json({ success: false, message: "Password too short" },{status: 400});
+        }
 
-    const existing = await query(
-        `SELECT * FROM users WHERE username=$1`,
-        [username]
-    );
+        username = username.toLowerCase();
 
-    if (existing.length > 0) {
-        return Response.json({
-            success: false,
-            message: "Username already exists"
-        });
-    } else {
-        return Response.json({
-            success: true,
-            message: "Username is available"
-        });
+        const existing = await query(
+            `SELECT * FROM users WHERE username=$1`,
+            [username]
+        );
+
+        if (existing.length > 0) {
+            return NextResponse.json({
+                success: false,
+                message: "Username already exists"
+            });
+        } else {
+            return Response.json({
+                success: true,
+                message: "Username is available"
+            });
+        }
+        
+    } catch (err) {
+        console.error("Error checking username availability:", err);
+        return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 });
     }
 }

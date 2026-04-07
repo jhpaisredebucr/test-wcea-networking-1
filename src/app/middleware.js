@@ -1,16 +1,19 @@
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export function middleware(req){
-    const token = req.cookies.get(`token`);
+    const token = req.cookies.get(`token`)?.value;
     const isDashboard = req.nextUrl.pathname.startsWith("/dashboard");
 
-    console.log("Middleware executed. Token:", token, "Is Dashboard:", isDashboard);
     
-    if (!token && isDashboard) {
-            return NextResponse.redirect(new URL("/", req.url));
-    }
+    if (!token && isDashboard) { return NextResponse.redirect(new URL("/", req.url));} 
 
-    return NextResponse.next();
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      return NextResponse.next();
+    } catch (err) {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
 }
 
 export const config = {

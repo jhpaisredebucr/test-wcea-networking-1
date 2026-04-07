@@ -1,4 +1,5 @@
 // src/app/api/users/route.js
+import { NextResponse } from "next/server.js";
 import { query } from "../../../../lib/db.js";
 
 export async function GET(req) {
@@ -17,8 +18,6 @@ export async function GET(req) {
   const referredByUser = await query("SELECT * FROM users WHERE referral_code =$1", [userInfo.referred_by])
   const referredBy = referredByUser[0];
 
-  return new Response(JSON.stringify({userInfo, profile, contacts, address, referredBy, success: true}), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return NextResponse.json({userInfo, profile, contacts, address, referredBy, success: true}, 
+    {status: 200, headers: { "Content-Type": "application/json" }});
 }
