@@ -1,4 +1,4 @@
-import SidebarButton from "../../ui/SideBarButton"
+import SidebarButton from "../ui/SideBarButton"
 
 export default function SideBar({ page, setPage, userInfo, role="member" }) {
     return (

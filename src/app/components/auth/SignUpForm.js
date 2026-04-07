@@ -1,10 +1,10 @@
 "use client"
 import { useState } from "react";
-import SignUpInfo from "./sign_up_info";
-import SignUpBackgroundInfo from "./sign_up_background_info";
-import SignUpPlan from "./sign_up_plan";
-import SignUpPayment from "./sign_up_payment";
-import SignUpApproval from "./sign_up_approval";
+import SignUpInfo from "./SignUpInfo";
+import SignUpBackgroundInfo from "./SignUpBackgroundInfo";
+import SignUpPlan from "./SignUpPlan";
+import SignUpPayment from "./SignUpPayment";
+import SignUpApproval from "./SignUpApproval";
 
 export default function SignUpForm({ refCode }) {
   const [step, setStep] = useState(1);
