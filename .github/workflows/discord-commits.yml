@@ -8,49 +8,9 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      # 2️⃣ Get last 5 commits
-      - name: Get last 5 commits
-        id: commits
+      - name: Send Discord webhook
         run: |
-          COMMITS=$(git log -n 5 --pretty=format:"• %h: %s by %an")
-          echo "COMMITS=$COMMITS" >> $GITHUB_ENV
-
-      # 3️⃣ Restore previous message ID from cache
-      - name: Restore previous Discord message ID
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: .last_discord_message_id
-          key: discord-message-id
-
-      # 4️⃣ Send Discord message
-      - name: Send Discord message
-        run: |
-          CHANNEL_ID="1486579386239942676"
-
-          # Delete previous message if exists
-          if [ -f .last_discord_message_id ]; then
-            PREV_ID=$(cat .last_discord_message_id)
-            curl -s -X DELETE "https://discord.com/api/v10/channels/$CHANNEL_ID/messages/$PREV_ID" \
-              -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
-          fi
-
-          # Send new message
-          RESPONSE=$(curl -s -X POST "https://discord.com/api/v10/channels/$CHANNEL_ID/messages" \
-            -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nLast 5 commits:\n${COMMITS}\"}")
-
-          # Save the message ID for next run
-          echo "$RESPONSE" | jq -r '.id' > .last_discord_message_id
-
-      # 5️⃣ Save the message ID to cache
-      - name: Cache Discord message ID
-        uses: actions/cache@v3
-        with:
-          path: .last_discord_message_id
-          key: discord-message-id
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nCOMMIT MESSAGE:\n\`\`\`${{ github.event.head_commit.message }}\`\`\`\nhttps://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}" \
+               "${{ secrets.DISCORD_WEBHOOK }}"
