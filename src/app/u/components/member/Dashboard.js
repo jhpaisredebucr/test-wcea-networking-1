@@ -1,4 +1,4 @@
-import Card from "../../ui/Card"
+import Card from "../ui/Card"
 import FormPdf from "./FormPdf";
 
 export default function DashboardMember({dashboardData, userData}) {

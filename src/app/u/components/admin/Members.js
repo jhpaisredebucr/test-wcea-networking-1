@@ -1,4 +1,4 @@
-import Card from "../../ui/Card";
+import Card from "../ui/Card";
 import { format } from "date-fns";
 
 export default function MembersAdmin({ userInfo, dashboardData }) {

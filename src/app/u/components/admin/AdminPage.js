@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 
-import SideBar from "../../layout/SideBar";
+import SideBar from "../layout/SideBar";
 import Profile from "@/app/components/ui/Profile";
 import DashboardAdmin from "./Dashboard";
 import MembersAdmin from "./Members";

@@ -6,6 +6,20 @@ function Button({children, onClick}) {
     )
 }
 
+function NavBarButton({children, onClick}) {
+    return (
+        <button onClick={onClick} className="                    
+            active:scale-95 active:bg-gray-200
+            mx-1 p-2 
+            border-b-2 border-transparent 
+            hover:border-(--primary) hover:text-(--primary)
+            transition duration-200"
+        >
+            {children}
+        </button>
+    )
+}
+
 export default Button
 
-export {}
+export {NavBarButton,}

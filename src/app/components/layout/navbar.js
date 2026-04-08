@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation"
 import Image from "next/image";
 import { useState } from "react";
+import { NavBarButton } from "../ui/Button";
 
 export default function Navbar() {
     const router = useRouter();
@@ -24,7 +25,10 @@ export default function Navbar() {
         router.push("/home/contacts")
     }
 
-    
+    function Memberships() {
+        router.push("/home/memberships")
+
+    }
     
 
     return (
@@ -35,45 +39,11 @@ export default function Navbar() {
             </div>
             
             <div className="">
-               <button onClick={Home} className="
-                    active:scale-95 active:bg-gray-200
-                    mx-1 p-2 
-                    border-b-2 border-transparent 
-                    hover:border-(--primary)
-                    transition duration-200
-                ">
-                Home
-                </button>
-
-                <button onClick={About} className="
-                    active:scale-95 active:bg-gray-200
-                    mx-1 p-2 
-                    border-b-2 border-transparent 
-                    hover:border-(--primary)
-                    transition duration-200
-                ">
-                About
-                </button>
-
-                <button onClick={Register} className="
-                    active:scale-95 active:bg-gray-200
-                    mx-1 p-2 
-                    border-b-2 border-transparent 
-                    hover:border-(--primary)
-                    transition duration-200
-                ">
-                Register
-                </button>
-
-                <button onClick={Contacts} className="
-                    active:scale-95 active:bg-gray-200
-                    mx-1 p-2 
-                    border-b-2 border-transparent 
-                    hover:border-(--primary)
-                    transition duration-200
-                ">
-                Contacts
-                </button>
+                <NavBarButton onClick={Home}>Home</NavBarButton>
+                <NavBarButton onClick={About}>About</NavBarButton>
+                <NavBarButton onClick={Register}>Register</NavBarButton>
+                <NavBarButton onClick={Contacts}>Contacts</NavBarButton>
+                <NavBarButton onClick={Memberships}>Memberships</NavBarButton>
             </div>
       </nav>
     )
