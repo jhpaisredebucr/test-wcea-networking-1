@@ -8,18 +8,20 @@ function Button({children, onClick}) {
 
 function NavBarButton({children, onClick}) {
     return (
-        <button onClick={onClick} className="                    
+        <button onClick={onClick} className="     
+            flex-1              
             active:scale-95 active:bg-gray-200
-            mx-1 p-2 
+            mx-1 p-2 h-10
             border-b-2 border-transparent 
             hover:border-(--primary) hover:text-(--primary)
-            transition duration-200"
+            transition duration-200
+            cursor-pointer
+            "
         >
             {children}
         </button>
     )
 }
 
-export default Button
 
-export {NavBarButton,}
+export {NavBarButton}
