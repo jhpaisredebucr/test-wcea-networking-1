@@ -10,7 +10,6 @@ export default function OrdersMember({orders, products, userData}) {
     return (
         <div >
             <div className="space-y-4">
-s
                 
                 {userOrders.map((order) => (
                     <OrderCard 

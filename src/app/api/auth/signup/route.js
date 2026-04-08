@@ -1,4 +1,4 @@
-import { query } from "../../../../lib/db";
+import { query } from "@/lib/db";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 import {nanoid} from "nanoid";
@@ -95,6 +95,7 @@ export async function POST(req) {
         );
 
     } catch (err) {
+        console.error(err);
         return NextResponse.json({
             success: false,
             message: err.message

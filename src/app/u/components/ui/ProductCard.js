@@ -13,10 +13,9 @@ export default function ProductCard({ products, userData, setBuying, setSelected
 
     return (
         <div className="
-            group
             p-4 rounded-xl bg-white border-0 border-(--primary)
             flex flex-col gap-4
-            transition duration-200 hover:scale-101 hover:border hover:shadow-lg
+            transition duration-300 hover:-translate-y-2 hover:border hover:shadow-lg
         ">
             {/* Image — full width */}
             <div className="overflow-hidden rounded-lg w-full h-40">
@@ -25,7 +24,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
                     alt="Product Picture" 
                     width={400} 
                     height={160} 
-                    className="w-full h-full object-cover transition duration-300 ease-in-out group-hover:scale-110"
+                    className="w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110"
                 />
             </div>
 

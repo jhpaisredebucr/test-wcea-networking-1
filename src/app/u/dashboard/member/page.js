@@ -9,6 +9,7 @@ import OrdersMember from "../../components/member/MyOrders";
 import ReferralsMember from "../../components/member/Referrals";
 import SideBar from "../../components/layout/SideBar";
 import Profile from "@/app/components/ui/Profile";
+import Transactions from "../../components/member/Transactions";
 
 export default function Dashboard() {
     // User's Data
@@ -162,6 +163,7 @@ export default function Dashboard() {
                         {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
                         {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
                         {page === 5 && <p className="text-3xl font-semibold">Referrals</p>}
+                        {page === 6 && <p className="text-3xl font-semibold">Transactions</p>}
 
                         <Profile 
                             GoProfile={GoProfile} 
@@ -175,8 +177,9 @@ export default function Dashboard() {
                     {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
                     {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
                     {page === 5 && <ReferralsMember userInfo={userInfo} dashboardData={dashboardData}/>}
+                    {page === 6 && <Transactions/>}
                 </div>
-            </div>
+            </div>  
         </>
     );
 }

@@ -1,4 +1,5 @@
 "use client"
+
 import Input from "../ui/Input"
 
 export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, prevStep }) {
@@ -23,6 +24,8 @@ export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, 
             alert("Please fill in all required fields.");
             return true;
         }
+
+        return false; 
     }
 
     return (
@@ -35,7 +38,12 @@ export default function SignUpBackgroundInfo({ formData, setFormData, nextStep, 
                 <Input label="First Name" type="text" value={formData.firstName} onChange={(val) => setFormData({ ...formData, firstName: val })} />
                 <Input label="Last Name" type="text" value={formData.lastName} onChange={(val) => setFormData({ ...formData, lastName: val })} />
                 <Input label="Middle Name" type="text" value={formData.middleName} onChange={(val) => setFormData({ ...formData, middleName: val })} />
-                <Input label="Date of Birth" type="text" value={formData.dob} onChange={(val) => setFormData({ ...formData, dob: val })} />
+                <Input
+                label="Date of Birth"
+                type="date"
+                value={formData.dob}
+                onChange={(val) => setFormData({ ...formData, dob: val })}
+                />
                 <Input label="City" type="text" value={formData.city} onChange={(val) => setFormData({ ...formData, city: val })} />
                 <Input label="Baranggay" type="text" value={formData.barangay} onChange={(val) => setFormData({ ...formData, barangay: val })} />
                 <Input label="Street Address" type="text" value={formData.streetAddress} onChange={(val) => setFormData({ ...formData, streetAddress: val })} />

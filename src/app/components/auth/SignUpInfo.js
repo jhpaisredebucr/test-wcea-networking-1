@@ -1,33 +1,55 @@
 "use client"
 import Input from "../ui/Input"
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUpInfo({ formData, setFormData, nextStep }) {
     const router = useRouter();
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    function CheckMissingFields() {
+    function validate() {
         const { username, email, contactNumber, referralCode, password, confirmPassword } = formData;
+        const newErrors = {};
 
-        if (!username || !email || !contactNumber || !password || !confirmPassword || !referralCode) {
-            alert("Please fill in all required fields.");
-            return true;
+        // Required fields
+        if (!username) newErrors.username = "Username is required.";
+        if (!email) newErrors.email = "Email is required.";
+        if (!contactNumber) newErrors.contactNumber = "Contact number is required.";
+        if (!password) newErrors.password = "Password is required.";
+        if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password.";
+
+        // Email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+            newErrors.email = "Please enter a valid email address.";
         }
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return true;
+        // Contact number — must be 11 digits starting with 09
+        const contactRegex = /^09\d{9}$/;
+        if (contactNumber && !contactRegex.test(contactNumber)) {
+            newErrors.contactNumber = "Enter a valid PH number (e.g. 09XXXXXXXXX).";
         }
+
+
+
+        // Password match
+        if (password && confirmPassword && password !== confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     }
- 
-    async function HandleSignUp() {
-        const isMissing = CheckMissingFields();
-        if (isMissing) {
-            return;
-        }
 
-        const res = await fetch("/api/signup/check-availability", {
+    async function HandleSignUp() {
+        const isValid = validate();
+        if (!isValid) return;
+
+        const res = await fetch("/api/auth/signup/check-availability", {
             method: "POST",
-            headers: {"Content-Type" : "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData)
         });
 
@@ -35,31 +57,87 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
         if (data.success) {
             nextStep();
         } else {
-            alert(data.message);
+            setErrors({ api: data.message });
         }
-        
-        console.log(data);
-        console.log(formData);
     }
 
     function HandleSignIn() {
         router.push("/home/signin");
-    }   
+    }
 
     return (
         <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
-            <div className="w-full mb-10">
+            <div className="w-full mt-2-10">
                 <p className="font-semibold text-2xl">Create Account</p>
                 <p>Please fill in your details to join our community portal.</p>
             </div>
+
+            {errors.api && (
+                <p className="w-full mt-2-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg p-2">
+                    {errors.api}
+                </p>
+            )}
+
             <div className="w-full grid grid-cols-2 gap-x-5">
-                <Input label="Username" type="text" require value={formData.username} onChange={(val) => setFormData({ ...formData, username: val })}/>
-                <Input label="Email Address" type="text" require value={formData.email} onChange={(val) => setFormData({ ...formData, email: val })} />
-                <Input label="Contact Number" type="text" value={formData.contactNumber} onChange={(val) => setFormData({ ...formData, contactNumber: val })} />
-                <Input label="Referral Code" type="text" value={formData.referralCode} onChange={(val) => setFormData({ ...formData, referralCode: val })} />
-                <Input label="Password" type="text" value={formData.password} onChange={(val) => setFormData({ ...formData, password: val })} />
-                <Input label="Confirm Password" type="text" value={formData.confirmPassword} onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
-                <button onClick={HandleSignUp} className="w-full h-13 bg-blue-500 col-span-2 p-2 rounded-md text-white">Create Account</button>
+                {/* Username */}
+                <div className="flex flex-col mt-2">
+                    <Input label="Username" type="text" require value={formData.username}
+                        onChange={(val) => setFormData({ ...formData, username: val })} />
+                    {errors.username && <p className="text-xs text-red-500 mt-1">{errors.username}</p>}
+                </div>
+
+                {/* Email */}
+                <div className="flex flex-col mt-2">
+                    <Input label="Email Address" type="text" require value={formData.email}
+                        onChange={(val) => setFormData({ ...formData, email: val })} />
+                    {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+                </div>
+
+                {/* Contact Number */}
+                <div className="flex flex-col mt-2">
+                    <Input label="Contact Number" type="text" value={formData.contactNumber}
+                        onChange={(val) => setFormData({ ...formData, contactNumber: val })} />
+                    {errors.contactNumber && <p className="text-xs text-red-500 mt-1">{errors.contactNumber}</p>}
+                </div>
+
+                {/* Referral Code */}
+                <div className="flex flex-col mt-2">
+                    <Input label="Referral Code" type="text" value={formData.referralCode}
+                        onChange={(val) => setFormData({ ...formData, referralCode: val })} />
+                    {errors.referralCode && <p className="text-xs text-red-500 mt-1">{errors.referralCode}</p>}
+                </div>
+
+                {/* Password */}
+                <div className="flex flex-col mt-2">
+                    <div className="relative">
+                        <Input label="Password" type={showPassword ? "text" : "password"} value={formData.password}
+                            onChange={(val) => setFormData({ ...formData, password: val })} />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-9 text-xs text-gray-400 hover:text-gray-600">
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                    {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
+                </div>
+
+                {/* Confirm Password */}
+                <div className="flex flex-col mt-2">
+                    <div className="relative">
+                        <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} value={formData.confirmPassword}
+                            onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
+                        <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-3 top-9 text-xs text-gray-400 hover:text-gray-600">
+                            {showConfirmPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                    {errors.confirmPassword && <p className="text-xs text-red-500 mt-1">{errors.confirmPassword}</p>}
+                </div>
+
+                <button onClick={HandleSignUp}
+                    className="w-full h-13 bg-blue-500 cursor-pointer col-span-2 p-2 rounded-md text-white mt-4">
+                    Create Account
+                </button>
+
                 <div className="col-span-2 flex flex-col my-2">
                     <p>
                         Already have an account?

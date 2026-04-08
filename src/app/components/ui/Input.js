@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function Input({
     label,
-    type = "text",
+    type,
     value,
     onChange,
 
@@ -34,7 +34,7 @@ function Input({
     };
 
     return (
-        <div className="mb-4 w-full">
+        <div className="mt-2 w-full">
             {label && (
                 <p className="text-sm mb-1 text-gray-600">{label}</p>
             )}

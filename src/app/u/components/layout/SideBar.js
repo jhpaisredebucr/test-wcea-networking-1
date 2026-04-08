@@ -12,6 +12,7 @@ export default function SideBar({ page, setPage, userInfo, role="member" }) {
                     <SidebarButton buttonID={3} page={page} setPage={() => setPage(3)}>Product Shop</SidebarButton>
                     <SidebarButton buttonID={4} page={page} setPage={() => setPage(4)}>My Orders</SidebarButton>
                     <SidebarButton buttonID={5} page={page} setPage={() => setPage(5)}>Referrals</SidebarButton>
+                    <SidebarButton buttonID={6} page={page} setPage={() => setPage(5)}>Transactions</SidebarButton>
                 </div>
             }
             {role === "admin" && 
