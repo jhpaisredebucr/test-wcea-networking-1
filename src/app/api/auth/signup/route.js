@@ -1,7 +1,7 @@
 import { query } from "../../../../lib/db";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
-import nanoid from "nanoid";
+import {nanoid} from "nanoid";
 
 export async function POST(req) {
     try {
