@@ -10,7 +10,11 @@ jobs:
     steps:
       - name: Send Discord webhook
         run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d "{\"content\": \"📌 **${GITHUB_ACTOR}** pushed to **${GITHUB_REPOSITORY}**:\nCOMMIT MESSAGE:\n\`\`\`${{ github.event.head_commit.message }}\`\`\`\nhttps://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"}" \
-               "${{ secrets.DISCORD_WEBHOOK }}"
+          curl -H "Content-Type: application/json" -X POST \
+            -d "$(jq -n \
+              --arg actor "$GITHUB_ACTOR" \
+              --arg repo "$GITHUB_REPOSITORY" \
+              --arg sha "$GITHUB_SHA" \
+              --arg message "${{ github.event.head_commit.message }}" \
+              '{content: "📌 **\($actor)** pushed to **\($repo)**:\nCOMMIT MESSAGE:\n```\($message)```\nhttps://github.com/\($repo)/commit/\($sha)"}')" \
+            ${{ secrets.DISCORD_WEBHOOK }}
