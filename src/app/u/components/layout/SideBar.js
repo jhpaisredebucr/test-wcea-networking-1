@@ -20,21 +20,21 @@ export default function SideBar({ page, setPage, role = "member" }) {
     ];
 
     const bottomMenu = [
-        { id: "about", label: "About" },
-        { id: "settings", label: "Setting" },
-        { id: "signout", label: "Sign Out" }
+        { id: "about", label: "About", icon: "/icons/announcement.svg" },
+        { id: "settings", label: "Setting", icon: "/icons/announcement.svg" },
+        { id: "signout", label: "Sign Out", icon: "/icons/announcement.svg" }
     ];
 
     const menu = role === "admin" ? adminMenu : memberMenu;
 
     return (
-        <div className="fixed left-0 top-15 h-screen w-56 bg-gray-50 p-6 z-1">
-            <p className="text-3xl font-semibold mb-6">
+        <div className="fixed left-0 top-15 h-screen w-56 bg-gray-50 py-6 z-1">
+            <p className="text-3xl font-semibold mb-6 pl-6">
                 {role === "admin" ? "Admin" : "Member"}
             </p>
 
             {/* MAIN MENU */}
-            <div className="space-y-2">
+            <div>
                 {menu.map(item => (
                     <SidebarButton
                         key={item.id}
@@ -58,6 +58,7 @@ export default function SideBar({ page, setPage, role = "member" }) {
                         id={item.id}
                         page={page}
                         setPage={() => setPage(item.id)}
+                        icon={item.icon}
                     >
                         {item.label}
                     </SidebarButton>

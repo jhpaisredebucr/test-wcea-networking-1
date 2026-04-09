@@ -6,8 +6,8 @@ export default function SidebarButton({ children, id, page, setPage, icon }) {
     return (
         <button 
             onClick={setPage}
-            className={`flex gap-x-2 items-center cursor-pointer w-full text-left px-3 py-3 rounded-lg 
-            hover:bg-(--primary)/50 transition border-l-2 
+            className={`flex gap-x-4 items-center cursor-pointer w-full text-left px-3 py-4  
+            hover:bg-(--primary)/50 transition border-r-4 pl-6
             ${isActive ? "border-(--primary) font-semibold" : "border-transparent"}`}
         >
             <Image src={icon} alt="hatdog" width={15} height={15}></Image> {children}
