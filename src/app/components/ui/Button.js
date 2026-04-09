@@ -24,4 +24,5 @@ function NavBarButton({children, onClick}) {
 }
 
 
-export {NavBarButton}
+export default Button;
+export { NavBarButton };
