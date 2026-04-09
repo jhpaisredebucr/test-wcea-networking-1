@@ -7,7 +7,7 @@ export default function ReferralsMember({ userData, dashboardData }) {
 
     return (
         <div>
-            <p>Your Referral Code: {userData?.userInfo?.referral_code}</p>
+            <p>Your Referral Code: {userData?.referral_code}</p>
 
             <div className="grid grid-cols-2 gap-5 mt-5">
                 <Card title="Total Referred" value={dashboardData?.totalReferredMembers} info=""/>

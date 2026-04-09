@@ -1,11 +1,16 @@
 import OrderCard from "../ui/OrderCard";
 
-export default function OrdersMember({orders, products, userData}) {
+export default function OrdersMember({orders, products, userInfo}) {
     if (!orders) {
         return <p>Loading orders...</p>;
     }
     
-    const userOrders = orders.filter(order => order.user_id === userData?.userInfo?.id);
+    const userOrders = orders.filter(order => order.user_id === userInfo?.id);
+
+    function debug() {
+        console.log(orders);
+        console.log(userOrders);
+    }
         
     return (
         <div >
@@ -19,7 +24,7 @@ export default function OrdersMember({orders, products, userData}) {
                     />
                 ))}
             </div>
-
         </div>
+        
     )
 }
