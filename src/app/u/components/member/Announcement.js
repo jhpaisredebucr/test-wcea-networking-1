@@ -1,6 +1,6 @@
-import AnouncementCard from "../ui/AnnouncementCard";
+import AnnouncementCard from "../ui/AnnouncementCard";
 
-export default function AnouncementMember({announcements}) {
+export default function AnnouncementMember({announcements}) {
     if (!announcements) {
         return <p>Loading announcements...</p>;
     }
@@ -9,7 +9,7 @@ export default function AnouncementMember({announcements}) {
         <div className="grid grid-cols-3 gap-5">
             <div className="space-y-4 col-span-2">
                 {announcements.map((announcement) => (
-                    <AnouncementCard
+                    <AnnouncementCard
                         key={announcement.id}
                         announcements={announcement}
                     />

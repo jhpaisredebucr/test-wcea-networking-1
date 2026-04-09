@@ -1,7 +1,7 @@
 import Profile from "@/app/components/ui/Profile"
 import { formatDistanceToNow } from "date-fns";
 
-export default function AnouncementCard({ announcements }) {
+export default function AnnouncementCard({ announcements }) {
     return (
         <div>
             <div className="p-5 rounded-lg bg-white">

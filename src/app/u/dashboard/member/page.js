@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import AnouncementMember from "../../components/member/Announcement";
+import AnnouncementMember from "../../components/member/Announcement";
 import DashboardMember from "../../components/member/Dashboard";
 import ProductsMember from "../../components/member/ProductShop";
 import OrdersMember from "../../components/member/MyOrders";
@@ -13,19 +13,32 @@ import Transactions from "../../components/member/Transactions";
 
 export default function Dashboard() {
     // User's Data
-    const [userInfo, setUserInfo] = useState(null);
-    const [profile, setUserProfile] = useState(null);
-    const [contacts, setUserContacts] = useState(null);
-    const [address, setUserAddress] = useState(null);
     const [dashboardData, setDashboardData] = useState(null);
 
-    const [announcements, setAnouncement] = useState(null);
+    const [user, setUser] = useState({
+        info: null,
+        profile: null,
+        contacts: null,
+        address: null
+    });
+
+    const titles = {
+        announcement: "Announcement",
+        dashboard: "Dashboard",
+        products: "Product Shop",
+        orders: "My Orders",
+        referrals: "Referrals",
+        transactions: "Transactions"
+    };
+
+
+    const [announcements, setAnnouncement] = useState(null);
     const [products, setProducts] = useState(null);
     const [orders, setOrders] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState("dashboard");
 
     const router = useRouter();
 
@@ -35,27 +48,25 @@ export default function Dashboard() {
 
     // Helper function to safely fetch JSON
     const fetchJson = async (url, options = {}) => {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000);
+
         try {
-            const res = await fetch(url, options);
-            
-            // Check if response is ok
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
+            const res = await fetch(url, {
+                ...options,
+                signal: controller.signal
+            });
 
-            // Check if response has content
-            const contentLength = res.headers.get('content-length');
-            if (contentLength === '0') {
-                throw new Error('Empty response');
-            }
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-            const data = await res.json();
-            return data;
-        } catch (error) {
-            if (error.message.includes('Unexpected end of JSON input')) {
-                throw new Error('Invalid JSON response from server');
+            return await res.json();
+        } catch (err) {
+            if (err.name === "AbortError") {
+                throw new Error("Request timed out");
             }
-            throw error;
+            throw err;
+        } finally {
+            clearTimeout(timeout);
         }
     };
 
@@ -65,19 +76,25 @@ export default function Dashboard() {
             setError(null);
 
             try {
-                const userID = localStorage.getItem("userID");
-                if (!userID) {
-                    setError("No user ID found. Please log in again.");
-                    return;
-                }
+                // const userID = localStorage.getItem("userID");
+                // if (!userID) {
+                //     setError("No user ID found. Please log in again.");
+                //     return;
+                // }
+
+                // const userData = await fetchJson(`/api/users?user-id=${userID}`);
+
 
                 // Fetch user data
-                const userData = await fetchJson(`/api/users?user-id=${userID}`);
+                const userData = await fetchJson("/api/users", { credentials: "include" });
+
                 if (userData.success) {
-                    setUserInfo(userData.userInfo);
-                    setUserProfile(userData.profile);
-                    setUserContacts(userData.contacts);
-                    setUserAddress(userData.address);
+                    setUser({
+                        info: userData.userInfo,
+                        profile: userData.profile,
+                        contacts: userData.contacts,
+                        address: userData.address
+                    });
                     console.log("User data:", userData);
                 } else {
                     setError("Failed to load user data");
@@ -90,13 +107,24 @@ export default function Dashboard() {
                     fetchJson("/api/products/orders")
                 ]);
 
-                setAnouncement(announcementsRes.announcements);
+                setAnnouncement(announcementsRes.announcements);
                 setProducts(productsRes.products);
                 setOrders(ordersRes.orders);
 
             } catch (err) {
                 console.error("Error loading data:", err);
-                setError(err.message || "Failed to load data");
+
+                // Map some common errors to friendly messages
+                let friendlyMessage = "Failed to load data. Please try again.";
+                if (err.message.includes("Request timed out")) {
+                    friendlyMessage = "Server is taking too long to respond. Try again later.";
+                } else if (err.message.includes("Failed to fetch")) {
+                    friendlyMessage = "Unable to connect to the server. Check your internet connection.";
+                } else if (err.message.includes("No user ID")) {
+                    friendlyMessage = "You are not logged in. Please log in to continue.";
+                }
+
+                setError(friendlyMessage);
             } finally {
                 setLoading(false);
             }
@@ -107,10 +135,10 @@ export default function Dashboard() {
 
     useEffect(() => {
         const loadDashboardData = async () => {
-            if (!userInfo?.referral_code) return;
+            if (!user.info?.referral_code) return;
 
             try {
-                const data = await fetchJson(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
+                const data = await fetchJson(`/api/portal/member?userReferralCode=${user.info.referral_code}`);
                 setDashboardData(data.dashboardData);
             } catch (err) {
                 console.error("Error loading dashboard data:", err);
@@ -119,7 +147,7 @@ export default function Dashboard() {
         };
 
         loadDashboardData();
-    }, [userInfo]);
+    }, [user.info]);
 
     // Show loading or error state
     if (loading) {
@@ -136,7 +164,7 @@ export default function Dashboard() {
         return (
             <div className="w-full flex">
                 <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-                    <div className="text-red-500 text-xl max-w-md text-center">
+                    <div className="text-red-500 text-xl max-w-md text-center flex flex-col items-center gap-4 ">
                         <p>{error}</p>
                         <button 
                             onClick={() => window.location.reload()} 
@@ -144,40 +172,54 @@ export default function Dashboard() {
                         >
                             Retry
                         </button>
+                        <button
+                            onClick={() => router.push("/")}
+                            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600/50"
+                        >
+                            Go Back to Home
+                        </button>
+
                     </div>
                 </div>
             </div>
         );
     }
 
-    return (
+    const pages = {
+        announcement: <AnnouncementMember announcements={announcements} />,
+        dashboard: <DashboardMember dashboardData={dashboardData} />,
+        products: <ProductsMember products={products} userInfo={user.info} />,
+        orders: <OrdersMember orders={orders} products={products} userInfo={user.info} />,
+        referrals: <ReferralsMember userInfo={user.info} dashboardData={dashboardData} />,
+        transactions: <Transactions />
+    };
+
+   return (
         <>
             <SideBar page={page} setPage={setPage}/>
-            
-            <div className="w-full flex">
-                {/* MAIN CONTENT */}
-                <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
-                    <div className="flex items-center justify-between mb-6">
-                        {page === 1 && <p className="text-3xl font-semibold">Announcement</p>}
-                        {page === 2 && <p className="text-3xl font-semibold">Dashboard</p>}
-                        {page === 3 && <p className="text-3xl font-semibold">Product Shop</p>}
-                        {page === 4 && <p className="text-3xl font-semibold">My Orders</p>}
-                        {page === 5 && <p className="text-3xl font-semibold">Referrals</p>}
-                        {page === 6 && <p className="text-3xl font-semibold">Transactions</p>}
 
+            <div className="w-full flex">
+                <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
+                    
+                    {/* HEADER */}
+                    <div className="flex items-center justify-between mb-6">
+                        
+                        {/* TITLE */}
+                        <p className="text-3xl font-semibold">
+                            {titles[page] || "Dashboard"}
+                        </p>
+
+                        {/* PROFILE */}
                         <Profile 
                             GoProfile={GoProfile} 
-                            first_name={profile?.first_name} 
-                            last_name={profile?.last_name}
+                            first_name={user.profile?.first_name} 
+                            last_name={user.profile?.last_name}
                         />
                     </div>
-                    
-                    {page === 1 && <AnouncementMember announcements={announcements}/>}
-                    {page === 2 && <DashboardMember dashboardData={dashboardData}/>}
-                    {page === 3 && <ProductsMember products={products} userInfo={userInfo}/>}
-                    {page === 4 && <OrdersMember orders={orders} products={products} userInfo={userInfo}/>}
-                    {page === 5 && <ReferralsMember userInfo={userInfo} dashboardData={dashboardData}/>}
-                    {page === 6 && <Transactions/>}
+
+                    {/* PAGE CONTENT */}
+                    {pages[page] ?? <div>Page not found</div>}
+
                 </div>
             </div>  
         </>

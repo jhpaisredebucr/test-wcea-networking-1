@@ -113,7 +113,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                         <Input label="Password" type={showPassword ? "text" : "password"} value={formData.password}
                             onChange={(val) => setFormData({ ...formData, password: val })} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-9 text-xs text-gray-400 hover:text-gray-600">
+                            className="absolute right-3 top-11 text-xs text-gray-400 hover:text-gray-600">
                             {showPassword ? "Hide" : "Show"}
                         </button>
                     </div>
@@ -126,7 +126,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                         <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} value={formData.confirmPassword}
                             onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-9 text-xs text-gray-400 hover:text-gray-600">
+                            className="absolute right-3 top-11 text-xs text-gray-400 hover:text-gray-600">
                             {showConfirmPassword ? "Hide" : "Show"}
                         </button>
                     </div>
@@ -141,7 +141,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 <div className="col-span-2 flex flex-col my-2">
                     <p>
                         Already have an account?
-                        <button onClick={HandleSignIn} className="inline ml-2 text-blue-500 hover:underline">
+                        <button onClick={HandleSignIn} className="inline cursor-pointer ml-2 text-blue-500 hover:underline">
                             Sign In Here
                         </button>
                     </p>

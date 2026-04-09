@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import Input from "../ui/Input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ export default function SignInForm() {
 
     const [loading, setLoading] = useState(false);
 
+    // Validate inputs
     function validate() {
         let newErrors = { username: "", password: "", general: "" };
 
@@ -28,10 +29,12 @@ export default function SignInForm() {
         return !newErrors.username && !newErrors.password;
     }
 
+    // Handle sign in
     async function HandleSignIn() {
         if (!validate()) return;
 
         setLoading(true);
+        setErrors(prev => ({ ...prev, general: "" }));
 
         try {
             const res = await fetch("/api/auth/signin", {
@@ -43,8 +46,8 @@ export default function SignInForm() {
             const data = await res.json();
 
             if (data.success) {
-                localStorage.setItem("userID", data.user.id);
-
+                // JWT cookie is already set by the API
+                // Redirect based on role
                 router.replace(
                     data.user.role === "admin"
                         ? "/u/dashboard/admin"
@@ -56,14 +59,15 @@ export default function SignInForm() {
                     general: data.message || "Login failed"
                 }));
             }
-        } catch {
+        } catch (err) {
             setErrors(prev => ({
                 ...prev,
                 general: "Something went wrong. Try again."
             }));
+            console.error("SignIn fetch error:", err);
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     }
 
     function HandleSignUp() {
@@ -135,7 +139,7 @@ export default function SignInForm() {
                         Don’t have an account?
                         <button
                             onClick={HandleSignUp}
-                            className="ml-2 text-blue-500 hover:underline"
+                            className="ml-2 text-blue-500 hover:underline cursor-pointer"
                         >
                             Sign Up
                         </button>
@@ -144,18 +148,9 @@ export default function SignInForm() {
                 </div>
             </div>
             
-            {/* RIGHT SIE IMAGE */}
+            {/* RIGHT SIDE IMAGE */}
             <div className="col-span-2 relative flex justify-center items-center">
-                {/* <img
-                    src="/images/test-splash.jpg" // REPLACE WITH ANY IMAGE
-                    alt="Sign in visual"
-                    className="w-full h-full object-cover"
-                /> */}
-
                 <Image src="/images/test-splash.jpg" alt="Sign in visual" width={350} height={350} className="rounded-2xl"/>
-
-                {/* Optional overlay */}
-                {/* <div className="absolute inset-0 bg-black/20"></div> */}
             </div>
 
         </div>
