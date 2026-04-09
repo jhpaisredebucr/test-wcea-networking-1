@@ -1,6 +1,15 @@
+'use client';
 import Image from "next/image"
+import { useState } from "react";
+import NotificationDropdown from "@/app/components/ui/Dropdown";
 
 export default function TopBar() {  
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(prev => !prev);
+    };
+
     return (
         <div className="flex sticky items-center justify-between h-15 px-10 bg-white top-0 z-20">
             <div className="flex items-center">
@@ -21,8 +30,14 @@ export default function TopBar() {
                 width={25} 
                 height={25} 
                 alt="notification icon" 
-                className="mr-3"
+                className="mr-3 cursor-pointer" 
+                onClick={toggleDropdown}
             />
-        </div>
+            {isDropdownOpen && (
+            <NotificationDropdown>
+                <p className="text-sm text-gray-500">No new notifications</p>
+            </NotificationDropdown>
+            )}
+            </div>
     </div>                      
 )}
