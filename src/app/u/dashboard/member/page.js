@@ -10,6 +10,7 @@ import ReferralsMember from "../../components/member/Referrals";
 import SideBar from "../../components/layout/SideBar";
 import Profile from "@/app/components/ui/Profile";
 import Transactions from "../../components/member/Transactions";
+import TopBar from "../../components/layout/TopBar";
 
 export default function Dashboard() {
     // User's Data
@@ -134,9 +135,8 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
+        if (!user.userInfo) return; // wait until user data is loaded
         const loadDashboardData = async () => {
-            if (!user.userInfo?.referral_code) return;
-
             try {
                 const data = await fetchJson(`/api/portal/member?userReferralCode=${user.userInfo.referral_code}`);
                 setDashboardData(data.dashboardData);
@@ -145,9 +145,9 @@ export default function Dashboard() {
                 setError("Failed to load dashboard data");
             }
         };
-
         loadDashboardData();
     }, [user.userInfo]);
+
 
     // Show loading or error state
     if (loading) {
@@ -200,6 +200,7 @@ export default function Dashboard() {
 
    return (
         <>
+            <TopBar/>
             <SideBar page={page} setPage={setPage}/>
 
             <div className="w-full flex">

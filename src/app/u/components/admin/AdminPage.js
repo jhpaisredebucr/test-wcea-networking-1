@@ -9,7 +9,8 @@ import DashboardAdmin from "./Dashboard";
 import MembersAdmin from "./Members";
 
 export default function AdminDashboard({ dashboardData, userData }) {
-    const [page, setPage] = useState(1);
+    // Use string IDs to match sidebar item IDs
+    const [page, setPage] = useState("dashboard");
     const router = useRouter();
 
     function GoProfile() {
@@ -60,15 +61,15 @@ export default function AdminDashboard({ dashboardData, userData }) {
                 {/* Page Content */}
                 <div className="flex-1 ml-56 px-10 py-6">
                     <h1 className="text-3xl font-semibold mb-6">
-                        {page === 1 && "Dashboard"}
-                        {page === 2 && "Members"}
-                        {page === 3 && "Transactions"}
-                        {page === 4 && "Announcement"}
-                        {page === 5 && "Actions"}
+                        {page === "dashboard" && "Dashboard"}
+                        {page === "members" && "Members"}
+                        {page === "transactions" && "Transactions"}
+                        {page === "announcement" && "Announcement"}
+                        {page === "actions" && "Actions"}
                     </h1>
 
-                    {page === 1 && <DashboardAdmin dashboardData={dashboardData} />}
-                    {page === 2 && <MembersAdmin dashboardData={dashboardData} />}
+                    {page === "dashboard" && <DashboardAdmin dashboardData={dashboardData} />}
+                    {page === "members" && <MembersAdmin dashboardData={dashboardData} />}
                     {/* Add more page components as needed */}
                 </div>
             </div>

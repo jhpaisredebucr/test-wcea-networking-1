@@ -28,7 +28,7 @@ export default function SideBar({ page, setPage, role = "member" }) {
     const menu = role === "admin" ? adminMenu : memberMenu;
 
     return (
-        <div className="fixed left-0 top-0 h-screen w-56 bg-gray-50 p-6">
+        <div className="fixed left-0 top-15 h-screen w-56 bg-gray-50 p-6 z-1">
             <p className="text-3xl font-semibold mb-6">
                 {role === "admin" ? "Admin" : "Member"}
             </p>
