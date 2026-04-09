@@ -135,10 +135,10 @@ export default function Dashboard() {
 
     useEffect(() => {
         const loadDashboardData = async () => {
-            if (!userInfo?.referral_code) return;
+            if (!user.userInfo?.referral_code) return;
 
             try {
-                const data = await fetchJson(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
+                const data = await fetchJson(`/api/portal/member?userReferralCode=${user.userInfo.referral_code}`);
                 setDashboardData(data.dashboardData);
             } catch (err) {
                 console.error("Error loading dashboard data:", err);
@@ -147,7 +147,7 @@ export default function Dashboard() {
         };
 
         loadDashboardData();
-    }, [userInfo]);
+    }, [user.userInfo]);
 
     // Show loading or error state
     if (loading) {
