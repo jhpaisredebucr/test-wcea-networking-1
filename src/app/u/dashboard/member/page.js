@@ -16,7 +16,7 @@ export default function Dashboard() {
     const [dashboardData, setDashboardData] = useState(null);
 
     const [user, setUser] = useState({
-        info: null,
+        userInfo: null,
         profile: null,
         contacts: null,
         address: null
@@ -90,7 +90,7 @@ export default function Dashboard() {
 
                 if (userData.success) {
                     setUser({
-                        info: userData.userInfo,
+                        userInfo: userData.userInfo,
                         profile: userData.profile,
                         contacts: userData.contacts,
                         address: userData.address
@@ -135,10 +135,10 @@ export default function Dashboard() {
 
     useEffect(() => {
         const loadDashboardData = async () => {
-            if (!user.info?.referral_code) return;
+            if (!userInfo?.referral_code) return;
 
             try {
-                const data = await fetchJson(`/api/portal/member?userReferralCode=${user.info.referral_code}`);
+                const data = await fetchJson(`/api/portal/member?userReferralCode=${userInfo.referral_code}`);
                 setDashboardData(data.dashboardData);
             } catch (err) {
                 console.error("Error loading dashboard data:", err);
@@ -147,14 +147,18 @@ export default function Dashboard() {
         };
 
         loadDashboardData();
-    }, [user.info]);
+    }, [userInfo]);
 
     // Show loading or error state
     if (loading) {
         return (
             <div className="w-full flex">
                 <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-                    <div className="text-xl">Loading...</div>
+                    <div className="flex flex-col items-center gap-4">
+                        {/* Spinner */}
+                        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+                        <div className="text-xl text-gray-700">Loading...</div>
+                    </div>
                 </div>
             </div>
         );
@@ -188,9 +192,9 @@ export default function Dashboard() {
     const pages = {
         announcement: <AnnouncementMember announcements={announcements} />,
         dashboard: <DashboardMember dashboardData={dashboardData} />,
-        products: <ProductsMember products={products} userInfo={user.info} />,
-        orders: <OrdersMember orders={orders} products={products} userInfo={user.info} />,
-        referrals: <ReferralsMember userInfo={user.info} dashboardData={dashboardData} />,
+        products: <ProductsMember products={products} userInfo={user.userInfo} />,
+        orders: <OrdersMember orders={orders} products={products} userInfo={user.userInfo} />,
+        referrals: <ReferralsMember userInfo={user.userInfo} dashboardData={dashboardData} />,
         transactions: <Transactions />
     };
 
