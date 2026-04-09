@@ -191,8 +191,8 @@ export default function Dashboard() {
 
     const pages = {
         announcement: <AnnouncementMember announcements={announcements} />,
-        dashboard: <DashboardMember dashboardData={dashboardData} />,
-        products: <ProductsMember products={products} userInfo={user.userInfo} />,
+        dashboard: <DashboardMember dashboardData={dashboardData} userData={user} />,
+        products: <ProductsMember products={products} userInfo={user.userInfo} dashboardData={dashboardData} />,
         orders: <OrdersMember orders={orders} products={products} userInfo={user.userInfo} />,
         referrals: <ReferralsMember userInfo={user.userInfo} dashboardData={dashboardData} />,
         transactions: <Transactions />

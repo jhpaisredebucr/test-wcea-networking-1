@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function GET(req) {
-    const products = await query("SELECT * FROM products"); 
+    const products = await query("SELECT * FROM products");
 
-    return NextResponse.json({products});
+    const formattedProducts = products.map(product => ({
+        ...product,
+        price: Number(product.price)
+    }));
+
+    return NextResponse.json({ products: formattedProducts });
 }

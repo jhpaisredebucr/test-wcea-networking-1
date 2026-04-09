@@ -43,10 +43,10 @@ export default function BuyModal({ setBuying, product, dashboardData, userData }
             const data = await res.json();
 
             // Already bought
-            if (res.status === 409) {
-                setError("You have already purchased this product.");
-                return;
-            }
+            // if (res.status === 409) {
+            //     setError("You have already purchased this product.");
+            //     return;
+            // }
 
             // Other API errors
             if (!res.ok) {
