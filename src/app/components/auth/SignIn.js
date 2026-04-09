@@ -127,7 +127,7 @@ export default function SignInForm() {
                             transition duration-200
                             ${loading
                                 ? "bg-blue-300 cursor-not-allowed"
-                                : "bg-blue-500 hover:bg-blue-600"
+                                : "bg-(--primary) hover:bg-blue-600"
                             }
                         `}
                     >

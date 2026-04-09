@@ -8,7 +8,6 @@ import ProductsMember from "../../components/member/ProductShop";
 import OrdersMember from "../../components/member/MyOrders";
 import ReferralsMember from "../../components/member/Referrals";
 import SideBar from "../../components/layout/SideBar";
-import Profile from "@/app/components/ui/Profile";
 import Transactions from "../../components/member/Transactions";
 import TopBar from "../../components/layout/TopBar";
 
@@ -42,10 +41,6 @@ export default function Dashboard() {
     const [page, setPage] = useState("dashboard");
 
     const router = useRouter();
-
-    function GoProfile() {
-        router.push("/profile");
-    }
 
     // Helper function to safely fetch JSON
     const fetchJson = async (url, options = {}) => {
@@ -200,26 +195,19 @@ export default function Dashboard() {
 
    return (
         <>
-            <TopBar/>
+            <TopBar userData={user}/>
             <SideBar page={page} setPage={setPage}/>
 
             <div className="w-full flex">
-                <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen">
+                <div className="w-full ml-56 px-15 py-7 bg-gray-100 min-h-screen">
                     
                     {/* HEADER */}
                     <div className="flex items-center justify-between mb-6">
                         
                         {/* TITLE */}
-                        <p className="text-3xl font-semibold">
-                            {titles[page] || "Dashboard"}
-                        </p>
-
-                        {/* PROFILE */}
-                        <Profile 
-                            GoProfile={GoProfile} 
-                            first_name={user.profile?.first_name} 
-                            last_name={user.profile?.last_name}
-                        />
+                            <p className="text-3xl font-semibold">
+                                {titles[page] || "Dashboard"}
+                            </p>
                     </div>
 
                     {/* PAGE CONTENT */}

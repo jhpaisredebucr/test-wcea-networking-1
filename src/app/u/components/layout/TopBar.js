@@ -2,13 +2,18 @@
 import Image from "next/image"
 import { useState } from "react";
 import NotificationDropdown from "@/app/components/ui/Dropdown";
+import Profile from "@/app/components/ui/Profile";
 
-export default function TopBar() {  
+export default function TopBar({userData}) {  
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
         setIsDropdownOpen(prev => !prev);
     };
+
+    function GoProfile() {
+        router.push("/profile");
+    }
 
     return (
         <div className="flex sticky items-center justify-between h-15 px-10 bg-white top-0 z-20">
@@ -38,6 +43,15 @@ export default function TopBar() {
                 <p className="text-sm text-gray-500">No new notifications</p>
             </NotificationDropdown>
             )}
+
+            {/* PROFILE */}
+            <Profile 
+                GoProfile={GoProfile} 
+                first_name={userData?.profile?.first_name} 
+                last_name={userData?.profile?.last_name}
+                profile="no-profile.png"
+            />
             </div>
+            
     </div>                      
 )}

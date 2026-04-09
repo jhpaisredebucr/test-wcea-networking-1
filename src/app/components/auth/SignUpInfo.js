@@ -134,7 +134,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 </div>
 
                 <button onClick={HandleSignUp}
-                    className="w-full h-13 bg-blue-500 cursor-pointer col-span-2 p-2 rounded-md text-white mt-4">
+                    className="w-full h-13 bg-(--primary) cursor-pointer col-span-2 p-2 rounded-md text-white mt-4">
                     Create Account
                 </button>
 

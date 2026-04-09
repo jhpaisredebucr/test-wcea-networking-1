@@ -38,7 +38,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
             {/* Button — full width */}
             <button 
                 onClick={Buy} 
-                className="cursor-pointer w-full px-5 py-3 rounded-xl bg-blue-500 text-white"
+                className="cursor-pointer w-full px-5 py-3 rounded-xl bg-(--primary) text-white"
             >
                 Buy
             </button>
