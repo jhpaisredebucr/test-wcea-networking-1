@@ -35,7 +35,7 @@ export default function BuyModal({ setBuying, product, dashboardData, userData }
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
-                    user_id: product?.user_id, 
+                    user_id: userData?.userInfo?.id, 
                     product_id: product?.product_id 
                 })
             });
