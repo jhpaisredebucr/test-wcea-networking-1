@@ -41,7 +41,7 @@ export default function FormPdf() {
       <div
         ref={formRef}
         className="relative w-[600px] h-[400px] border"
-        style={{ backgroundImage: "url('/template.png')", backgroundSize: "cover" }}
+        // style={{ backgroundImage: "url('/template.png')", backgroundSize: "cover" }}
       >
         {/* Place text exactly where you want */}
         <div

@@ -3,12 +3,12 @@ import SidebarButton from "../ui/SideBarButton"
 export default function SideBar({ page, setPage, role = "member" }) {
 
     const memberMenu = [
-        { id: "announcement", label: "Announcement" },
-        { id: "dashboard", label: "Dashboard" },
-        { id: "products", label: "Product Shop" },
-        { id: "orders", label: "My Orders" },
-        { id: "referrals", label: "Referrals" },
-        { id: "transactions", label: "Transactions" }
+        { id: "announcement", label: "Announcement", icon: "/icons/announcement.svg"},
+        { id: "dashboard", label: "Dashboard", icon: "/icons/dashboard.svg" },
+        { id: "products", label: "Product Shop", icon: "/icons/product-shop.svg" },
+        { id: "orders", label: "My Orders", icon: "/icons/my-orders.svg" },
+        { id: "referrals", label: "Referrals", icon: "/icons/referrals.svg" },
+        { id: "transactions", label: "Transactions", icon: "/icons/announcement.svg" }
     ];
 
     const adminMenu = [
@@ -41,6 +41,7 @@ export default function SideBar({ page, setPage, role = "member" }) {
                         id={item.id}
                         page={page}
                         setPage={() => setPage(item.id)}
+                        icon={item.icon}
                     >
                         {item.label}
                     </SidebarButton>
