@@ -7,7 +7,7 @@ import Transactions from "../components/member/Transactions";
 export default function Page() {
   const [dashboardData, setDashboardData] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,11 +17,11 @@ export default function Page() {
     return res.json();
   };
 
-  //DASHBOARD
-
+  // DASHBOARD DATAA
   useEffect(() => {
     const loadData = async () => {
       try {
+        setLoading(true);
         const userRes = await fetchJson("/api/users");
 
         if (!userRes.success) {
@@ -35,39 +35,31 @@ export default function Page() {
         );
 
         setDashboardData(dashRes.dashboardData);
-        console.log(dashRes)
-
+        console.log(dashRes);
       } catch (err) {
         console.error(err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
     loadData();
-  }, [dashboardData]);
+  }, []); 
 
-  //TRANSACTIONS
-  const [transactions, setData] = useState([]);
-
+  // TRANSACTIONS - Fetch transaction data
   useEffect(() => {
-    
-  }, []);
-
-  useEffect(() => {
-    const loadData = async () => {
+    const loadTransactions = async () => {
       try {
-        fetch("/api/transaction")
-          .then(res => res.json())
-          .then(d => setData(d.transactions));
+        const res = await fetch("/api/transaction");
+        const data = await res.json();
+        setTransactions(data.transactions || []);
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error("Failed to load transactions:", err);
       }
     };
 
-    loadData();
+    loadTransactions();
   }, []);
 
   // LOADING UI
