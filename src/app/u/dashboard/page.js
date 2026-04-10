@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import DashboardMember from "@/app/u/components/member/Dashboard";
+import Transactions from "../components/member/Transactions";
 
 export default function Page() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -15,6 +16,8 @@ export default function Page() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   };
+
+  //DASHBOARD
 
   useEffect(() => {
     const loadData = async () => {
@@ -43,6 +46,29 @@ export default function Page() {
 
     loadData();
   }, [dashboardData]);
+
+  //TRANSACTIONS
+  const [transactions, setData] = useState([]);
+
+  useEffect(() => {
+    
+  }, []);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        fetch("/api/transaction")
+          .then(res => res.json())
+          .then(d => setData(d.transactions));
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   // LOADING UI
   if (loading) {
@@ -82,6 +108,8 @@ export default function Page() {
     <>
       <h1 className="text-3xl font-semibold mb-6">Dashboard</h1>
       <DashboardMember dashboardData={dashboardData} userData={userData} />
+      <h2 className="text-2xl text-center font-semibold my-6 p-6 rounded-lg shadow bg-white">Latest Transaction</h2>
+      <Transactions transactions={transactions}/>
     </>
   );
 }
