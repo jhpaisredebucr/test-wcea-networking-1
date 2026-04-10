@@ -21,8 +21,9 @@ export default function ProductCard({ products, userData, setBuying, setSelected
             {/* Image — full width */}
             <div className="overflow-hidden rounded-lg w-full h-40">
                 <CldImage 
-                    src="/product1_plfkw3" 
+                    src={`/${products.img_url}`} 
                     alt="Product Picture" 
+                    effect="brightness:100"
                     width={400} 
                     height={160} 
                     className="w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110"
