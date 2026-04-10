@@ -51,7 +51,7 @@ export default function SignInForm() {
                 router.replace(
                     data.user.role === "admin"
                         ? "/u/dashboard/admin"
-                        : "/u/dashboard/member"
+                        : "/u/dashboard"
                 );
             } else {
                 setErrors(prev => ({
