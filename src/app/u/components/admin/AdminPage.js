@@ -19,8 +19,7 @@ export default function AdminDashboard({ dashboardData, userData }) {
 
     return (
         <div className="flex min-h-screen">
-            {/* Sidebar */}
-            <SideBar page={page} setPage={setPage} role="admin" />
+
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col bg-[#f5f6fa]">
