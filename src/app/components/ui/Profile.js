@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { CldImage } from "next-cloudinary";
 
-export default function Profile({GoProfile, clickable=true, first_name, last_name, children, profile="no-profile_rfhcxa"}) {
+export default function Profile({GoProfile, clickable=true, first_name, last_name, children, profile="/no-profile_rfhcxa", code="rounded-full w-10 h-10"}) {
     if (GoProfile === null) {
         return;
     }
@@ -12,11 +12,12 @@ export default function Profile({GoProfile, clickable=true, first_name, last_nam
                     : "cursor-default"
                 }`}>
             <CldImage
-                src={`/${profile}`}
+                src={`${profile}`}
                 alt="profile picture"
-                width={40}
-                height={40}
-                className="rounded-full"
+                width={200}
+                height={200}
+                crop="fill"
+                className={code}
             />
             {/* <Image
                 src={`/images/${profile}`}

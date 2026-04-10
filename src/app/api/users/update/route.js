@@ -41,14 +41,16 @@ export async function PUT(req) {
       SET first_name = $1,
           middle_name = $2,
           last_name = $3,
-          dob = $4
-      WHERE user_id = $5
+          dob = $4,
+          img_url = $5
+      WHERE user_id = $6
       `,
       [
         profile.first_name,
         profile.middle_name,
         profile.last_name,
         profile.dob,
+        profile.img_url,
         userID
       ]
     );

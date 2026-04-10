@@ -123,7 +123,7 @@ export default function TopBar({ userData }) {
                 {/* PROFILE */}
                 <div ref={profileRef}>
 
-                    <Profile GoProfile={toggleProfileDropdown} />
+                    <Profile GoProfile={toggleProfileDropdown} profile={userData.profile.img_url} />
 
                     <div
                         className={`transition-all z-11 duration-200 ${

@@ -6,7 +6,7 @@ export default function ProfileDropdown( { userData, children} ){
         <div className="absolute top-full right-2 mt-2 w-75 px-7 bg-white/70 backdrop-blur-md  
         rounded-lg shadow-xl z-10">
             <div className="flex items-center py-4">
-                <Profile clickable={false}/>
+                <Profile clickable={false} profile={userData.profile.img_url}/>
                             
                 <p>{userData?.profile?.first_name} {userData?.profile?.last_name}</p>   
             </div>
