@@ -3,8 +3,10 @@ import Image from "next/image"
 import { useState } from "react";
 import NotificationDropdown from "@/app/components/ui/Dropdown";
 import Profile from "@/app/components/ui/Profile";
+import { useRouter } from "next/navigation";
 
 export default function TopBar({userData}) {  
+    const router = useRouter()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -14,10 +16,14 @@ export default function TopBar({userData}) {
     function GoProfile() {
         router.push("/profile");
     }
+    function GoHome(){
+        router.push("/home")
+    }
 
     return (
         <div className="flex sticky items-center justify-between h-15 px-5 bg-white top-0 z-20">
             <div className="flex items-center">
+                <button className="cursor-pointer" onClick={GoHome}>
                 <Image 
                     src="/images/logo.ico" 
                     alt="logo" 
@@ -25,6 +31,7 @@ export default function TopBar({userData}) {
                     height={35} 
                     className="object-contain mr-2" 
                 />
+                </button>
                 <span className="text-3xl font-semibold text-blue-500">WC</span>
                 <span className="text-3xl font-semibold ml-1">EA</span>
             </div>
