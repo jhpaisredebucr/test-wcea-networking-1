@@ -16,7 +16,7 @@ export default function TopBar({userData}) {
     }
 
     return (
-        <div className="flex sticky items-center justify-between h-15 px-10 bg-white top-0 z-20">
+        <div className="flex sticky items-center justify-between h-15 px-5 bg-white top-0 z-20">
             <div className="flex items-center">
                 <Image 
                     src="/images/logo.ico" 
@@ -29,7 +29,7 @@ export default function TopBar({userData}) {
                 <span className="text-3xl font-semibold ml-1">EA</span>
             </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center px-8">
             <Image 
                 src="/images/notification-icon.png" 
                 width={25} 
@@ -49,7 +49,7 @@ export default function TopBar({userData}) {
                 GoProfile={GoProfile} 
                 first_name={userData?.profile?.first_name} 
                 last_name={userData?.profile?.last_name}
-                profile="no-profile.png"
+                hideName={true}
             />
             </div>
             

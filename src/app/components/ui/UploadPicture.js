@@ -1,0 +1,89 @@
+"use client";
+
+import { useState } from "react";
+
+export default function UploadImageModal({ isOpen, onClose, onUpload }) {
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  if (!isOpen) return null;
+
+  async function handleUpload() {
+    if (!file) return;
+
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/cloudinary/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    setLoading(false);
+
+    if (data.url) {
+      onUpload(data.url);
+      onClose();
+    }
+  }
+
+  function handleFileChange(e) {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    if (selectedFile) {
+      setPreview(URL.createObjectURL(selectedFile));
+    }
+  }
+
+  return (
+    <div
+      className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-6 rounded-lg w-[400px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-lg font-semibold mb-4">
+          Upload Image
+        </h2>
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+
+        {preview && (
+          <img
+            src={preview}
+            className="mt-4 rounded max-h-[250px] object-contain"
+          />
+        )}
+
+        <div className="flex gap-3 mt-4">
+          <button
+            onClick={handleUpload}
+            disabled={loading}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            {loading ? "Uploading..." : "Upload"}
+          </button>
+
+          <button
+            onClick={onClose}
+            className="bg-gray-300 px-4 py-2 rounded"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

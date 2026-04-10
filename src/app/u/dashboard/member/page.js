@@ -10,6 +10,7 @@ import ReferralsMember from "../../components/member/Referrals";
 import SideBar from "../../components/layout/SideBar";
 import Transactions from "../../components/member/Transactions";
 import TopBar from "../../components/layout/TopBar";
+import UploadImageModal from "@/app/components/ui/UploadPicture";
 
 export default function Dashboard() {
     // User's Data
@@ -143,6 +144,12 @@ export default function Dashboard() {
         loadDashboardData();
     }, [user.userInfo]);
 
+    //asdsadasddasd
+    const [isUploadOpen, setIsUploadOpen] = useState(false);
+    function onClose() {
+
+    }
+
 
     // Show loading or error state
     if (loading) {
@@ -195,6 +202,11 @@ export default function Dashboard() {
 
    return (
         <>
+            <UploadImageModal
+                isOpen={isUploadOpen}
+                onClose={() => setIsUploadOpen(false)}
+                onUpload={(url) => console.log("Uploaded:", url)}
+            />
             <TopBar userData={user}/>
             <SideBar page={page} setPage={setPage}/>
 
@@ -212,7 +224,12 @@ export default function Dashboard() {
 
                     {/* PAGE CONTENT */}
                     {pages[page] ?? <div>Page not found</div>}
-
+                    {/* <button
+                        onClick={() => setIsUploadOpen(true)}
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Upload Profile Picture
+                    </button> */}
                 </div>
             </div>  
         </>
