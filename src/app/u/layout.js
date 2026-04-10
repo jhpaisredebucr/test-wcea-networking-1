@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TopBar from "@/app/u/components/layout/TopBar";
-import SideBar from "@/app/u/components/layout/MigrateSideBar";
+import SideBar from "@/app/u/components/layout/SideBar";
 import UploadImageModal from "@/app/components/ui/UploadPicture";
 
 export default function DashboardLayout({ children }) {

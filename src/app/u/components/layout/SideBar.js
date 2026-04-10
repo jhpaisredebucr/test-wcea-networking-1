@@ -1,34 +1,43 @@
-import SidebarButton from "../ui/SideBarButton"
+'use client';
 
-export default function SideBar({ page, setPage, role = "member" }) {
+import { useRouter, usePathname } from "next/navigation";
+import SidebarButton from "../ui/SideBarButton";
+
+export default function SideBar({ role = "member" }) {
+    const router = useRouter();
+    const pathname = usePathname();
 
     const memberMenu = [
-        { id: "announcement", label: "Announcement", icon: "/icons/announcement.svg"},
-        { id: "dashboard", label: "Dashboard", icon: "/icons/dashboard.svg" },
-        { id: "products", label: "Product Shop", icon: "/icons/product-shop.svg" },
-        { id: "orders", label: "My Orders", icon: "/icons/my-orders.svg" },
-        { id: "referrals", label: "Referrals", icon: "/icons/referrals.svg" },
-        { id: "transactions", label: "Transactions", icon: "/icons/announcement.svg" }
+        { id: "announcement", label: "Announcement", path: "/u/announcements", icon: "/icons/announcement.svg" },
+        { id: "dashboard", label: "Dashboard", path: "/u/dashboard", icon: "/icons/dashboard.svg" },
+        { id: "products", label: "Product Shop", path: "/u/products", icon: "/icons/product-shop.svg" },
+        { id: "orders", label: "My Orders", path: "/u/orders", icon: "/icons/my-orders.svg" },
+        { id: "referrals", label: "Referrals", path: "/u/referrals", icon: "/icons/referrals.svg" },
+        { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/announcement.svg" },
+        { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/announcement.svg" },
     ];
 
     const adminMenu = [
-        { id: "dashboard", label: "Dashboard" },
-        { id: "members", label: "Members" },
-        { id: "transactions", label: "Transactions" },
-        { id: "announcement", label: "Announcement" },
-        { id: "actions", label: "Actions" }
+        { id: "dashboard", label: "Dashboard", path: "/admin" },
+        { id: "members", label: "Members", path: "/admin/members" },
+        { id: "transactions", label: "Transactions", path: "/admin/transactions" },
+        { id: "announcement", label: "Announcement", path: "/admin/announcement" },
+        { id: "actions", label: "Actions", path: "/admin/actions" }
     ];
 
     const bottomMenu = [
-        { id: "about", label: "About", icon: "/icons/announcement.svg" },
-        { id: "settings", label: "Setting", icon: "/icons/announcement.svg" },
-        { id: "signout", label: "Sign Out", icon: "/icons/announcement.svg" }
+        { id: "about", label: "About", path: "/about", icon: "/icons/announcement.svg" },
+        { id: "settings", label: "Setting", path: "/settings", icon: "/icons/announcement.svg" },
+        { id: "signout", label: "Sign Out", path: "/signout", icon: "/icons/announcement.svg" }
     ];
 
     const menu = role === "admin" ? adminMenu : memberMenu;
 
+    const isActive = (path) => pathname === path;
+
     return (
-        <div className="fixed left-0 top-15 h-[calc(100vh-60px)] w-56 bg-gray-50 py-6 z-1 overflow-y-auto no-scrollbar">
+        <div className="fixed left-0 top-15 h-[calc(100vh-60px)] w-56 bg-gray-50 py-6 z-10 overflow-y-auto no-scrollbar">
+            
             <p className="text-3xl font-semibold mb-6 pl-6">
                 {role === "admin" ? "Admin" : "Member"}
             </p>
@@ -39,9 +48,10 @@ export default function SideBar({ page, setPage, role = "member" }) {
                     <SidebarButton
                         key={item.id}
                         id={item.id}
-                        page={page}
-                        setPage={() => setPage(item.id)}
+                        page={pathname}
+                        setPage={() => router.push(item.path)}
                         icon={item.icon}
+                        active={isActive(item.path)}
                     >
                         {item.label}
                     </SidebarButton>
@@ -56,9 +66,10 @@ export default function SideBar({ page, setPage, role = "member" }) {
                     <SidebarButton
                         key={item.id}
                         id={item.id}
-                        page={page}
-                        setPage={() => setPage(item.id)}
+                        page={pathname}
+                        setPage={() => router.push(item.path)}
                         icon={item.icon}
+                        active={isActive(item.path)}
                     >
                         {item.label}
                     </SidebarButton>
