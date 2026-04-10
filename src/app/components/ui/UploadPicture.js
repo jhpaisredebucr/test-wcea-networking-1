@@ -32,7 +32,7 @@ export default function UploadImageModal({ isOpen, onClose, onUpload }) {
       onClick={onClose}
     >
       <div
-        className="bg-white p-6 rounded-lg w-[400px]"
+        className="bg-white p-6 rounded-lg w-100"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-lg font-semibold mb-4">
@@ -48,7 +48,7 @@ export default function UploadImageModal({ isOpen, onClose, onUpload }) {
         {preview && (
           <img
             src={preview}
-            className="mt-4 rounded max-h-[250px] object-contain"
+            className="mt-4 rounded max-h-62.5 object-contain"
             alt="preview"
           />
         )}

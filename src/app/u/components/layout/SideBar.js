@@ -15,13 +15,14 @@ export default function SideBar({ role = "member" }) {
         { id: "referrals", label: "Referrals", path: "/u/referrals", icon: "/icons/referrals.svg" },
         { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/announcement.svg" },
         { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/announcement.svg" },
+        { id: "deposit", label: "Deposit", path: "/u/deposit", icon: "/icons/announcement.svg" },
     ];
 
     const adminMenu = [
-        { id: "dashboard", label: "Dashboard", path: "/admin", icon: "/icons/dashboard.svg" },
+        { id: "dashboard", label: "Dashboard", path: "/admin/dashboard", icon: "/icons/dashboard.svg" },
         { id: "members", label: "Members", path: "/admin/members", icon: "/icons/referrals.svg" },
         { id: "transactions", label: "Transactions", path: "/admin/transactions", icon: "/icons/money-thin.svg" },
-        { id: "announcement", label: "Announcement", path: "/admin/announcement", icon: "/icons/announcement.svg" },
+        { id: "announcement", label: "Announcement", path: "/admin/announcements", icon: "/icons/announcement.svg" },
         { id: "actions", label: "Actions", path: "/admin/actions", icon: "/icons/play.svg" }
     ];
 
@@ -46,6 +47,11 @@ export default function SideBar({ role = "member" }) {
             <div>
                 {menu.map(item => (
                     <SidebarButton
+                        className={`block px-5 py-3 transition ${
+                        isActive
+                            ? "border-r-(--primary)-2"
+                            : ""
+                        }`}
                         key={item.id}
                         id={item.id}
                         page={pathname}
@@ -57,9 +63,8 @@ export default function SideBar({ role = "member" }) {
                     </SidebarButton>
                 ))}
             </div>
-
-            <hr className="my-6" />
-
+            
+            <br></br>
             {/* BOTTOM MENU */}
             <div className="space-y-2">
                 {bottomMenu.map(item => (

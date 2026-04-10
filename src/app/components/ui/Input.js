@@ -4,6 +4,7 @@ function Input({
     label,
     type,
     value,
+    required,
     onChange,
 
     error,
@@ -35,10 +36,13 @@ function Input({
 
     return (
         <div className="mt-2 w-full">
-            {label && (
-                <p className="text-sm mb-1 text-gray-600">{label}</p>
-            )}
 
+            {label && (
+                <p className="text-sm mb-1 text-gray-600">{label}
+                {required && (<span className="m-1 text-(--error-color)" title="required">*</span>)}
+                </p>
+            )}
+            
             <div className="relative flex items-center">
                 
                 {/* Left Icon */}

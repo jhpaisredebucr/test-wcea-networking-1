@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import TopBar from "@/app/u/components/layout/TopBar";
 import SideBar from "@/app/u/components/layout/SideBar";
 import UploadImageModal from "@/app/components/ui/UploadPicture";

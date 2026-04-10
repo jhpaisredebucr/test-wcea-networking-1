@@ -9,7 +9,7 @@ export default function Page(){
     useEffect(() => {
     const isLoggedIn = false;
     if (!isLoggedIn) {
-      router.push("@/home")
+      router.push("/home")
     }
     // router.push("/dashboard/admin")
   });

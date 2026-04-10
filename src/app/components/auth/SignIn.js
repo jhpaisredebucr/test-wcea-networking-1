@@ -75,10 +75,10 @@ export default function SignInForm() {
     }
 
     return (
-        <div className="w-full h-[calc(100vh-96px)] grid grid-cols-5">
+        <div className="">
 
             {/* LEFT CONTAINER (sign in) */}
-            <div className="col-span-3 flex items-center justify-center p-12">
+            <div className="flex items-center justify-center p-5">
                 <div className="w-full max-w-md">
 
                     {/* Header */}
@@ -147,12 +147,6 @@ export default function SignInForm() {
 
                 </div>
             </div>
-            
-            {/* RIGHT SIDE IMAGE */}
-            <div className="col-span-2 relative flex justify-center items-center">
-                <Image src="/images/test-splash.jpg" alt="Sign in visual" width={350} height={350} className="rounded-2xl"/>
-            </div>
-
         </div>
     );
 }

@@ -1,4 +1,5 @@
 import SignUpForm from "@/app/components/auth/SignUpForm";
+import Image from "next/image";
 
 export const metadata = {
   title: "Sign Up"
@@ -9,8 +10,13 @@ export default async function SignUp({ searchParams }) {
   const ref = params?.ref ?? null;
 
   return (
-    <div className="flex h-[calc(100vh-96px)] w-full">
-      <SignUpForm refCode={ref} />
+    <div className="grid grid-cols-1 md:grid-cols gap-4 md:gap-8 w-full min-h-screen  
+      items-center justify-center p-4 md:p-8">
+        
+      {/* Sign Up Form */}
+      <div className="flex flex-col justify-center">
+        <SignUpForm refCode={ref} />
+      </div>
     </div>
   );
 }

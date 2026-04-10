@@ -32,8 +32,6 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
             newErrors.contactNumber = "Enter a valid PH number (e.g. 09XXXXXXXXX).";
         }
 
-
-
         // Password match
         if (password && confirmPassword && password !== confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match.";
@@ -66,51 +64,51 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
     }
 
     return (
-        <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
-            <div className="w-full mt-2-10">
-                <p className="font-semibold text-2xl">Create Account</p>
-                <p>Please fill in your details to join our community portal.</p>
+        <div className="flex w-full md:w-full flex-col items-center justify-center p-4 sm:p-6 md:p-20 md:col-span-2">
+            <div className="w-full mt-4 md:mt-10">
+                <p className="font-semibold text-xl sm:text-2xl">Create Account</p>
+                <p className="text-sm sm:text-base text-gray-600">Please fill in your details to join our community portal.</p>
             </div>
 
             {errors.api && (
-                <p className="w-full mt-2-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg p-2">
+                <p className="w-full mt-3 md:mt-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg p-3">
                     {errors.api}
                 </p>
             )}
 
-            <div className="w-full grid grid-cols-2 gap-x-5">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                 {/* Username */}
-                <div className="flex flex-col mt-2">
-                    <Input label="Username" type="text" require value={formData.username}
+                <div className="flex flex-col">
+                    <Input label="Username" type="text" required={true} value={formData.username}
                         onChange={(val) => setFormData({ ...formData, username: val })} />
                     {errors.username && <p className="text-xs text-red-500 mt-1">{errors.username}</p>}
                 </div>
 
                 {/* Email */}
-                <div className="flex flex-col mt-2">
-                    <Input label="Email Address" type="text" require value={formData.email}
+                <div className="flex flex-col">
+                    <Input label="Email Address" type="text" required={true} value={formData.email}
                         onChange={(val) => setFormData({ ...formData, email: val })} />
                     {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                 </div>
 
                 {/* Contact Number */}
-                <div className="flex flex-col mt-2">
-                    <Input label="Contact Number" type="text" value={formData.contactNumber}
+                <div className="flex flex-col">
+                    <Input label="Contact Number" type="text" required={true} value={formData.contactNumber}
                         onChange={(val) => setFormData({ ...formData, contactNumber: val })} />
                     {errors.contactNumber && <p className="text-xs text-red-500 mt-1">{errors.contactNumber}</p>}
                 </div>
 
                 {/* Referral Code */}
-                <div className="flex flex-col mt-2">
+                <div className="flex flex-col">
                     <Input label="Referral Code" type="text" value={formData.referralCode}
                         onChange={(val) => setFormData({ ...formData, referralCode: val })} />
                     {errors.referralCode && <p className="text-xs text-red-500 mt-1">{errors.referralCode}</p>}
                 </div>
 
                 {/* Password */}
-                <div className="flex flex-col mt-2">
+                <div className="flex flex-col">
                     <div className="relative">
-                        <Input label="Password" type={showPassword ? "text" : "password"} value={formData.password}
+                        <Input label="Password" type={showPassword ? "text" : "password"} required={true} value={formData.password}
                             onChange={(val) => setFormData({ ...formData, password: val })} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-11 text-xs text-gray-400 hover:text-gray-600">
@@ -121,7 +119,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 </div>
 
                 {/* Confirm Password */}
-                <div className="flex flex-col mt-2">
+                <div className="flex flex-col">
                     <div className="relative">
                         <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} value={formData.confirmPassword}
                             onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
@@ -133,15 +131,17 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                     {errors.confirmPassword && <p className="text-xs text-red-500 mt-1">{errors.confirmPassword}</p>}
                 </div>
 
+                {/* Create Account Button */}
                 <button onClick={HandleSignUp}
-                    className="w-full h-13 bg-(--primary) cursor-pointer col-span-2 p-2 rounded-md text-white mt-4">
+                    className="w-full h-13 bg-(--primary) cursor-pointer col-span-1 md:col-span-2 p-2 rounded-md text-white font-medium mt-4 hover:opacity-90 transition-opacity">
                     Create Account
                 </button>
 
-                <div className="col-span-2 flex flex-col my-2">
-                    <p>
+                {/* Sign In Link */}
+                <div className="col-span-1 md:col-span-2 flex flex-col my-2">
+                    <p className="text-sm text-gray-700">
                         Already have an account?
-                        <button onClick={HandleSignIn} className="inline cursor-pointer ml-2 text-blue-500 hover:underline">
+                        <button onClick={HandleSignIn} className="inline cursor-pointer ml-2 text-blue-500 hover:underline font-medium">
                             Sign In Here
                         </button>
                     </p>
