@@ -5,31 +5,16 @@ import { useState } from "react";
 export default function UploadImageModal({ isOpen, onClose, onUpload }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  async function handleUpload() {
+  function handleConfirm() {
     if (!file) return;
 
-    setLoading(true);
+    // send file to parent (NOT uploaded yet)
+    onUpload(file);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/cloudinary/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    setLoading(false);
-
-    if (data.url) {
-      onUpload(data.url);
-      onClose();
-    }
+    onClose();
   }
 
   function handleFileChange(e) {
@@ -64,16 +49,17 @@ export default function UploadImageModal({ isOpen, onClose, onUpload }) {
           <img
             src={preview}
             className="mt-4 rounded max-h-[250px] object-contain"
+            alt="preview"
           />
         )}
 
         <div className="flex gap-3 mt-4">
           <button
-            onClick={handleUpload}
-            disabled={loading}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={handleConfirm}
+            disabled={!file}
+            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
           >
-            {loading ? "Uploading..." : "Upload"}
+            Confirm
           </button>
 
           <button

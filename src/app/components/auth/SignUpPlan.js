@@ -16,7 +16,7 @@ export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }
     }   
 
     function SetPlan(plan) {
-        setFormData(prev => ({ ...prev, plan: plan }));
+        setFormData(prev => ({ ...prev, planId: plan }));
     }
 
     function CheckMissingFields() {

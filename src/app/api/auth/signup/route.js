@@ -27,6 +27,7 @@ export async function POST(req) {
             plan,
             // Step 4
             paymentMethod,
+            paymentUrl,
             // Step 5
             status
         } = body;

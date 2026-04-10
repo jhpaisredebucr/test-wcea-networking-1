@@ -27,9 +27,11 @@ export default function SignUpForm({ refCode }) {
     streetAddress: "",
     postalCode: "",
     // Step 3
-    plan: null,
+    planId: null,
     // Step 4
     paymentMethod: "",
+    paymentProof: null,
+    paymentUrl: "",
     // Step 5
     status: "pending"
   });
