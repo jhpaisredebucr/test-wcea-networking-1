@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 
 export default function Transactions({transactions}) {
+
     return (
         <div>
             <div className="grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">

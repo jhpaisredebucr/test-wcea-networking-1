@@ -94,7 +94,7 @@ export default function Dashboard() {
                     fetchJson("/api/announcement"),
                     fetchJson("/api/products"),
                     fetchJson("/api/products/orders"),
-                    fetchJson("/api/transaction")
+                    fetchJson("/api/transaction", { credentials: "include" })
                 ]);
 
                 setAnnouncement(announcementsRes.announcements);
