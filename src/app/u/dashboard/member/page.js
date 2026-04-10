@@ -36,6 +36,7 @@ export default function Dashboard() {
     const [announcements, setAnnouncement] = useState(null);
     const [products, setProducts] = useState(null);
     const [orders, setOrders] = useState(null);
+    const [transactions, setTransactions] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -73,15 +74,6 @@ export default function Dashboard() {
             setError(null);
 
             try {
-                // const userID = localStorage.getItem("userID");
-                // if (!userID) {
-                //     setError("No user ID found. Please log in again.");
-                //     return;
-                // }
-
-                // const userData = await fetchJson(`/api/users?user-id=${userID}`);
-
-
                 // Fetch user data
                 const userData = await fetchJson("/api/users", { credentials: "include" });
 
@@ -98,15 +90,17 @@ export default function Dashboard() {
                 }
 
                 // Fetch other data in parallel
-                const [announcementsRes, productsRes, ordersRes] = await Promise.all([
+                const [announcementsRes, productsRes, ordersRes, transactionRes] = await Promise.all([
                     fetchJson("/api/announcement"),
                     fetchJson("/api/products"),
-                    fetchJson("/api/products/orders")
+                    fetchJson("/api/products/orders"),
+                    fetchJson("/api/transaction")
                 ]);
 
                 setAnnouncement(announcementsRes.announcements);
                 setProducts(productsRes.products);
                 setOrders(ordersRes.orders);
+                setTransactions(transactionRes.transactions);
 
             } catch (err) {
                 console.error("Error loading data:", err);
@@ -197,7 +191,7 @@ export default function Dashboard() {
         products: <ProductsMember products={products} userData={user} dashboardData={dashboardData} />,
         orders: <OrdersMember orders={orders} products={products} userInfo={user.userInfo} />,
         referrals: <ReferralsMember userData={user.userInfo} dashboardData={dashboardData} />,
-        transactions: <Transactions />
+        transactions: <Transactions transactions={transactions}/>
     };
 
    return (

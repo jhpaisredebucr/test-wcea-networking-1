@@ -1,8 +1,26 @@
-export default function Transactions() {
+import { format } from "date-fns";
+
+export default function Transactions({transactions}) {
     return (
         <div>
-            <h1 className="text-2xl font-bold mb-4">Transactions</h1>
-            <p>Here you can view your transaction history and details.</p>
+            <div className="grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">
+                <div>Date</div>
+                <div>Type</div>
+                <div>Amount</div>
+                <div>Status</div>
+            </div>
+
+            {transactions.map((transaction, index) => (
+                <div
+                    key={index}
+                    className="grid grid-cols-4 shadow-sm p-5 rounded-lg bg-white mt-2"
+                >
+                    <div>{format(new Date(transaction.created_at), "MMM dd, yyyy")}</div>
+                    <div>{transaction.type}</div>
+                    <div>{transaction.amount}</div>
+                    <div>{transaction.status}</div>
+                </div>
+            ))}
         </div>
-    )
+    );
 }
