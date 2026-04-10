@@ -1,9 +1,10 @@
 'use client';
 import Image from "next/image"
 import { useState } from "react";
-import NotificationDropdown from "@/app/components/ui/Dropdown";
+import NotificationDropdown from "@/app/components/ui/NotifDropdown";
 import Profile from "@/app/components/ui/Profile";
 import { useRouter } from "next/navigation";
+import ProfileDropdown from "@/app/components/ui/ProfileDropdown";
 
 export default function TopBar({userData}) {  
     const router = useRouter()
@@ -65,6 +66,23 @@ export default function TopBar({userData}) {
                 last_name={userData?.profile?.last_name}
                 hideName={true}
             />
+            <ProfileDropdown userData={userData}>
+                <button className="flex justify-between w-full p-2 gap-2 rounded-lg cursor-pointer hover:bg-blue-50" onClick={GoProfile}>
+                    <div className="flex gap-2">
+                        <Image src="/icons/edit.svg" alt="edit icon" width={20} height={20}/>
+                        Edit Profile
+                    </div>
+                    <Image src="/icons/chevron-right.svg" alt="edit icon" width={20} height={20}/>
+                </button>
+
+                <button className="flex justify-between w-full p-2 gap-2 rounded-lg cursor-pointer hover:bg-blue-50" onClick={GoHome}>
+                    <div className="flex gap-2">
+                        <Image src="/icons/door.svg" alt="edit icon" width={20} height={20}/>
+                        Sign Out
+                    </div>
+                    <Image src="/icons/chevron-right.svg" alt="edit icon" width={20} height={20}/>
+                </button>
+            </ProfileDropdown>
             </div>
             
     </div>                      
