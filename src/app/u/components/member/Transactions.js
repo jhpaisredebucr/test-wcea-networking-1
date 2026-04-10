@@ -18,7 +18,7 @@ export default function Transactions({transactions}) {
                 >
                     <div>{format(new Date(transaction.created_at), "MMM dd, yyyy")}</div>
                     <div>{transaction.type}</div>
-                    <div>{transaction.amount}</div>
+                    <div>₱{transaction.amount}</div>
                     <div>{transaction.status}</div>
                 </div>
             ))}
