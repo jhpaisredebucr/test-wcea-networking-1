@@ -56,7 +56,7 @@ export default function DashboardLayout({ children }) {
       />
 
       <TopBar userData={user} />
-      <SideBar />
+      <SideBar role={user.userInfo.role}/>
 
       <div className="w-full flex">
         <div className="w-full ml-56 px-15 py-7 bg-gray-100 min-h-screen">

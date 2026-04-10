@@ -1,4 +1,4 @@
-import AdminDashboard from "../../components/admin/AdminPage";
+import DashboardAdmin from "../components/admin/Dashboard";
 import { cookies } from "next/headers";
 
 export default async function AdminPage() {
@@ -32,7 +32,7 @@ export default async function AdminPage() {
 
     return (
         <div>
-            <AdminDashboard dashboardData={dashboardData} userData={userData}/>
+            <DashboardAdmin dashboardData={dashboardData} userData={userData}/>
         </div>
     );
 }

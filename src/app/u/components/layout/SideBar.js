@@ -18,17 +18,17 @@ export default function SideBar({ role = "member" }) {
     ];
 
     const adminMenu = [
-        { id: "dashboard", label: "Dashboard", path: "/admin" },
-        { id: "members", label: "Members", path: "/admin/members" },
-        { id: "transactions", label: "Transactions", path: "/admin/transactions" },
-        { id: "announcement", label: "Announcement", path: "/admin/announcement" },
-        { id: "actions", label: "Actions", path: "/admin/actions" }
+        { id: "dashboard", label: "Dashboard", path: "/admin", icon: "/icons/dashboard.svg" },
+        { id: "members", label: "Members", path: "/admin/members", icon: "/icons/referrals.svg" },
+        { id: "transactions", label: "Transactions", path: "/admin/transactions", icon: "/icons/money-thin.svg" },
+        { id: "announcement", label: "Announcement", path: "/admin/announcement", icon: "/icons/announcement.svg" },
+        { id: "actions", label: "Actions", path: "/admin/actions", icon: "/icons/play.svg" }
     ];
 
     const bottomMenu = [
-        { id: "about", label: "About", path: "/about", icon: "/icons/announcement.svg" },
-        { id: "settings", label: "Setting", path: "/settings", icon: "/icons/announcement.svg" },
-        { id: "signout", label: "Sign Out", path: "/signout", icon: "/icons/announcement.svg" }
+        { id: "about", label: "About", path: "/about", icon: "/icons/more.svg" },
+        { id: "settings", label: "Setting", path: "/settings", icon: "/icons/settings.svg" },
+        { id: "signout", label: "Sign Out", path: "/signout", icon: "/icons/door.svg" }
     ];
 
     const menu = role === "admin" ? adminMenu : memberMenu;

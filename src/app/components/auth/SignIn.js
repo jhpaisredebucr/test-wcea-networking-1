@@ -50,7 +50,7 @@ export default function SignInForm() {
                 // Redirect based on role
                 router.replace(
                     data.user.role === "admin"
-                        ? "/u/dashboard/admin"
+                        ? "/u/admin"
                         : "/u/dashboard"
                 );
             } else {
