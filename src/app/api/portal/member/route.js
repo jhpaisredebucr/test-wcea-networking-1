@@ -22,9 +22,9 @@ export async function GET(req) {
         ,[userReferralCode]
     );
 
-    const totalBalance = await query(
+    const totalCommission = await query(
         `
-            SELECT SUM(reward_amount) AS totalBalance FROM referral_rewards
+            SELECT SUM(reward_amount) AS totalCommission FROM referral_rewards
             WHERE referrer_id = (SELECT id FROM users WHERE referral_code = $1);
         `
         ,[userReferralCode]
@@ -42,14 +42,14 @@ export async function GET(req) {
     )
 
     const totalSpent = Number(totalOrder?.[0]?.totalspent || 0);
-    const totalBalanceValue = Number(totalBalance?.[0]?.totalbalance || 0);
+    const totalCommissionValue = Number(totalCommission?.[0]?.totalcommission || 0);
 
-    const userBalance = totalBalanceValue - totalSpent;
+    const userBalance = totalCommissionValue - totalSpent;
 
     const totalReferredMembers = referredMembers.length? Number(referredMembers[0].total_count) : 0;
     const pendingCount = referredMembers.filter(member => member.status === 'pending').length;
 
-    const dashboardData = {totalReferredMembers, pendingCount, totalBalanceValue, userBalance, referredMembers };
+    const dashboardData = {totalReferredMembers, pendingCount, totalCommissionValue, userBalance, referredMembers };
     
     return NextResponse.json({dashboardData});
 }
