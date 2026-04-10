@@ -1,3 +1,4 @@
+import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 
 export default function ProductCard({ products, userData, setBuying, setSelectedProduct }) {
@@ -19,8 +20,8 @@ export default function ProductCard({ products, userData, setBuying, setSelected
         ">
             {/* Image — full width */}
             <div className="overflow-hidden rounded-lg w-full h-40">
-                <Image 
-                    src="/images/example.jpg" 
+                <CldImage 
+                    src="/product1_plfkw3" 
                     alt="Product Picture" 
                     width={400} 
                     height={160} 
