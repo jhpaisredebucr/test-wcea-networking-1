@@ -46,7 +46,7 @@ export default function Page() {
     };
 
     loadData();
-  }, []);
+  }, [orders]);
 
   // if (loading) {
   //   return (

@@ -5,14 +5,36 @@ import ProductsMember from "@/app/u/components/member/ProductShop";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   
+  const fetchJson = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
+        const userRes = await fetchJson("/api/users");
+
+        if (!userRes.success) {
+          throw new Error("Failed to load user");
+        }
+
+        setUserData(userRes);
+
         fetch("/api/products")
           .then(res => res.json())
           .then(d => setProducts(d.products));
+
+        const dashRes = await fetchJson(
+          `/api/portal/member?userReferralCode=${userRes.userInfo.referral_code}`
+        );
+
+        setDashboardData(dashRes.dashboardData);
       } catch (err) {
         console.error(err);
       } finally {
@@ -21,7 +43,7 @@ export default function Page() {
     };
 
     loadData();
-  }, []);
+  }, [dashboardData]);
 
   // if (loading) {
   //   return (
@@ -39,7 +61,7 @@ export default function Page() {
   return (
     <>
       <h1 className="text-3xl font-semibold mb-6">Product Shop</h1>
-      <ProductsMember products={products} />
+      <ProductsMember products={products} dashboardData={dashboardData} userData={userData} />
     </>
   );
 }

@@ -25,7 +25,7 @@ export default function Page() {
     };
 
     loadData();
-  }, []);
+  }, [transactions]);
 
   // if (loading) {
   //   return (

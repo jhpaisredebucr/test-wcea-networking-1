@@ -42,7 +42,7 @@ export default function Page() {
     };
 
     loadData();
-  }, []);
+  }, [dashboardData]);
 
   // LOADING UI
   // if (loading) {
