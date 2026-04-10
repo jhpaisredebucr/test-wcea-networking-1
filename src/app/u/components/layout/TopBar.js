@@ -45,11 +45,18 @@ export default function TopBar({userData}) {
                 className="mr-3 cursor-pointer" 
                 onClick={toggleDropdown}
             />
-            {isDropdownOpen && (
+
+            <div
+            className={`transition-all z-11 duration-200 ${
+                isDropdownOpen
+                ? "opacity-100 translate-y-4"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+            }`}
+            >
             <NotificationDropdown>
                 <p className="text-sm text-gray-500">No new notifications</p>
             </NotificationDropdown>
-            )}
+            </div>
 
             {/* PROFILE */}
             <Profile 
