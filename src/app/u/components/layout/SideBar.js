@@ -34,8 +34,6 @@ export default function SideBar({ role = "member" }) {
 
     const menu = role === "admin" ? adminMenu : memberMenu;
 
-    const isActive = (path) => pathname === path;
-
     return (
         <div className="fixed left-0 top-15 h-[calc(100vh-60px)] w-56 bg-gray-50 py-6 z-10 overflow-y-auto no-scrollbar">
             
@@ -45,23 +43,22 @@ export default function SideBar({ role = "member" }) {
 
             {/* MAIN MENU */}
             <div>
-                {menu.map(item => (
+               {menu.map(item => (
                     <SidebarButton
-                        className={`block px-5 py-3 transition ${
-                        isActive
-                            ? "border-r-(--primary)-2"
-                            : ""
-                        }`}
                         key={item.id}
                         id={item.id}
                         page={pathname}
                         setPage={() => router.push(item.path)}
                         icon={item.icon}
-                        active={isActive(item.path)}
+                        className={`block px-5 py-3 transition ${
+                        pathname.startsWith(item.path)
+                            ? "border-r-4 border-(--primary) bg-(--primary)/30 font-semibold"
+                            : ""
+                        }`}
                     >
                         {item.label}
                     </SidebarButton>
-                ))}
+                    ))}
             </div>
             
             <br></br>
@@ -70,11 +67,8 @@ export default function SideBar({ role = "member" }) {
                 {bottomMenu.map(item => (
                     <SidebarButton
                         key={item.id}
-                        id={item.id}
-                        page={pathname}
                         setPage={() => router.push(item.path)}
                         icon={item.icon}
-                        active={isActive(item.path)}
                     >
                         {item.label}
                     </SidebarButton>
