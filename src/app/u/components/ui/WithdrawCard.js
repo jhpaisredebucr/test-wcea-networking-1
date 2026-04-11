@@ -1,14 +1,15 @@
 import Image from "next/image";
 
-export default function Card({ title, color, value, valueSize="text-2xl", bold="font-bold", info, colSpan="col-span-1", rowSpan="row-span-1", src, children}) {
+export default function WithdrawCard({ children , title}) {
     return (
-        <div className={`bg-white rounded-2xl shadow-[0_0_4px_rgba(0,0,0,0.15)] p-5 flex flex-col justify-between ${colSpan} ${rowSpan}`}>
-            <div className="flex gap-x-2 items-center">
-                {src && <div className={`${color} rounded-xl p-3`}><Image src={src} alt="icon" width={20} height={20}></Image></div>}
-                <p className="text-gray-400 text-sm">{title}</p>
-            </div>
-            <p className={`${valueSize} ${bold}`}>{value}</p>
-            {info && <p className="text-green-500 text-sm mt-2">{info}</p>}
+        <div className="
+            p-4 bg-white border-0 border-(--primary)
+            flex-col m-2 gap-2
+            transition duration-300 hover:shadow-lg
+            grid-cols-1 rounded-2xl
+            shadow-md flex justify-center
+        ">
+            <h1 className="font-semibold">{title}</h1>
             {children}
         </div>
     )

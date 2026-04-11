@@ -2,6 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import SidebarButton from "../ui/SideBarButton";
+import { useState } from "react";
 
 export default function SideBar({ role = "member" }) {
     const router = useRouter();
@@ -34,8 +35,13 @@ export default function SideBar({ role = "member" }) {
 
     const menu = role === "admin" ? adminMenu : memberMenu;
 
+    const [menuActive, setMenu] = useState(true)
+
+
     return (
-        <div className="fixed left-0 top-15 h-[calc(100vh-60px)] w-56 bg-gray-50 py-6 z-10 overflow-y-auto no-scrollbar">
+        <div className={`fixed left-0 top-15 h-[calc(100vh-60px)] w-56
+            md:${menuActive ? "bg-amber-600":"bg-amber-200"}
+            bg-gray-50 py-6 z-10 overflow-y-auto no-scrollbar`}>
             
             <p className="text-3xl font-semibold mb-6 pl-6">
                 {role === "admin" ? "Admin" : "Member"}
