@@ -1,4 +1,4 @@
-import OrderCard from "../ui/OrderCard";
+import OrderCard from "../OrderCard";
 
 export default function OrdersMember({orders, products, userData}) {
     if (!orders) {

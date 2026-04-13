@@ -1,5 +1,5 @@
 
-export default function Withdraw(){
+export default function Deposits(){
 
     
     return (<>

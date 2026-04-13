@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Transactions from "@/app/u/components/member/Transactions";
+import Transactions from "@/app/components/ui/member/Transactions";
 
 export default function Page() {
   const [transactions, setData] = useState([]);

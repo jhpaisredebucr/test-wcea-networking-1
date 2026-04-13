@@ -1,5 +1,5 @@
 import SemanticCard from "@/app/components/ui/SemanticCard";
-import WithdrawCard from "../components/ui/WithdrawCard";
+import WithdrawCard from "../../components/ui/WithdrawCard";
 
 export default function Withdraw(){
 

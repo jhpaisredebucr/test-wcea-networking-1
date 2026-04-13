@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import TopBar from "@/app/u/components/layout/TopBar";
-import SideBar from "@/app/u/components/layout/SideBar";
+import TopBar from "@/app/components/layout/DashboardTopBar";
+import SideBar from "@/app/components/layout/DashboardSideBar";
 import UploadImageModal from "@/app/components/ui/UploadPicture";
 import Loading from "../components/ui/Loading";
 

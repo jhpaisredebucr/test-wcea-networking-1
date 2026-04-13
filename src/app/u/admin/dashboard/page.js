@@ -1,5 +1,5 @@
-import DashboardAdmin from "../../components/admin/Dashboard";
 import { cookies } from "next/headers";
+import DashboardAdmin from "@/app/components/ui/admin/Dashboard";
 
 export default async function AdminPage() {
     const API_HOST = process.env.NEXT_PUBLIC_API_HOST;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ProductsMember from "@/app/u/components/member/ProductShop";
+import ProductsMember from "@/app/components/ui/member/ProductShop";
 
 export default function Page() {
   const [products, setProducts] = useState([]);

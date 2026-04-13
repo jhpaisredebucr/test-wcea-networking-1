@@ -1,5 +1,5 @@
 import { userInfo } from "node:os";
-import Card from "../ui/Card";
+import Card from "../Card";
 import { format } from "date-fns";
 
 export default function ReferralsMember({ userData, dashboardData }) {

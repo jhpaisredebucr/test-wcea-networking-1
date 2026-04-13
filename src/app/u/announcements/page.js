@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import AnnouncementMember from "@/app/u/components/member/Announcement";
+import AnnouncementMember from "@/app/components/ui/member/Announcement";
 
 export default function Page() {
   const [announcements, setData] = useState([]);

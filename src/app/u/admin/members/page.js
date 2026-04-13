@@ -1,4 +1,4 @@
-import MembersAdmin from "../../components/admin/Members";
+import MembersAdmin from "../../../components/ui/admin/Members";
 import { cookies } from "next/headers";
 
 export default async function Page() {

@@ -1,6 +1,6 @@
 "use client"
 
-import Card from "../ui/Card";
+import Card from "../Card";
 import { format } from "date-fns";
 
 export default function MembersAdmin({ userInfo, dashboardData }) {
@@ -81,7 +81,9 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
                     <div className="flex items-center justify-between">
                         {user.status}
                         {user.status === "pending" &&
-                        <button onClick={() => Approve(user.id, user.plan, user.referred_by)} className="p-1 rounded-sm bg-blue-400 text-white text-sm">
+                        <button onClick={() => 
+                            Approve(user.id, user.plan, user.referred_by)} 
+                            className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm">
                             Approve
                         </button>}
                     </div>

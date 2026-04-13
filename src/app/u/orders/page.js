@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import OrdersMember from "@/app/u/components/member/MyOrders";
+import OrdersMember from "@/app/components/ui/member/MyOrders";
 
 export default function Page() {
   const [orders, setOrders] = useState([]);

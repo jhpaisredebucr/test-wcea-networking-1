@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import DashboardMember from "@/app/u/components/member/Dashboard";
-import Transactions from "../components/member/Transactions";
+import DashboardMember from "@/app/components/ui/member/Dashboard";
+import Transactions from "../../components/ui/member/Transactions";
 
 export default function Page() {
   const [dashboardData, setDashboardData] = useState(null);

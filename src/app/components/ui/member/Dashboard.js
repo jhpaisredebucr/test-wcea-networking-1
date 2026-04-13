@@ -1,4 +1,4 @@
-import Card from "../ui/Card"
+import Card from "../Card"
 import FormPdf from "./FormPdf";
 import { useState } from "react";
 export default function DashboardMember({dashboardData, userData}) {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ReferralsMember from "@/app/u/components/member/Referrals";
+import ReferralsMember from "@/app/components/ui/member/Referrals";
 
 export default function Page() {
 
