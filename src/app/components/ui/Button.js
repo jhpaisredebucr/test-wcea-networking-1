@@ -1,6 +1,15 @@
-function Button({children, onClick}) {
+function Button({children, onClick, icon}) {
     return (
-        <button onClick={onClick} className="w-full cursor-pointer mb-2 mt-10 p-2 bg-blue-500 rounded-4xl text-white font-bold">
+        <button 
+            onClick={onClick} 
+            
+            className="
+            w-full cursor-pointer 
+            p-2 bg-(--primary) 
+            rounded-2xl text-white 
+            font-bold flex gap-4 justify-center">
+            {icon && (<img className="inline " 
+            src={icon} alt="icon"></img>)}
             {children}
         </button>
     )

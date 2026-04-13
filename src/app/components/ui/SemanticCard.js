@@ -8,7 +8,7 @@ export default function SemanticCard({children, semantic}) {
 
     return (
         <div className={`
-            items-center 
+            items-center w-full
             px-4 py-2 rounded-xl
             border 
             bg-opacity-50 backdrop-blur-md 

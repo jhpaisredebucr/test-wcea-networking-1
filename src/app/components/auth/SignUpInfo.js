@@ -68,7 +68,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
         <div className="flex w-full md:w-full flex-col items-center justify-center p-4 sm:p-6 md:p-20 md:col-span-2">
             <div className="w-full mt-4 md:mt-10">
                 <p className="font-semibold text-xl sm:text-2xl">Create Account</p>
-                <p className="text-sm sm:text-base text-gray-600">Please fill in your details to join our community portal.</p>
+                <p className="text-sm sm:text-base text-gray-600 mb-4">Please fill in your details to join our community portal.</p>
             </div>
 
             {errors.api && (
