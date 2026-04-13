@@ -56,6 +56,10 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
     }
 
+    function PopUpMemberCard( user ){
+
+    }
+
     return (
         <div>
             <div className="grid grid-cols-2 gap-5">
@@ -73,7 +77,11 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
             {referrals.map((user, index) => (
                 <div
                     key={index}
-                    className="grid grid-cols-4 shadow-sm p-5 rounded-lg bg-white mt-2"
+                    onClick={PopUpMemberCard(user)}
+                    className="grid grid-cols-4 border-(--primary) 
+                    shadow-sm p-5 rounded-lg bg-white mt-2
+                    hover:shadow-md hover:border cursor-pointer
+                    "
                 >
                     <div>{user.username}</div>
                     <div>{user.first_name} {user.last_name}</div>
