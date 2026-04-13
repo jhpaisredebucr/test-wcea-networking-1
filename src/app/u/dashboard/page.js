@@ -7,7 +7,7 @@ import Transactions from "../../components/ui/member/Transactions";
 export default function Page() {
   const [dashboardData, setDashboardData] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -49,17 +49,19 @@ export default function Page() {
 
   // TRANSACTIONS - Fetch transaction data
   useEffect(() => {
-    const loadTransactions = async () => {
+    const loadData = async () => {
       try {
-        const res = await fetch("/api/transaction");
-        const data = await res.json();
-        setTransactions(data.transactions || []);
+        fetch("/api/transaction", {credentials: "include"})
+          .then(res => res.json())
+          .then(d => setData(d.transactions));
       } catch (err) {
-        console.error("Failed to load transactions:", err);
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    loadTransactions();
+    loadData();
   }, []);
 
   // LOADING UI

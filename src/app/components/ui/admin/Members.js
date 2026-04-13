@@ -4,8 +4,10 @@ import Card from "../Card";
 import { format } from "date-fns";
 import MemberCard from "./MemberCard";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function MembersAdmin({ userInfo, dashboardData }) {
+export default function MembersAdmin({ dashboardData }) {
+    const router = useRouter();
 
     const referrals = [
         ...(dashboardData?.pendingRequest || []),
@@ -66,6 +68,7 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         setUser(user);
         setIsActive(!isActive);
         console.log(user);
+        router.refresh()
     }
 
     return (

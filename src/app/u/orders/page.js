@@ -18,6 +18,7 @@ export default function Page() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        //GET USER DATA
         const userRes = await fetchJson("/api/users");
 
         if (!userRes.success) {
@@ -26,17 +27,15 @@ export default function Page() {
 
         setUserData(userRes);
 
+        //GET PRODUCTS
         fetch("/api/products")
           .then(res => res.json())
           .then(d => setProducts(d.products));
 
+        //GET ORDERS
         fetch("/api/products/orders")
           .then(res => res.json())
           .then(d => setOrders(d.orders));
-
-        fetch("/api/products")
-          .then(res => res.json())
-          .then(d => setProducts(d.products));
 
       } catch (err) {
         console.error(err);
@@ -46,7 +45,7 @@ export default function Page() {
     };
 
     loadData();
-  }, [orders]);
+  }, []);
 
   // if (loading) {
   //   return (

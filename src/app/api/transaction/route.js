@@ -1,6 +1,10 @@
+import { query } from "@/lib/db";
+import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
+
 export async function GET(req) {
   try {
-    const token = req.cookies.get("token")?.value;
+    const token = req.cookies.get("token")?.value
 
     if (!token) {
       return NextResponse.json(
@@ -38,7 +42,7 @@ export async function GET(req) {
     return NextResponse.json(
       {
         success: false,
-        message: "Server error",
+        message: err.message,
       },
       { status: 500 }
     );

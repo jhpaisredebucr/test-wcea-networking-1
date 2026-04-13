@@ -1,46 +1,167 @@
-export default function MemberCard({user, onClose}) {
+"use client";
+
+import OrdersMember from "../member/MyOrders";
+import { useState, useEffect } from "react";
+
+export default function MemberCard({ user, onClose }) {
+
+    const [orders, setOrders] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [userData, setUserData] = useState(null);
+    const [page, setPage] = useState(0);
+
+    const fetchJson = async (url) => {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+    };
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const userRes = await fetchJson("/api/users");
+                setUserData(userRes);
+
+                fetch("/api/products")
+                    .then(res => res.json())
+                    .then(d => setProducts(d.products));
+
+                fetch("/api/products/orders")
+                    .then(res => res.json())
+                    .then(d => setOrders(d.orders));
+
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        loadData();
+    }, []);
 
     async function BanAccount(statusToAdd) {
-        console.log(user?.id);
-        const res = await fetch("/api/users/ban", {
+        await fetch("/api/users/ban", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 userId: user?.id,
-                statusToAdd: statusToAdd
+                statusToAdd
             })
         });
 
-        const data = await res.json();
-        console.log(data);
+        onClose();
     }
 
-    //GOO JHOREMZ HAHAHAHA TINATAMAD AKO GUMAWA NG COMPONENT, STRING NALANG LIPAT MONA LANG HAHAHAHA
-    const buttonClassBlue = "px-4 py-2 bg-(--primary) text-white rounded hover:bg-blue-400 transition"
-    const buttonClassRed = "px-4 py-2 bg-red-400 text-white rounded hover:bg-blue-400 transition"
-    
-    
+    const buttonClassBlue =
+        "px-4 py-2 bg-(--primary) text-white text-left rounded-lg hover:opacity-90 transition";
+
+    const buttonClassRed =
+        "px-4 py-2 bg-red-400 text-white text-left rounded-lg hover:opacity-90 transition";
+
+    //modal size
+    const modalSize =
+        page === 0
+            ? "w-80 h-80"
+            : "w-3/4 h-3/4"; //size for page 1,2,3
+
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="flex flex-col bg-white p-6 gap-5 rounded-lg shadow-lg w-110">
-                <p>{user?.first_name} {user?.last_name}</p>
-                <div className="flex flex-col gap-2">
-                    <button className={buttonClassBlue}>View Profile</button>
-                    <button className={buttonClassBlue}>View Transactions</button>
-                    <button className={buttonClassBlue}>View Orderes</button>
-                    {user?.status === "approved" && (
-                        <button className={buttonClassRed} onClick={() => BanAccount("banned")}>Ban Account</button>
-                    )}
 
-                    {user?.status === "banned" && (
-                        <button className={buttonClassBlue} onClick={() => BanAccount("approved")}>Remove Ban</button>
-                    )}
+            <div
+                className={`
+                    flex flex-col
+                    bg-white
+                    p-6
+                    gap-5
+                    rounded-lg
+                    shadow-lg
+                    overflow-hidden
+                    transition-all
+                    duration-300
+                    ease-in-out
+                    ${modalSize}
+                `}
+            >
+
+                {/* HEADER */}
+                <div className="flex justify-between items-center">
+                    <p className="font-bold text-lg">
+                        {user?.first_name} {user?.last_name}
+                    </p>
+
+                    <button
+                        onClick={() => {
+                            if (page === 0) {
+                                onClose();
+                            } else {
+                                setPage(0);
+                            }
+                        }}
+                        className="text-sm text-gray-500 hover:text-black"
+                    >
+                        ← Back
+                    </button>
                 </div>
 
-                <button onClick={onClose} className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Close</button>
+                <hr />
 
-                
+                {/* PAGE 0 - MENU */}
+                <div
+                    className={`transition-all duration-300 ${
+                        page === 0
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-4 hidden"
+                    }`}
+                >
+                    <div className="flex flex-col gap-2">
+                        <button className={buttonClassBlue} onClick={() => setPage(1)}>
+                            View Profile
+                        </button>
+
+                        <button className={buttonClassBlue} onClick={() => setPage(2)}>
+                            View Transactions
+                        </button>
+
+                        <button className={buttonClassBlue} onClick={() => setPage(3)}>
+                            View Orders
+                        </button>
+
+                        {user?.status === "approved" && (
+                            <button
+                                className={buttonClassRed}
+                                onClick={() => BanAccount("banned")}
+                            >
+                                Ban Account
+                            </button>
+                        )}
+
+                        {user?.status === "banned" && (
+                            <button
+                                className={buttonClassBlue}
+                                onClick={() => BanAccount("approved")}
+                            >
+                                Remove Ban
+                            </button>
+                        )}
+                    </div>
+                </div>
+
+                {/* PAGE 3 - ORDERS (same size as others) */}
+                <div
+                    className={`transition-all duration-300 ${
+                        page === 3
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-4 hidden"
+                    }`}
+                >
+                    <p className="text-2xl font-semibold">Orders:</p>
+                    <OrdersMember
+                        orders={orders}
+                        products={products}
+                        userData={user}
+                    />
+                </div>
+
             </div>
         </div>
-    )
+    );
 }
