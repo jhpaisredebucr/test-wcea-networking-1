@@ -12,7 +12,7 @@ function NavBarButton({children, onClick}) {
             flex-1              
             active:scale-95 active:bg-gray-200
             mx-1 p-2 h-10
-            border-b-2 border-transparent 
+            border-b-4 border-transparent 
             hover:border-(--primary) hover:text-(--primary)
             transition duration-200
             cursor-pointer

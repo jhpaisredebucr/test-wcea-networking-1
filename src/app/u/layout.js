@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TopBar from "@/app/u/components/layout/TopBar";
 import SideBar from "@/app/u/components/layout/SideBar";
 import UploadImageModal from "@/app/components/ui/UploadPicture";
+import Loading from "../components/ui/Loading";
 
 export default function DashboardLayout({ children }) {
   const [user, setUser] = useState({
@@ -48,16 +49,10 @@ export default function DashboardLayout({ children }) {
   // LOADING UI
   if (loading) {
     return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-            <div className="text-xl text-gray-700">Loading...</div>
-          </div>
-        </div>
-      </div>
+      <Loading></Loading>
     );
   }
+
   if (error) return <div className="p-10 text-red-500">{error}</div>;
 
   return (

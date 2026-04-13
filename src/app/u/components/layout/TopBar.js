@@ -74,7 +74,7 @@ export default function TopBar({ userData }) {
                         alt="logo"
                         width={35}
                         height={35}
-                        className="object-contain mr-2"
+                        className="object-contain mr-2 cursor-pointer"
                     />
                 </button>
 
