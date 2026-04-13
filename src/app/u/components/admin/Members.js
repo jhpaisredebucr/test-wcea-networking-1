@@ -1,3 +1,5 @@
+"use client"
+
 import Card from "../ui/Card";
 import { format } from "date-fns";
 
@@ -8,6 +10,8 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         ...(dashboardData?.approvedMembers || [])
     ];
 
+    console.log(referrals);
+
     async function Approve(userID, plan, referred_by) {
         let initialAmount = 0;
         if (plan === "1") initialAmount = 300;
@@ -17,6 +21,8 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         const amount = initialAmount * 0.20;
 
         console.log(referred_by, userID, amount);
+
+        //GET MEMBERS
         const resApprove  = await fetch("/api/portal/admin/members", {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
@@ -29,9 +35,9 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
 
         //TRANSACTIONS
         const resTransaction  = await fetch("/api/portal/admin/transactions", {
-            method: "POST",
+            method: "PATCH",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ user_id: userID, type: "Plan", amount: initialAmount })
+            body: JSON.stringify({ userId: userID, plan: "Plan" })
         });
 
         const dataTransaction  = await resTransaction.json();
@@ -47,7 +53,7 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         const dataReferral  = await resReferral.json();
         console.log(dataReferral);
 
-        
+        console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
     }
 
     return (

@@ -19,11 +19,11 @@ export default function SideBar({ role = "member" }) {
     ];
 
     const adminMenu = [
-        { id: "dashboard", label: "Dashboard", path: "/admin/dashboard", icon: "/icons/dashboard.svg" },
-        { id: "members", label: "Members", path: "/admin/members", icon: "/icons/referrals.svg" },
-        { id: "transactions", label: "Transactions", path: "/admin/transactions", icon: "/icons/money-thin.svg" },
-        { id: "announcement", label: "Announcement", path: "/admin/announcements", icon: "/icons/announcement.svg" },
-        { id: "actions", label: "Actions", path: "/admin/actions", icon: "/icons/play.svg" }
+        { id: "dashboard", label: "Dashboard", path: "/u/admin/dashboard ", icon: "/icons/dashboard.svg" },
+        { id: "members", label: "Members", path: "/u/admin/members", icon: "/icons/referrals.svg" },
+        { id: "transactions", label: "Transactions", path: "/u/admin/transactions", icon: "/icons/money-thin.svg" },
+        { id: "announcement", label: "Announcement", path: "/u/admin/announcements", icon: "/icons/announcement.svg" },
+        { id: "actions", label: "Actions", path: "/u/admin/actions", icon: "/icons/play.svg" }
     ];
 
     const bottomMenu = [

@@ -20,9 +20,9 @@ export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }
     }
 
     function CheckMissingFields() {
-        const { plan} = formData;
+        const { planId} = formData;
 
-        if (!plan) {
+        if (!planId) {
             alert("Please fill in all required fields.");
             return true;
         }

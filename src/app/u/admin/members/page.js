@@ -1,7 +1,7 @@
-import DashboardAdmin from "../components/admin/Dashboard";
+import MembersAdmin from "../../components/admin/Members";
 import { cookies } from "next/headers";
 
-export default async function AdminPage() {
+export default async function Page() {
     const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
     //USER INFO
     async function GetUserData() {
@@ -31,8 +31,6 @@ export default async function AdminPage() {
     const userData = await GetUserData();
 
     return (
-        <div>
-            <DashboardAdmin dashboardData={dashboardData} userData={userData}/>
-        </div>
-    );
+        <MembersAdmin userData={userData} dashboardData={dashboardData}/>
+    )
 }

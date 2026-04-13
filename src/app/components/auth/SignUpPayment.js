@@ -116,7 +116,7 @@ export default function SignUpPayment({ formData, setFormData, nextStep, prevSte
         const resTransaction  = await fetch("/api/portal/member/transactions", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ user_id: data.user.id, type: "Plan", amount: planPrice, proof: cloudinaryData.url })
+            body: JSON.stringify({ user_id: data.user.id, type: "plan", amount: planPrice, proof: cloudinaryData.url })
         });
 
         const dataTransaction  = await resTransaction.json();
