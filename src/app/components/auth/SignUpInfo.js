@@ -2,6 +2,7 @@
 import Input from "../ui/Input"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import SemanticCard from "../ui/SemanticCard";
 
 export default function SignUpInfo({ formData, setFormData, nextStep }) {
     const router = useRouter();
@@ -71,9 +72,9 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
             </div>
 
             {errors.api && (
-                <p className="w-full mt-3 md:mt-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg p-3">
+                <SemanticCard semantic="error">
                     {errors.api}
-                </p>
+                </SemanticCard>
             )}
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">

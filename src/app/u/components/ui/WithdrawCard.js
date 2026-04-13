@@ -9,7 +9,7 @@ export default function WithdrawCard({ children , title}) {
             grid-cols-1 rounded-2xl
             shadow-md flex justify-center
         ">
-            <h1 className="font-semibold">{title}</h1>
+            <h1 className="font-semibold text-2xl">{title}</h1>
             {children}
         </div>
     )

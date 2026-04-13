@@ -3,6 +3,7 @@ import Input from "../ui/Input"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import SemanticCard from "../ui/SemanticCard";
 
 export default function SignInForm() {
     const router = useRouter();
@@ -82,7 +83,7 @@ export default function SignInForm() {
                 <div className="w-full max-w-md">
 
                     {/* Header */}
-                    <div className="mb-8">
+                    <div className="mb-4">
                         <p className="font-semibold text-2xl text-gray-700">Log In</p>
                         <p className="text-gray-500 text-sm">
                             Sign in to access your account profile.
@@ -91,9 +92,9 @@ export default function SignInForm() {
 
                     {/* Error */}
                     {errors.general && (
-                        <div className="mb-4 p-3 rounded-md bg-red-100 text-red-600 text-sm">
+                        <SemanticCard semantic="error">
                             {errors.general}
-                        </div>
+                        </SemanticCard>
                     )}
 
                     {/* Inputs */}
