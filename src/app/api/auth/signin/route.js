@@ -23,6 +23,10 @@ export async function POST(req) {
     if (user.status === "pending") {
       return NextResponse.json({ success: false, message: "Still waiting for approval" }, { status: 403 });
     }
+    
+    if (user.status === "banned") {
+      return NextResponse.json({ success: false, message: "Your account was banned" }, { status: 403 });
+    }
 
     if (!user.password) {
       return NextResponse.json({ success: false, message: "No password set" }, { status: 500 });

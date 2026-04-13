@@ -43,6 +43,24 @@ import { query } from "@/lib/db";
             ,["approved"]
         );
 
+        const bannedMembers = await query(
+            `
+                SELECT 
+                    u.id,
+                    u.username,
+                    u.status,
+                    u.plan,
+                    u.referred_by,
+                    u.created_at,
+                    p.first_name,
+                    p.last_name
+                FROM users u
+                JOIN user_profiles p ON p.user_id = u.id
+                WHERE u.status = $1
+            `
+            ,["banned"]
+        );
+
         const topReferrer = await query(
             `
                 SELECT 
@@ -72,7 +90,7 @@ import { query } from "@/lib/db";
         const totalPendingRequest = await query("SELECT COUNT(*) FROM users where status=$1",["pending"]);
         const totalRequest = Number(totalPendingRequest[0].count);
 
-        const dashboardData = {totalMembers, totalRequest, topReferrer, revenue, pendingRequest, approvedMembers}
+        const dashboardData = {totalMembers, totalRequest, topReferrer, revenue, pendingRequest, approvedMembers, bannedMembers}
         
         return NextResponse.json({ dashboardData });
     }

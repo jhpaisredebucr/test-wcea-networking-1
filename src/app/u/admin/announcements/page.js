@@ -18,7 +18,7 @@ export default function AnnouncementAdminPage() {
     return (
         <>
             <div className={`flex justify-between items-center mb-5`}>
-                <h1 className="text-3xl font-semibold mb-6">Announcement</h1>
+                <h1 className="text-3xl font-semibold">Announcement</h1>
                 <button onClick={() => setOpenModal(true)}>
                     <Image src="/icons/plus-circle.svg" alt="plus icon" width={50} height={50}/>
                 </button>

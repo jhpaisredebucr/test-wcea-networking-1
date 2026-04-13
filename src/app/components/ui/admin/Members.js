@@ -2,11 +2,14 @@
 
 import Card from "../Card";
 import { format } from "date-fns";
+import MemberCard from "./MemberCard";
+import { useState } from "react";
 
 export default function MembersAdmin({ userInfo, dashboardData }) {
 
     const referrals = [
         ...(dashboardData?.pendingRequest || []),
+        ...(dashboardData?.bannedMembers || []),
         ...(dashboardData?.approvedMembers || [])
     ];
 
@@ -56,12 +59,18 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
         console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
     }
 
-    function PopUpMemberCard( user ){
+    const [isActive, setIsActive] = useState(false);
+    const [user, setUser] = useState(null);
 
+    function PopUpMemberCard( user ){
+        setUser(user);
+        setIsActive(!isActive);
+        console.log(user);
     }
 
     return (
         <div>
+            {isActive && <MemberCard user={user} onClose={PopUpMemberCard}/>}
             <div className="grid grid-cols-2 gap-5">
                 <Card title="Total Members" value={dashboardData?.totalMembers} info=""/>
                 <Card title="Pending" value={dashboardData?.totalRequest} info=""/>
@@ -77,7 +86,7 @@ export default function MembersAdmin({ userInfo, dashboardData }) {
             {referrals.map((user, index) => (
                 <div
                     key={index}
-                    onClick={PopUpMemberCard(user)}
+                    onClick={() => PopUpMemberCard(user)}
                     className="grid grid-cols-4 border-(--primary) 
                     shadow-sm p-5 rounded-lg bg-white mt-2
                     hover:shadow-md hover:border cursor-pointer

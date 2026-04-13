@@ -62,7 +62,7 @@ export default function AddAnnouncementModal({
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-            <div className="bg-white w-[550px] rounded-xl shadow-lg p-6">
+            <div className="bg-white w-137 rounded-xl shadow-lg p-6">
 
                 <h2 className="text-xl font-semibold mb-4">
                     Add Announcement
