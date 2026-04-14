@@ -28,16 +28,28 @@ export default function SideBar({ role = "member" }) {
         { id: "actions", label: "Actions", path: "/u/admin/actions", icon: "/icons/play.svg" }
     ];
 
-    const bottomMenu = [
+const bottomMenu = [
         { id: "about", label: "About", path: "/about", icon: "/icons/more.svg" },
-        { id: "settings", label: "Setting", path: "/settings", icon: "/icons/settings.svg" },
-        { id: "signout", label: "Sign Out", path: "/signout", icon: "/icons/door.svg" }
+        { id: "settings", label: "Setting", path: "/settings", icon: "/icons/settings.svg" }
     ];
 
     const menu = role === "admin" ? adminMenu : memberMenu;
 
-    const [menuActive, setMenu] = useState(true)
+    const [menuActive, setMenu] = useState(true);
 
+const handleSignOut = async () => {
+        try {
+            const res = await fetch("/api/auth/signout", {
+                method: "POST",
+                credentials: "include"
+            });
+            if (!res.ok) throw new Error('Signout failed');
+        } catch (error) {
+            console.error("Sign out error:", error);
+        }
+        // Hard reload to clear all client state
+        window.location.href = '/';
+    }
 
     return (
         <div className={`fixed left-0 top-15 h-[calc(100vh-60px)] w-56
@@ -74,7 +86,7 @@ export default function SideBar({ role = "member" }) {
                 {bottomMenu.map(item => (
                     <SidebarButton
                         key={item.id}
-                        setPage={() => router.push(item.path)}
+                        setPage={item.id === "signout" ? handleSignOut : () => router.push(item.path)}
                         icon={item.icon}
                     >
                         {item.label}

@@ -31,6 +31,19 @@ export default function TopBar({ userData }) {
         router.push("/u/profile");
     }
 
+const handleSignOut = async () => {
+        try {
+            const res = await fetch("/api/auth/signout", {
+                method: "POST",
+                credentials: "include"
+            });
+            if (!res.ok) throw new Error('Signout failed');
+        } catch (error) {
+            console.error("Sign out error:", error);
+        }
+        window.location.href = '/';
+    };
+
     function GoHome() {
         router.push("/home");
     }
@@ -143,7 +156,7 @@ export default function TopBar({ userData }) {
 
                             <button
                                 className="flex justify-between w-full p-2 rounded-lg hover:bg-gray-100"
-                                onClick={GoHome}
+                                onClick={handleSignOut}
                             >
                                 Sign Out
                             </button>

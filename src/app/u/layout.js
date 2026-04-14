@@ -5,6 +5,7 @@ import TopBar from "@/app/components/layout/DashboardTopBar";
 import SideBar from "@/app/components/layout/DashboardSideBar";
 import UploadImageModal from "@/app/components/ui/UploadPicture";
 import Loading from "../components/ui/Loading";
+import ErrorText from "../components/ui/ErrorText";
 
 export default function DashboardLayout({ children }) {
   const [user, setUser] = useState({
@@ -53,7 +54,7 @@ export default function DashboardLayout({ children }) {
     );
   }
 
-  if (error) return <div className="p-10 text-red-500">{error}</div>;
+  if (error) return <ErrorText label={error} fullScreen />;
 
   return (
     <>

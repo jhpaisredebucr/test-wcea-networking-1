@@ -7,7 +7,7 @@ export default function TopBar() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+useEffect(() => {
         const checkLogin = async () => {
             try {
                 const res = await fetch("/api/auth/logged-in");
@@ -20,6 +20,9 @@ export default function TopBar() {
             }
         };
         checkLogin();
+        // Poll every 3s for login state changes
+        const interval = setInterval(checkLogin, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     function GoDashboard() {
