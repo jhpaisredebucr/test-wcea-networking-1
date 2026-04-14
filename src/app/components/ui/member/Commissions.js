@@ -19,7 +19,7 @@ export default function Commissions({commissions}) {
                     <div>{format(new Date(commission.created_at), "MMM dd, yyyy")}</div>
                     <div>{commission.referred_first_name} {commission.referred_last_name}</div>
                     <div>₱{commission.reward_amount	}</div>
-                    <div>{commission.status}</div>
+                    <div>{commission.status.charAt(0).toUpperCase() + commission.status?.slice(1)}</div>
                 </div>
             ))}
         </div>

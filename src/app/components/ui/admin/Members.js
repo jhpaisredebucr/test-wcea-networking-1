@@ -42,7 +42,7 @@ export default function MembersAdmin({ dashboardData }) {
         const resTransaction  = await fetch("/api/portal/admin/transactions", {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ userId: userID, plan: "Plan" })
+            body: JSON.stringify({ userId: userID, plan: "plan" })
         });
 
         const dataTransaction  = await resTransaction.json();

@@ -31,7 +31,7 @@ export async function PATCH(req) {
             AND type = $4
             RETURNING user_id, status
             `,
-            ["approved", userId, "pending", plan]
+            ["approved", userId, "Pending", plan]
         );
 
         // If no rows updated

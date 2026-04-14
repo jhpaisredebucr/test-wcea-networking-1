@@ -17,7 +17,7 @@ export default function Transactions({transactions}) {
                     className="grid grid-cols-4 shadow-sm p-5 rounded-lg bg-white mt-2"
                 >
                     <div>{format(new Date(transaction.created_at), "MMM dd, yyyy")}</div>
-                    <div>{transaction.type}</div>
+                    <div>{transaction.type.charAt(0).toUpperCase() + transaction.type?.slice(1)}</div>
                     <div>₱{transaction.amount}</div>
                     <div>{transaction.status}</div>
                 </div>
