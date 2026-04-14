@@ -89,20 +89,27 @@ export default function SignInForm() {
         <div className="w-full flex justify-center px-4">
 
             {/* CARD */}
-            <div className="w-full max-w-md bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-10">
-
+            <div className="w-full max-w-lg bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-10">
 
                 {/* HEADER */}
-                <div className="mb-6 text-center">
+                <div className="mb-8 text-center md:text-left flex justify-between">
+                    <div>
+                        <h2 className="text-2xl font-semibold text-gray-800">
+                            Welcome Back
+                        </h2>
 
-                    <h2 className="text-2xl font-semibold text-gray-800">
-                        Welcome Back
-                    </h2>
+                        <p className="text-gray-500 text-sm mt-1">
+                            Sign in to access your account
+                        </p>
+                    </div>
+                    
 
-                    <p className="text-gray-500 text-sm mt-1">
-                        Sign in to access your account
-                    </p>
-
+                    <button
+                        onClick={() => router.push("/home")}
+                        className="text-sm text-gray-500 hover:text-gray-800 transition mb-4 inline-flex items-center gap-1"
+                    >
+                        ← Back to Homepage
+                    </button>
                 </div>
 
 

@@ -20,13 +20,14 @@ export default function HomePage() {
               src="/images/home-hero.png"
               alt="Community garden at sunrise"
               fill
-              className="w-full h-full object-cover brightness-100"
+              className="w-full h-full object-cover opacity-40"
               sizes="100vw"
               priority
             />
 
             {/* BLUE OVERLAY */}
-            <div className="absolute inset-0 bg-blue-300/100 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-blue-400/90 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/0 to-transparent" />
 
             {/* Dark gradient overlay */}
             <div
@@ -39,9 +40,9 @@ export default function HomePage() {
           </div>
 
           {/* Hero content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-6 py-15 md:py-22">
+          <div className="relative z-10 max-w-7xl mx-auto px-6 py-15 md:py-20">
             <div className="max-w-2xl">
-              <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
+              <h1 className="font-serif text-5xl md:text-6xl font-bold text-white leading-tight mb-6 tracking-tight">
                 Cultivating{" "}
                 <span className="text-blue-500 italic">Community</span> and
                 Wellness for All.

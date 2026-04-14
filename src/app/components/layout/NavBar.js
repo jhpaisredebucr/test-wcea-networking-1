@@ -16,6 +16,10 @@ export default function Navbar() {
         router.push("/home/about")
     }
 
+    function LogIn() {
+        router.push("/home/signin")
+    }
+
     function Register() {
         router.push("/home/signup")
     }
@@ -29,11 +33,12 @@ export default function Navbar() {
     }
 
     const navItems = [
-        { label: "Home", onClick: Home },
+        { label: "Home", href: "/home", onClick: Home },
         // { label: "About", onClick: About },
-        { label: "Register", onClick: Register },
-        { label: "Contacts", onClick: Contacts },
-        { label: "Memberships", onClick: Memberships }
+        { label: "Login", href: "/home/signin", onClick: LogIn },
+        { label: "Register", href: "/home/signup", onClick: Register },
+        { label: "Contacts", href: "/home/contacts", onClick: Contacts },
+        { label: "Memberships", href: "/home/memberships", onClick: Memberships }
     ];
 
     
@@ -58,7 +63,7 @@ export default function Navbar() {
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-1 lg:gap-2">
                     {navItems.map((item) => (
-                        <NavBarButton key={item.label} onClick={item.onClick}>
+                        <NavBarButton key={item.label} onClick={item.onClick} href={item.href}>
                             {item.label}
                         </NavBarButton>
                     ))}
