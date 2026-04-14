@@ -1,9 +1,11 @@
 import AnnouncementCard from "../AnnouncementCard";
 
-export default function AnnouncementMember({announcements}) {
+export default function AnnouncementMember({announcements, userData}) {
     if (!announcements) {
         return <p>Loading announcements...</p>;
     }
+
+    const role = userData?.userInfo?.role ?? "member";
 
     return (
         <div className="grid grid-cols-3 gap-5">
@@ -12,6 +14,7 @@ export default function AnnouncementMember({announcements}) {
                     <AnnouncementCard
                         key={announcement.id}
                         announcements={announcement}
+                        role={role}
                     />
                 ))}
             </div>
