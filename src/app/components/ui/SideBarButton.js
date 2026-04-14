@@ -4,10 +4,10 @@ export default function SidebarButton({ className, children, setPage, icon }) {
     return (
         <button 
             onClick={setPage}
-            className={`flex gap-x-4 items-center cursor-pointer w-full text-left px-3 py-4  
-            hover:bg-(--primary)/50 transition pl-6 ${className}`}
+className={`flex gap-x-3 items-center cursor-pointer w-full text-left h-full px-4 py-3 
+            hover:bg-(--primary)/50 transition rounded-r-xl ${className || ''}`}
         >
-            <Image src={icon} alt="hatdog" width={15} height={15}></Image> {children}
+            <Image src={icon} alt="Sidebar Icon" width={15} height={15}></Image> {children}
         </button>
     );
 }
