@@ -8,8 +8,9 @@ export async function POST(req) {
         let {
             username,
             password,
-            email,
-            referralCode
+            referralCode,
+            email
+            // contactNumber,
         } = body;
 
         if (password.length < 6) {
@@ -28,15 +29,37 @@ export async function POST(req) {
                 success: false,
                 message: "Username already exists"
             });
-        } else {
-            return Response.json({
-                success: true,
-                message: "Username is available"
+        } 
+
+        const emailExisting = await query(
+            `SELECT * FROM user_contacts WHERE email=$1`,
+            [email]
+        )
+
+        if (emailExisting.length > 0) {
+            return NextResponse.json({
+                success: false,
+                message: "Email already exists"
             });
         }
 
-        const referralCodeExist = await query  
-        
+        const referralCodeExisting = await query(
+            `SELECT * FROM users WHERE referral_code=$1`,
+            [referralCode]
+        )
+
+        if (referralCodeExisting.length === 0) {
+            return NextResponse.json({
+                success: false,
+                message: "Referral code doesn't exists"
+            });
+        } else {
+            return Response.json({
+                success: true,
+                message: "Info available"
+            });
+        }
+
     } catch (err) {
         console.error("Error checking username availability:", err);
         return NextResponse.json({ success: false, message: "Internal server error" }, { status: 500 });
