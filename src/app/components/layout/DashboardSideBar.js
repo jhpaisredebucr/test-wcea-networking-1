@@ -14,7 +14,8 @@ export default function SideBar({ role = "member" }) {
         { id: "products", label: "Product Shop", path: "/u/products", icon: "/icons/product-shop.svg" },
         { id: "orders", label: "My Orders", path: "/u/orders", icon: "/icons/my-orders.svg" },
         { id: "referrals", label: "Referrals", path: "/u/referrals", icon: "/icons/referrals.svg" },
-        { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/announcement.svg" },
+        { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/money.svg" },
+        { id: "commissions", label: "Commissions", path: "/u/commissions", icon: "/icons/money.svg" },
         { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/announcement.svg" },
         { id: "deposit", label: "Deposit", path: "/u/deposit", icon: "/icons/announcement.svg" },
     ];
