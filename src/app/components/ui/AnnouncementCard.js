@@ -23,7 +23,7 @@ export default function AnnouncementCard({ announcements, role }) {
                 return;
             }
 
-            //this aint def right
+            //this aint def right, it reloads the full page lol
             window.location.reload();
 
         } catch (err) {
