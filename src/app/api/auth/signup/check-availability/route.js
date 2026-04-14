@@ -7,9 +7,9 @@ export async function POST(req) {
         const body = await req.json();
         let {
             username,
-            password
-            // email,
-            // contactNumber,
+            password,
+            email,
+            referralCode
         } = body;
 
         if (password.length < 6) {
@@ -34,6 +34,8 @@ export async function POST(req) {
                 message: "Username is available"
             });
         }
+
+        const referralCodeExist = await query  
         
     } catch (err) {
         console.error("Error checking username availability:", err);
