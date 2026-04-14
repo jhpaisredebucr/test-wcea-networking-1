@@ -8,9 +8,21 @@ export default function OrderCard({orders, products}) {
         <div>
             <div className="grid grid-cols-4 items-center p-5 rounded-lg bg-white">
                 <div className="flex col-span-2 items-center">
-                    <CldImage src={product?.img_url} alt="Product Picture" width={100} height={60} className="rounded-sm mr-5 h-auto w-auto"/>
+                    {product?.img_url ? (
+                        <CldImage 
+                            src={product.img_url} 
+                            alt="Product Picture" 
+                            width={100} 
+                            height={60} 
+                            className="rounded-sm mr-5 h-auto w-auto"
+                        />
+                    ) : (
+                        <div className="w-24 h-15 bg-gray-200 rounded-sm mr-5 flex items-center justify-center">
+                            <span className="text-gray-400 text-xs">No Image</span>
+                        </div>
+                    )}
                     <div>
-                        <p className="text-lg font-bold">{product?.product_name}</p>
+                        <p className="text-lg font-bold">{product?.product_name || 'Unknown Product'}</p>
                         <p>Qty: 1</p>
                     </div>
                 </div>
