@@ -61,7 +61,7 @@ export default function SignUpPlan({
                     
 
                     <button
-                        onClick={() => router.push("/home/main")}
+                        onClick={() => router.push("/home")}
                         className="text-sm text-gray-500 hover:text-gray-800 transition mb-4 inline-flex items-center gap-1"
                     >
                         ← Back to Homepage
