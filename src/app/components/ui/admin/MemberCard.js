@@ -31,6 +31,7 @@ export default function MemberCard({ user, onClose }) {
                 fetch("/api/products/orders")
                     .then(res => res.json())
                     .then(d => setOrders(d.orders));
+                    
                 fetch("/api/transaction")
                     .then(res => res.json())
                     .then(d => setData(d.transactions));
@@ -67,6 +68,10 @@ export default function MemberCard({ user, onClose }) {
         page === 0
             ? "w-80 h-80"
             : "w-3/4 h-3/4"; //size for page 1,2,3
+
+    const userTransactions = transactions?.filter(
+        (t) => Number(t.user_id) === Number(user?.id)
+    ) || [];
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
@@ -166,6 +171,7 @@ export default function MemberCard({ user, onClose }) {
                     />
                 </div>
                 
+                {/* TRANSACTION */}
                 <div
                     className={`transition-all duration-300 ${
                         page === 2
@@ -175,7 +181,7 @@ export default function MemberCard({ user, onClose }) {
                 >
                     <p className="text-2xl font-semibold">Orders:</p>
                     <Transactions
-                        transactions={transactions}
+                        transactions={userTransactions}
                     />
                 </div>
 
