@@ -18,10 +18,10 @@ export default function AnnouncementMember({announcements, userData}) {
                     />
                 ))}
             </div>
-
+{/* 
             <div className="bg-white rounded-lg p-5">
                 API
-            </div>
+            </div> */}
         </div>
     )
 }

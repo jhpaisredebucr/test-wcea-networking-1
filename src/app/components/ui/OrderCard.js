@@ -23,7 +23,7 @@ export default function OrderCard({orders, products}) {
                     )}
                     <div>
                         <p className="text-lg font-bold">{product?.product_name || 'Unknown Product'}</p>
-                        <p>Qty: 1</p>
+                        <p>Qty: {orders.quantity}</p>
                     </div>
                 </div>
                 <div>

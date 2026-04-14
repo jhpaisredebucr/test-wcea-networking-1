@@ -39,11 +39,11 @@ export default function HomePage() {
           </div>
 
           {/* Hero content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 md:py-32">
+          <div className="relative z-10 max-w-7xl mx-auto px-6 py-15 md:py-22">
             <div className="max-w-2xl">
               <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight mb-6 tracking-tight">
                 Cultivating{" "}
-                <span className="text-[#ffddaf] italic">Community</span> and
+                <span className="text-blue-500 italic">Community</span> and
                 Wellness for All.
               </h1>
 
@@ -71,7 +71,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 🌊 CURVED WHITE BOTTOM MASK */}
           <div className="absolute bottom-0 left-0 w-full leading-none z-20">
             <svg
               className="block w-full h-[120px]"

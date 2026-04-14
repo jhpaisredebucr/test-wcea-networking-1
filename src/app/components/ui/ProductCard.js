@@ -1,16 +1,20 @@
 import { CldImage } from "next-cloudinary";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function ProductCard({ products, userData, setBuying, setSelectedProduct }) {
-    async function Buy() {
-        setBuying(true);
-        const data = {
-            user_id: userData?.userInfo?.id,
-            product_id: products?.id,
-            products: products
-        };
-        setSelectedProduct(data);
+export default function ProductCard({ products, userData, setBuying, setSelectedProduct, AddToCart }) {
+    const data = {
+        id: products.id,
+        user_id: userData.userInfo.id,
+        product_id: products.id,
+        product_name: products.product_name,
+        price: products.price
     }
+
+    const isBuyingButtonClassName = "cursor-pointer w-full px-3 py-2 rounded-full bg-(--primary) text-white text-2xl font-bold"
+
+    const [quantity, setQuantity] = useState(0);
+
 
     return (
         <div className="
@@ -37,13 +41,35 @@ export default function ProductCard({ products, userData, setBuying, setSelected
                 <p className="text-sm">Price: ₱{products?.price}</p>
             </div>
 
-            {/* Button — full width */}
-            <button 
-                onClick={Buy} 
+            {quantity === 0 && <button 
+                onClick={() => {
+                    AddToCart(data);
+                    setQuantity(quantity + 1)
+                }} 
                 className="cursor-pointer w-full px-5 py-3 rounded-xl bg-(--primary) text-white"
             >
                 Buy
-            </button>
+            </button>}
+
+            {quantity > 0 && 
+            <div className="grid grid-cols-3 items-center place-items-center">
+                <Image src="/icons/minus-circle-filled.svg" alt="icon" width={40} height={40}
+                    onClick={() => {
+                        AddToCart(data, "del");
+                        setQuantity(quantity - 1)
+                    }} 
+                />
+            
+
+                <p className="text-lg font-bold">{quantity}</p>
+
+                <Image src="/icons/plus-circle-filled.svg" alt="icon" width={40} height={40}
+                    onClick={() => {
+                        AddToCart(data);
+                        setQuantity(quantity + 1)
+                    }} 
+                />
+            </div>}
         </div>
     )
 }

@@ -30,15 +30,17 @@ export default function Navbar() {
 
     const navItems = [
         { label: "Home", onClick: Home },
-        { label: "About", onClick: About },
+        // { label: "About", onClick: About },
         { label: "Register", onClick: Register },
         { label: "Contacts", onClick: Contacts },
         { label: "Memberships", onClick: Memberships }
     ];
 
+    
+
     return (
         <>
-            <nav className="flex w-full border-b-2 border-(--foreground)/50 h-16 items-center justify-between px-4 sm:px-6 md:px-8 sticky top-0 bg-white z-50">
+            <nav className="flex w-full h-16 items-center justify-between px-4 sm:px-6 md:px-8 sticky top-0 bg-white z-50">
                 {/* Logo and Brand */}
                 <div className="flex items-center gap-2 sm:gap-3">
                     <Image 

@@ -2,30 +2,67 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function POST(req) {
+  try {
     const body = await req.json();
-    const { user_id, product_id } = body;
+    const { user_id, cart } = body;
 
-    const buyRes = await query(
+    if (!user_id || !cart || cart.length === 0) {
+      return NextResponse.json(
+        { message: "Invalid request" },
+        { status: 400 }
+      );
+    }
+
+    let totalAmount = 0;
+    const insertedOrders = [];
+
+    // ----------------------------
+    // INSERT ORDERS + CALCULATE TOTAL
+    // ----------------------------
+    for (const item of cart) {
+      const product_id = item.product_id;
+      const quantity = item.quantity || 1;
+      const price = Number(item.price) || 0;
+
+      totalAmount += price * quantity;
+
+      const result = await query(
         `
-        INSERT INTO orders (user_id, product_id)
-        VALUES ($1, $2)
+        INSERT INTO orders (user_id, product_id, quantity, status)
+        VALUES ($1, $2, $3, 'pending')
         RETURNING *
         `,
-        [user_id, product_id]
-    );
+        [user_id, product_id, quantity]
+      );
 
-    const products = await query(
-        "SELECT * FROM products WHERE id=$1",
-        [product_id]
-    );
+      insertedOrders.push(result[0]);
+    }
 
-    const formattedProducts = products.map(product => ({
-        ...product,
-        price: Number(product.price)
-    }));
+    // ----------------------------
+    // INSERT TRANSACTION
+    // ----------------------------
+    const transactionResult = await query(
+      `
+      INSERT INTO transactions (user_id, type, amount, status)
+      VALUES ($1, 'purchase', $2, 'pending')
+      RETURNING *
+      `,
+      [user_id, totalAmount]
+    );
 
     return NextResponse.json({
-        order: buyRes[0],
-        products: formattedProducts
+      success: true,
+      orders: insertedOrders,
+      transaction: transactionResult[0],
+      total: totalAmount
     });
+
+  } catch (err) {
+    console.error(err);
+
+    return NextResponse.json(
+      { message: "Server error" },
+      { status: 500 }
+    );
+  }
 }
