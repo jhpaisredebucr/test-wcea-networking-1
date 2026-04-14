@@ -5,6 +5,7 @@ import { query } from "@/lib/db";
         //Total Members
         const totalUser = await query("SELECT COUNT(*) FROM users WHERE status=$1", ["approved"]);
         const totalMembers = Number(totalUser[0].count);
+        const totalOrders = await query("SELECT COUNT(*) FROM orders WHERE status=$1", ["approved"])
 
         //Pending Request
         const pendingRequest = await query(

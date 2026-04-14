@@ -12,18 +12,23 @@ export default function HomePage() {
 
       <main className="">
         {/* ── HERO ── */}
-        <section className="relative min-h-230.25 flex items-center overflow-hidden">
+        <section className="relative min-h-100 flex items-center overflow-hidden">
+
           {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN821Dfw82OijOosX5ZXgEcENgNqytv0RW5HlCfXInWIIGlwFNYDvKiWtadVy1G-tZuCRvxX4SPHm8a09eNj5f6Yp6y4jcTeaCjssbm7uUkGTiuxFJz9eFBT8cX-glRsn6wXH-lkT2copPkTgzKYoz8B04sqgXOBNVtMx7LjV7zZnuUw6gOo_VhGNWLznVh1asNk-FtaMQ46wxFsC15ZaHFzV0BeKlC1qTbnibvyK-ToZ0P3jpD4VlYa2aXXAJZs0EkFrroqjIWZ_t"
+              src="/images/home-hero.png"
               alt="Community garden at sunrise"
               fill
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover brightness-100"
               sizes="100vw"
               priority
             />
-            {/* Gradient overlay */}
+
+            {/* BLUE OVERLAY */}
+            <div className="absolute inset-0 bg-blue-300/100 mix-blend-multiply" />
+
+            {/* Dark gradient overlay */}
             <div
               className="absolute inset-0"
               style={{
@@ -41,25 +46,46 @@ export default function HomePage() {
                 <span className="text-[#ffddaf] italic">Community</span> and
                 Wellness for All.
               </h1>
+
               <p className="text-white/90 text-xl mb-10 leading-relaxed max-w-xl">
                 Empowering local voices through collaborative initiatives,
                 wellness programs, and the shared prestige of an editorial
                 vision for our future.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => router.push('/u/products')} 
-                  className="bg-linear-to-br from-(--primary) to-(--primary)/80 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 active:scale-95 transition-all duration-300">
+                <button
+                  onClick={() => router.push('/u/products')}
+                  className="bg-linear-to-br from-(--primary) to-(--primary)/80 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 active:scale-95 transition-all duration-300"
+                >
                   Explore Programs
                 </button>
-                <button 
-                  onClick={() => router.push('/home/signup')} 
-                  className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/20 active:scale-95 transition-all duration-300">
+
+                <button
+                  onClick={() => router.push('/home/signup')}
+                  className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-lg font-bold text-lg hover:bg-white/20 active:scale-95 transition-all duration-300"
+                >
                   Join Now
                 </button>
               </div>
             </div>
           </div>
+
+          {/* 🌊 CURVED WHITE BOTTOM MASK */}
+          <div className="absolute bottom-0 left-0 w-full leading-none z-20">
+            <svg
+              className="block w-full h-[120px]"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1440 320"
+              preserveAspectRatio="none"
+            >
+              <path
+                fill="#ffffff"
+                d="M0,224L80,213.3C160,203,320,181,480,186.7C640,192,800,224,960,234.7C1120,245,1280,235,1360,229.3L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+              />
+            </svg>
+          </div>
+
         </section>
 
         {/* ── PARTNERS ── */}
