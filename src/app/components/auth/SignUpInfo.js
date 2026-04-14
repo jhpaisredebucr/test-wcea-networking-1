@@ -64,6 +64,14 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
         router.push("/home/signin");
     }
 
+    // Handle Enter key press on inputs
+    function handleKeyDown(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            HandleSignUp();
+        }
+    }
+
     return (
         <div className="flex w-full md:w-full flex-col items-center justify-center p-4 sm:p-6 md:p-20 md:col-span-2">
             <div className="w-full mt-4 md:mt-10">
@@ -81,7 +89,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 {/* Username */}
                 <div className="flex flex-col">
                     <Input label="Username" type="text" required={true} value={formData.username}
-                        onChange={(val) => setFormData({ ...formData, username: val })} />
+                        onChange={(val) => setFormData({ ...formData, username: val })}
+                        onKeyDown={handleKeyDown} />
                     {errors.username && <p className="text-xs text-red-500 mt-1">{errors.username}</p>}
                 </div>
 
@@ -110,7 +119,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 <div className="flex flex-col">
                     <div className="relative">
                         <Input label="Password" type={showPassword ? "text" : "password"} required={true} value={formData.password}
-                            onChange={(val) => setFormData({ ...formData, password: val })} />
+                            onChange={(val) => setFormData({ ...formData, password: val })}
+                            onKeyDown={handleKeyDown} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-3 top-11 text-xs text-gray-400 hover:text-gray-600">
                             {showPassword ? "Hide" : "Show"}
@@ -123,7 +133,8 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                 <div className="flex flex-col">
                     <div className="relative">
                         <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} value={formData.confirmPassword}
-                            onChange={(val) => setFormData({ ...formData, confirmPassword: val })} />
+                            onChange={(val) => setFormData({ ...formData, confirmPassword: val })}
+                            onKeyDown={handleKeyDown} />
                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             className="absolute right-3 top-11 text-xs text-gray-400 hover:text-gray-600">
                             {showConfirmPassword ? "Hide" : "Show"}

@@ -75,6 +75,14 @@ export default function SignInForm() {
         router.push("/home/signup");
     }
 
+    // Handle Enter key press on inputs
+    function handleKeyDown(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            HandleSignIn();
+        }
+    }
+
     return (
         <div className="">
 
@@ -105,6 +113,7 @@ export default function SignInForm() {
                             setUsername(val);
                             setErrors(prev => ({ ...prev, username: "", general: "" }));
                         }}
+                        onKeyDown={handleKeyDown}
                         error={errors.username}
                     />
 
@@ -116,6 +125,7 @@ export default function SignInForm() {
                             setPassword(val);
                             setErrors(prev => ({ ...prev, password: "", general: "" }));
                         }}
+                        onKeyDown={handleKeyDown}
                         error={errors.password}
                     />
 

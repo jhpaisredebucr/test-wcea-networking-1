@@ -1,16 +1,13 @@
-# Sign-out Fix Progress
+
+
+
+# Enter Key Input Submission Task
 
 ## Steps:
-- [x] 1. Create src/app/api/auth/signout/route.js (server-side cookie clear)
-- [x] 2. Edit src/app/components/layout/DashboardSideBar.js (client-side call API)
-- [ ] 3. Test implementation
+- [x] Step 1: Update `src/app/components/ui/Input.js` to support `onKeyDown` prop
+- [x] Step 2: Update `src/app/components/auth/SignIn.js` to add Enter key handler calling `HandleSignIn()`
+- [x] Step 3: Update `src/app/components/auth/SignUpInfo.js` to add Enter key handler calling `HandleSignUp()`
+- [x] Step 4: Test changes and complete task
 
-## Status
-Steps 1-2 complete. 
+**✅ Task complete!**
 
-**Test:**
-1. `npm run dev`
-2. Login (via signin).
-3. Go to dashboard, click Sign Out.
-4. Check DevTools > Application > Cookies > http://localhost:3000 > no 'token'.
-5. Try /u/dashboard → middleware redirects to /.

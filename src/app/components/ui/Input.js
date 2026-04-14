@@ -6,6 +6,7 @@ function Input({
     value,
     required,
     onChange,
+    onKeyDown,
 
     error,
     success,
@@ -57,6 +58,7 @@ function Input({
                     value={value}
                     disabled={disabled}
                     onChange={(e) => onChange(e.target.value)}
+                    onKeyDown={onKeyDown}
                     className={`
                         w-full rounded-md border
                         transition duration-200 outline-none
