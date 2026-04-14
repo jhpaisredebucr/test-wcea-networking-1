@@ -2,12 +2,14 @@
 
 import OrdersMember from "../member/MyOrders";
 import { useState, useEffect } from "react";
+import Transactions from "../member/Transactions";
 
 export default function MemberCard({ user, onClose }) {
 
     const [orders, setOrders] = useState([]);
     const [products, setProducts] = useState([]);
     const [userData, setUserData] = useState(null);
+    const [transactions, setData] = useState([]);
     const [page, setPage] = useState(0);
 
     const fetchJson = async (url) => {
@@ -29,6 +31,9 @@ export default function MemberCard({ user, onClose }) {
                 fetch("/api/products/orders")
                     .then(res => res.json())
                     .then(d => setOrders(d.orders));
+                fetch("/api/transaction")
+                    .then(res => res.json())
+                    .then(d => setData(d.transactions));
 
             } catch (err) {
                 console.error(err);
@@ -158,6 +163,19 @@ export default function MemberCard({ user, onClose }) {
                         orders={orders}
                         products={products}
                         userData={user}
+                    />
+                </div>
+                
+                <div
+                    className={`transition-all duration-300 ${
+                        page === 2
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-4 hidden"
+                    }`}
+                >
+                    <p className="text-2xl font-semibold">Orders:</p>
+                    <Transactions
+                        transactions={transactions}
                     />
                 </div>
 
