@@ -9,7 +9,7 @@ export default function SignIn() {
   return (
     <div className="
       grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8
-      w-full min-h-screen items-center justify-center p-4 md:p-8">
+      w-full  items-center justify-center p-4 md:p-8">
 
       {/* Sign In Form */}
       <div className="flex flex-col justify-center">

@@ -14,7 +14,7 @@ export async function POST(req) {
     const formData = await req.formData();
     const file = formData.get("file");
 
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json({ message: "Max 2MB only" }, { status: 400 });
     }
 

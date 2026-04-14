@@ -1,8 +1,8 @@
-'use client'
-import Input from "../ui/Input"
+'use client';
+
+import Input from "../ui/Input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import SemanticCard from "../ui/SemanticCard";
 
 export default function SignInForm() {
@@ -19,7 +19,7 @@ export default function SignInForm() {
 
     const [loading, setLoading] = useState(false);
 
-    // Validate inputs
+
     function validate() {
         let newErrors = { username: "", password: "", general: "" };
 
@@ -27,10 +27,11 @@ export default function SignInForm() {
         if (!password) newErrors.password = "Password is required";
 
         setErrors(newErrors);
+
         return !newErrors.username && !newErrors.password;
     }
 
-    // Handle sign in
+
     async function HandleSignIn() {
         if (!validate()) return;
 
@@ -47,8 +48,6 @@ export default function SignInForm() {
             const data = await res.json();
 
             if (data.success) {
-                // JWT cookie is already set by the API
-                // Redirect based on role
                 router.replace(
                     data.user.role === "admin"
                         ? "/u/admin/dashboard"
@@ -60,22 +59,23 @@ export default function SignInForm() {
                     general: data.message || "Login failed"
                 }));
             }
+
         } catch (err) {
             setErrors(prev => ({
                 ...prev,
                 general: "Something went wrong. Try again."
             }));
-            console.error("SignIn fetch error:", err);
         } finally {
             setLoading(false);
         }
     }
 
+
     function HandleSignUp() {
         router.push("/home/signup");
     }
 
-    // Handle Enter key press on inputs
+
     function handleKeyDown(e) {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -83,35 +83,52 @@ export default function SignInForm() {
         }
     }
 
+
     return (
-        <div className="">
 
-            {/* LEFT CONTAINER (sign in) */}
-            <div className="flex items-center justify-center p-5">
-                <div className="w-full max-w-md">
+        <div className="w-full flex justify-center px-4">
 
-                    {/* Header */}
+            {/* CARD */}
+            <div className="w-full max-w-md bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-10">
+
+
+                {/* HEADER */}
+                <div className="mb-6 text-center">
+
+                    <h2 className="text-2xl font-semibold text-gray-800">
+                        Welcome Back
+                    </h2>
+
+                    <p className="text-gray-500 text-sm mt-1">
+                        Sign in to access your account
+                    </p>
+
+                </div>
+
+
+                {/* ERROR */}
+                {errors.general && (
                     <div className="mb-4">
-                        <p className="font-semibold text-2xl text-gray-700">Log In</p>
-                        <p className="text-gray-500 text-sm">
-                            Sign in to access your account profile.
-                        </p>
-                    </div>
-
-                    {/* Error */}
-                    {errors.general && (
                         <SemanticCard semantic="error">
                             {errors.general}
                         </SemanticCard>
-                    )}
+                    </div>
+                )}
 
-                    {/* Inputs */}
+
+                {/* INPUTS */}
+                <div className="space-y-4">
+
                     <Input
                         label="Username"
                         value={username}
                         onChange={(val) => {
                             setUsername(val);
-                            setErrors(prev => ({ ...prev, username: "", general: "" }));
+                            setErrors(prev => ({
+                                ...prev,
+                                username: "",
+                                general: ""
+                            }));
                         }}
                         onKeyDown={handleKeyDown}
                         error={errors.username}
@@ -123,41 +140,51 @@ export default function SignInForm() {
                         value={password}
                         onChange={(val) => {
                             setPassword(val);
-                            setErrors(prev => ({ ...prev, password: "", general: "" }));
+                            setErrors(prev => ({
+                                ...prev,
+                                password: "",
+                                general: ""
+                            }));
                         }}
                         onKeyDown={handleKeyDown}
                         error={errors.password}
                     />
 
-                    {/* Button */}
-                    <button
-                        onClick={HandleSignIn}
-                        disabled={loading}
-                        className={`
-                            w-full h-12 rounded-md text-white mt-2
-                            transition duration-200
-                            ${loading
-                                ? "bg-blue-300 cursor-not-allowed"
-                                : "bg-(--primary) hover:bg-blue-600"
-                            }
-                        `}
-                    >
-                        {loading ? "Signing in..." : "Sign In"}
-                    </button>
-
-                    {/* Sign up */}
-                    <p className="text-gray-600 text-sm mt-4">
-                        Don’t have an account?
-                        <button
-                            onClick={HandleSignUp}
-                            className="ml-2 text-blue-500 hover:underline cursor-pointer"
-                        >
-                            Sign Up
-                        </button>
-                    </p>
-
                 </div>
+
+
+                {/* BUTTON */}
+                <button
+                    onClick={HandleSignIn}
+                    disabled={loading}
+                    className={`
+                        w-full mt-6 h-12 rounded-lg font-semibold text-white
+                        transition-all duration-200
+                        active:scale-[0.98]
+
+                        ${loading
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-(--primary) hover:opacity-90"
+                        }
+                    `}
+                >
+                    {loading ? "Signing in..." : "Sign In"}
+                </button>
+
+
+                {/* SIGN UP LINK */}
+                <p className="text-sm text-gray-600 mt-5 text-center">
+                    Don’t have an account?
+                    <button
+                        onClick={HandleSignUp}
+                        className="ml-2 text-(--primary) font-medium hover:underline"
+                    >
+                        Create one
+                    </button>
+                </p>
+
             </div>
+
         </div>
     );
 }

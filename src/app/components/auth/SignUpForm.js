@@ -6,18 +6,51 @@ import SignUpPlan from "./SignUpPlan";
 import SignUpPayment from "./SignUpPayment";
 import SignUpApproval from "./SignUpApproval";
 
+// 🔧 Toggle this ON/OFF for debugging
+const DEBUG_PRESET = true;
+
 export default function SignUpForm({ refCode }) {
   const [step, setStep] = useState(1);
 
-  const [formData, setFormData] = useState({
-    // Step 1
+  const generatePresetData = () => {
+    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+    const randomPhone = `09${Math.floor(100000000 + Math.random() * 900000000)}`;
+
+    return {
+      username: `user${randomNumber}`,
+      email: `user${randomNumber}@test.com`,
+      contactNumber: randomPhone,
+      referralCode: refCode || `REF${randomNumber}`,
+      password: "Test@1234",
+      confirmPassword: "Test@1234",
+
+      firstName: "Juan",
+      middleName: "Santos",
+      lastName: "Dela Cruz",
+      dob: "1995-05-15",
+      city: "Imus",
+      barangay: "Alapan",
+      streetAddress: `${randomNumber} Sample Street`,
+      postalCode: "4103",
+
+      planId: Math.floor(Math.random() * 3) + 1,
+
+      paymentMethod: "gcash",
+      paymentProof: null,
+      paymentUrl: "",
+
+      status: "pending"
+    };
+  };
+
+  const generateEmptyData = () => ({
     username: "",
     email: "",
     contactNumber: "",
     referralCode: refCode || "",
     password: "",
     confirmPassword: "",
-    // Step 2
+
     firstName: "",
     middleName: "",
     lastName: "",
@@ -26,15 +59,19 @@ export default function SignUpForm({ refCode }) {
     barangay: "",
     streetAddress: "",
     postalCode: "",
-    // Step 3
+
     planId: null,
-    // Step 4
+
     paymentMethod: "",
     paymentProof: null,
     paymentUrl: "",
-    // Step 5
+
     status: "pending"
   });
+
+  const [formData, setFormData] = useState(() =>
+    DEBUG_PRESET ? generatePresetData() : generateEmptyData()
+  );
 
   return (
     <>

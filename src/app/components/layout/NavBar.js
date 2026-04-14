@@ -9,11 +9,11 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
 
     function Home() {
-        router.push("/home")
+        router.push("/home/main")
     }
 
     function About() {
-        router.push("/home/about")
+        router.push("/home/main/about")
     }
 
     function Register() {
@@ -21,11 +21,11 @@ export default function Navbar() {
     }
 
     function Contacts() {
-        router.push("/home/contacts")
+        router.push("/home/main/contacts")
     }
 
     function Memberships() {
-        router.push("/home/memberships")
+        router.push("/home/main/memberships")
     }
 
     const navItems = [

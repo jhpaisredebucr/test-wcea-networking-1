@@ -1,57 +1,237 @@
-"use client"
+"use client";
 
-export default function SignUpPlan({ formData, setFormData, nextStep, prevStep }) {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function SignUpPlan({
+    formData,
+    setFormData,
+    nextStep,
+    prevStep
+}) {
+
+    const router = useRouter();
+    const [error, setError] = useState(null);
+
+
+    function SetPlan(planId) {
+        setFormData(prev => ({
+            ...prev,
+            planId
+        }));
+
+        setError(null);
+    }
+
+
     function Next() {
-        console.log(formData);
-        const isMissing = CheckMissingFields();
-        if (isMissing) {
+
+        if (!formData.planId) {
+            setError("Please select a membership plan.");
             return;
         }
+
         nextStep();
     }
 
+
     function Prev() {
-        console.log(formData);
         prevStep();
-    }   
-
-    function SetPlan(plan) {
-        setFormData(prev => ({ ...prev, planId: plan }));
     }
 
-    function CheckMissingFields() {
-        const { planId} = formData;
-
-        if (!planId) {
-            alert("Please fill in all required fields.");
-            return true;
-        }
-    }
 
     return (
-        <div className="flex w-[60%] flex-col items-center justify-center p-30 col-span-2">
-            <div className="w-full mb-10">
-                <p className="font-semibold text-2xl text-gray-600">Create Account</p>
-                <p className="text-gray-600">Please fill in your details to join our community portal.</p>
-            </div>
-            <div className="w-full grid grid-cols-3 gap-x-5">
-                <button onClick={() => SetPlan(1)} className={`w-40 h-40 rounded-full flex flex-col justify-center items-center ${formData.planId === 1 ? "bg-blue-400 text-white" : "bg-gray-200 hover:bg-gray-100"}`}>
-                    <p>Plan 1</p>
-                    <p>Price: 300</p>
-                </button>
-                <button onClick={() => SetPlan(2)} className={`w-40 h-40 rounded-full flex flex-col justify-center items-center ${formData.planId === 2 ? "bg-blue-400 text-white" : "bg-gray-200 hover:bg-gray-100"}`}>
-                    <p>Plan 2</p>
-                    <p>Price: 900</p>
-                </button>
-                <button onClick={() => SetPlan(3)} className={`w-40 h-40 rounded-full flex flex-col justify-center items-center ${formData.planId === 3 ? "bg-blue-400 text-white" : "bg-gray-200 hover:bg-gray-100"}`}>
-                    <p>Plan 3</p>
-                    <p>price: 1500</p>
-                </button>
-                <div className="flex mt-5">
-                    <button onClick={Prev} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Back</button>
-                    <button onClick={Next} className="w-full mx-2 h-13 bg-blue-500 p-2 rounded-full text-white">Next</button>
+
+        <div className="w-full flex justify-center">
+
+            {/* CARD */}
+            <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-12">
+
+                {/* HEADER */}
+                <div className="mb-8 text-center md:text-left flex justify-between">
+                    <div>
+                        <h2 className="text-2xl font-semibold text-gray-800">
+                            Choose Your Membership Plan
+                        </h2>
+
+                        <p className="text-gray-500 mt-1">
+                            Select the plan that best fits your needs.
+                        </p>
+                    </div>
+                    
+
+                    <button
+                        onClick={() => router.push("/home/main")}
+                        className="text-sm text-gray-500 hover:text-gray-800 transition mb-4 inline-flex items-center gap-1"
+                    >
+                        ← Back to Homepage
+                    </button>
                 </div>
+
+
+                {/* ERROR MESSAGE */}
+                {error && (
+                    <p className="text-sm text-red-500 mb-6">
+                        {error}
+                    </p>
+                )}
+
+
+                {/* PLAN GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+
+                    <PlanCard
+                        title="Community Basic"
+                        price="₱300"
+                        selected={formData.planId === 1}
+                        onClick={() => SetPlan(1)}
+                    />
+
+
+                    <PlanCard
+                        title="Community Elite"
+                        price="₱900"
+                        selected={formData.planId === 2}
+                        highlight
+                        onClick={() => SetPlan(2)}
+                    />
+
+
+                    <PlanCard
+                        title="Community Premium"
+                        price="₱1500"
+                        selected={formData.planId === 3}
+                        onClick={() => SetPlan(3)}
+                    />
+
+
+                </div>
+
+
+                {/* BUTTONS */}
+                <div className="flex gap-4 mt-10">
+
+
+                    <button
+                        onClick={Prev}
+                        className="
+                        flex-1
+                        h-12
+                        rounded-lg
+                        border
+                        border-gray-300
+                        text-gray-700
+                        hover:bg-gray-100
+                        transition
+                        "
+                    >
+                        Back
+                    </button>
+
+
+                    <button
+                        onClick={Next}
+                        className="
+                        flex-1
+                        h-12
+                        rounded-lg
+                        bg-(--primary)
+                        text-white
+                        font-semibold
+                        hover:opacity-90
+                        active:scale-[0.98]
+                        transition
+                        shadow-md
+                        "
+                    >
+                        Continue
+                    </button>
+
+
+                </div>
+
             </div>
+
         </div>
-    )
+
+    );
+}
+
+
+/* PLAN CARD COMPONENT */
+
+function PlanCard({
+    title,
+    price,
+    selected,
+    highlight = false,
+    onClick
+}) {
+
+    return (
+
+        <button
+            onClick={onClick}
+            className={`
+            relative
+            flex flex-col
+            items-center
+            justify-center
+            text-center
+            rounded-xl
+            border
+            p-6
+            transition
+            hover:-translate-y-1
+            hover:shadow-md
+            
+            ${selected
+                ? "border-(--primary) ring-2 ring-(--primary)"
+                : "border-gray-200 hover:border-gray-300"
+            }
+
+            ${highlight
+                ? "shadow-lg"
+                : ""
+            }
+            `}
+        >
+
+            {highlight && (
+                <span className="
+                absolute
+                top-0
+                right-6
+                -translate-y-1/2
+                bg-[#ffddaf]
+                text-xs
+                px-3
+                py-1
+                rounded-full
+                font-semibold
+                ">
+                    Most Popular
+                </span>
+            )}
+
+
+            <p className="text-lg font-semibold text-gray-800">
+                {title}
+            </p>
+
+
+            <p className="
+            text-3xl
+            font-bold
+            text-(--primary)
+            mt-2
+            ">
+                {price}
+            </p>
+
+
+        </button>
+
+    );
 }

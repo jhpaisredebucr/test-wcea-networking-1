@@ -1,6 +1,6 @@
-import "../globals.css";
-import Navbar from "../components/layout/NavBar";
-import TopBar from "../components/layout/TopBar";
+import "../../globals.css";
+import Navbar from "../../components/layout/NavBar";
+import TopBar from "../../components/layout/TopBar";
 
 export const metadata = {
   title: "WCEA Home",
