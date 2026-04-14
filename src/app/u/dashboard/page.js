@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import DashboardMember from "@/app/components/ui/member/Dashboard";
 import Transactions from "../../components/ui/member/Transactions";
+import MembershipFormPage from "@/app/components/ui/member/FormPdf";
 
 export default function Page() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -104,6 +105,7 @@ export default function Page() {
       <DashboardMember dashboardData={dashboardData} userData={userData} />
       <h2 className="text-2xl text-center font-semibold my-6 p-6 rounded-lg shadow bg-white">Latest Transaction</h2>
       <Transactions transactions={transactions}/>
+      {/* <MembershipFormPage></MembershipFormPage> */}
     </>
   );
 }
