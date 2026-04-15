@@ -12,16 +12,23 @@ export default function SignUpPayment({
 }) {
 
     const router = useRouter();
+
     const [error, setError] = useState(null);
     const [isUploadOpen, setIsUploadOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
-    // 🧠 TRACK STATE CHANGES
+    // -------------------------
+    // DEBUG LOGGER
+    // -------------------------
     function logState(label, data) {
-        console.log(`\n🟡 [${label}]`, data);
+        console.log(`[${label}]`, data);
     }
 
 
+    // -------------------------
+    // SET PAYMENT METHOD
+    // -------------------------
     function setPayment(method) {
 
         const map = {
@@ -33,13 +40,14 @@ export default function SignUpPayment({
         const selected = map[method];
 
         setFormData(prev => {
+
             const updated = {
                 ...prev,
                 paymentMethod: selected
             };
 
-            logState("PAYMENT METHOD SET", updated.paymentMethod);
-            logState("FULL FORM DATA", updated);
+            logState("PAYMENT_METHOD_SET", updated.paymentMethod);
+            logState("FULL_FORM_DATA", updated);
 
             return updated;
         });
@@ -48,141 +56,174 @@ export default function SignUpPayment({
     }
 
 
-    let planPrice = {
+    // -------------------------
+    // PLAN PRICE
+    // -------------------------
+    const planPrice = {
         1: 300,
         2: 900,
         3: 1500
     }[formData.planId];
 
 
+    // -------------------------
+    // HANDLE FILE UPLOAD
+    // -------------------------
     function handleUpload(file) {
 
-        console.log("\n📁 FILE RECEIVED:", file);
+        console.log("[FILE_RECEIVED]", file);
 
         setFormData(prev => {
+
             const updated = {
                 ...prev,
                 paymentProof: file
             };
 
-            logState("UPLOAD SET", updated.paymentProof);
+            logState("UPLOAD_SET", updated.paymentProof);
+            logState("FULL_FORM_DATA", updated);
 
             return updated;
         });
+
     }
 
 
+    // -------------------------
+    // SUBMIT SIGNUP
+    // -------------------------
     async function HandleSignUp() {
 
-        console.log("\n🚀 SUBMIT CLICKED");
-        logState("CURRENT FORM DATA", formData);
+        console.log("[SUBMIT_CLICKED]");
+        logState("CURRENT_FORM_DATA", formData);
+
+        setError(null);
 
 
+        // VALIDATION
         if (!formData.paymentMethod) {
-            console.warn("❌ Missing payment method");
+            console.warn("[ERROR] Missing payment method");
             setError("Please select a payment method.");
             return;
         }
 
         if (!formData.paymentProof) {
-            console.warn("❌ Missing payment proof");
+            console.warn("[ERROR] Missing payment proof");
             setError("Please upload proof of payment.");
             return;
         }
 
 
-        console.log("✅ Validation passed");
+        try {
+
+            setLoading(true);
 
 
-        nextStep();
+            // CLOUDINARY UPLOAD
+            console.log("[CLOUDINARY_UPLOAD] Starting...");
 
+            const uploadData = new FormData();
+            uploadData.append("file", formData.paymentProof);
 
-        // -------------------------
-        // CLOUDINARY UPLOAD
-        // -------------------------
-        const uploadData = new FormData();
-        uploadData.append("file", formData.paymentProof);
+            const cloudinaryRes = await fetch(
+                "/api/cloudinary/upload",
+                {
+                    method: "POST",
+                    body: uploadData
+                }
+            );
 
-        console.log("☁️ Uploading to Cloudinary...");
-        console.log("FILE BEING SENT:", formData.paymentProof);
+            const cloudinaryData = await cloudinaryRes.json();
 
+            logState("CLOUDINARY_RESPONSE", cloudinaryData);
 
-        const cloudinaryRes = await fetch(
-            "/api/cloudinary/upload",
-            {
-                method: "POST",
-                body: uploadData
+            if (!cloudinaryData.url) {
+                console.error("[ERROR] Cloudinary upload failed");
+                setError("Image upload failed.");
+                return;
             }
-        );
-
-        const cloudinaryData = await cloudinaryRes.json();
-
-        console.log("☁️ CLOUDINARY RESPONSE:", cloudinaryData);
 
 
-        if (!cloudinaryData.url) {
-            console.error("❌ Cloudinary upload failed");
-            setError("Upload failed.");
-            return;
+            // SIGNUP REQUEST
+            const updatedFormData = {
+                ...formData,
+                paymentUrl: cloudinaryData.url
+            };
+
+            logState("SIGNUP_PAYLOAD", updatedFormData);
+
+            const signupRes = await fetch(
+                "/api/auth/signup",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(updatedFormData)
+                }
+            );
+
+            const signupData = await signupRes.json();
+
+            logState("SIGNUP_RESPONSE", signupData);
+
+            if (!signupRes.ok) {
+                setError(signupData.message || "Signup failed.");
+                return;
+            }
+
+
+            // TRANSACTION
+            console.log("[TRANSACTION_CREATE] Starting...");
+
+            const transactionPayload = {
+                user_id: signupData.user.id,
+                type: "plan",
+                amount: planPrice,
+                proof: cloudinaryData.url,
+                payment_method: formData.paymentMethod
+            };
+
+            logState("TRANSACTION_PAYLOAD", transactionPayload);
+
+            const transactionRes = await fetch(
+                "/api/portal/member/transactions",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(transactionPayload)
+                }
+            );
+
+            const transactionData = await transactionRes.json();
+
+            logState("TRANSACTION_RESPONSE", transactionData);
+
+            if (!transactionRes.ok) {
+                setError(
+                    transactionData.message ||
+                    "Transaction creation failed."
+                );
+                return;
+            }
+
+
+            console.log("[SUCCESS] Flow completed");
+            nextStep();
+
+        } catch (err) {
+
+            console.error("[NETWORK_ERROR]", err);
+            setError("Network error. Please try again.");
+
+        } finally {
+
+            setLoading(false);
+
         }
 
-
-        // -------------------------
-        // SIGNUP REQUEST
-        // -------------------------
-        const updatedFormData = {
-            ...formData,
-            paymentUrl: cloudinaryData.url
-        };
-
-        console.log("📦 FINAL PAYLOAD (SIGNUP):", updatedFormData);
-
-
-        const res = await fetch(
-            "/api/auth/signup",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(updatedFormData)
-            }
-        );
-
-        const data = await res.json();
-
-        console.log("👤 SIGNUP RESPONSE:", data);
-
-
-        // -------------------------
-        // TRANSACTION
-        // -------------------------
-        console.log("💳 Creating transaction...");
-
-        const transactionPayload = {
-            user_id: data.user.id,
-            type: "plan",
-            amount: planPrice,
-            proof: cloudinaryData.url
-        };
-
-        console.log("📦 TRANSACTION PAYLOAD:", transactionPayload);
-
-
-        const transactionRes = await fetch(
-            "/api/portal/member/transactions",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(transactionPayload)
-            }
-        );
-
-        const transactionData = await transactionRes.json();
-
-        console.log("💳 TRANSACTION RESPONSE:", transactionData);
     }
 
 
@@ -197,11 +238,12 @@ export default function SignUpPayment({
             />
 
 
-            {/* CARD */}
             <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-12">
+
 
                 {/* HEADER */}
                 <div className="mb-8 text-center md:text-left flex justify-between">
+
                     <div>
                         <h2 className="text-2xl font-semibold text-gray-800">
                             Payment Details
@@ -211,14 +253,15 @@ export default function SignUpPayment({
                             Complete your membership payment.
                         </p>
                     </div>
-                    
+
 
                     <button
                         onClick={() => router.push("/home")}
-                        className="text-sm text-gray-500 hover:text-gray-800 transition mb-4 inline-flex items-center gap-1"
+                        className="text-sm text-gray-500 hover:text-gray-800 transition"
                     >
                         ← Back to Homepage
                     </button>
+
                 </div>
 
 
@@ -276,20 +319,14 @@ export default function SignUpPayment({
 
                     <button
                         onClick={() => setIsUploadOpen(true)}
-                        className="
-                        px-5 py-2 rounded-lg
-                        bg-(--primary)
-                        text-white font-medium
-                        hover:opacity-90 transition
-                        "
+                        className="px-5 py-2 rounded-lg bg-(--primary) text-white font-medium hover:opacity-90 transition"
                     >
                         Upload Screenshot
                     </button>
 
-
                     {formData.paymentProof && (
                         <p className="text-xs text-green-600 mt-2">
-                            File uploaded ✓
+                            File uploaded
                         </p>
                     )}
 
@@ -308,9 +345,10 @@ export default function SignUpPayment({
 
                     <button
                         onClick={HandleSignUp}
-                        className="flex-1 h-12 rounded-lg bg-(--primary) text-white font-semibold hover:opacity-90 active:scale-[0.98] transition shadow-md"
+                        disabled={loading}
+                        className="flex-1 h-12 rounded-lg bg-(--primary) text-white font-semibold hover:opacity-90 active:scale-[0.98] transition shadow-md disabled:opacity-50"
                     >
-                        Submit Registration
+                        {loading ? "Processing..." : "Submit Registration"}
                     </button>
 
                 </div>
@@ -318,7 +356,9 @@ export default function SignUpPayment({
             </div>
 
         </div>
+
     );
+
 }
 
 
@@ -330,16 +370,18 @@ function PaymentCard({ label, selected, onClick }) {
         <button
             onClick={onClick}
             className={`
-            flex items-center justify-center rounded-xl border p-6 font-semibold transition
-            hover:-translate-y-1 hover:shadow-md
-            ${selected
-                ? "border-(--primary) ring-2 ring-(--primary)"
-                : "border-gray-200 hover:border-gray-300"
-            }
+                flex items-center justify-center
+                rounded-xl border p-6 font-semibold transition
+                hover:-translate-y-1 hover:shadow-md
+                ${selected
+                    ? "border-(--primary) ring-2 ring-(--primary)"
+                    : "border-gray-200 hover:border-gray-300"
+                }
             `}
         >
             {label}
         </button>
 
     );
+
 }

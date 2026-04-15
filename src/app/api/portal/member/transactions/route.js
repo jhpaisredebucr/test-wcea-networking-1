@@ -3,25 +3,30 @@ import { query } from "@/lib/db";
 
 export async function POST(req) {
     try {
-        const { user_id, type, amount, proof } = await req.json();
+        const { user_id, type, amount, proof, payment_method } = await req.json();
 
         await query(
             `
-                INSERT INTO transactions (user_id, type, amount, proof)
-                VALUES ($1, $2, $3, $4)
+                INSERT INTO transactions (user_id, type, amount, proof, payment_method)
+                VALUES ($1, $2, $3, $4, $5)
             `,
-            [user_id, type, amount, proof]
+            [user_id, type, amount, proof, payment_method]
         );
 
-        return NextResponse.json({ message: "transaction successful", amount });
-        
+        return NextResponse.json({
+            success: true,
+            message: "transaction successful",
+            amount,
+            payment_method
+        });
+
     } catch (error) {
-        console.error("Approval error:", error);
+        console.error("Transaction error:", error);
 
         return NextResponse.json(
             {
                 success: false,
-                message: error.message, // show actual error temporarily
+                message: error.message
             },
             { status: 500 }
         );
