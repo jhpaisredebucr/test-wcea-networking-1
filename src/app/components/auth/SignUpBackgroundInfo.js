@@ -8,7 +8,9 @@ export default function SignUpBackgroundInfo({
     formData,
     setFormData,
     nextStep,
-    prevStep
+    prevStep,
+    isLoading,
+    setIsLoading
 }) {
 
     const router = useRouter();
@@ -46,8 +48,13 @@ export default function SignUpBackgroundInfo({
 
 
     function Next() {
+        if (isLoading) return;
         if (!validate()) return;
-        nextStep();
+        setIsLoading(true);
+        setTimeout(() => {
+            nextStep();
+            setIsLoading(false);
+        }, 500); // Brief debounce
     }
 
 
@@ -225,6 +232,7 @@ export default function SignUpBackgroundInfo({
 
                         <button
                             onClick={Next}
+                            disabled={isLoading}
                             className="
                             flex-1
                             h-12
@@ -236,9 +244,10 @@ export default function SignUpBackgroundInfo({
                             active:scale-[0.98]
                             transition
                             shadow-md
+                            disabled:opacity-50 disabled:cursor-not-allowed
                             "
                         >
-                            Next Step
+                            {isLoading ? "Please wait..." : "Next Step"}
                         </button>
 
                     </div>

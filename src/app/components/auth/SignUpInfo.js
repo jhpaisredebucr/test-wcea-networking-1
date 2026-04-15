@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SemanticCard from "../ui/SemanticCard";
 
-export default function SignUpInfo({ formData, setFormData, nextStep }) {
+export default function SignUpInfo({ formData, setFormData, nextStep, isLoading, setIsLoading }) {
     const router = useRouter();
 
     const [errors, setErrors] = useState({});
@@ -50,23 +50,29 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
     }
 
     async function HandleSignUp() {
+        if (isLoading) return;
         if (!validate()) return;
 
-        const res = await fetch(
-            "/api/auth/signup/check-availability",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+        setIsLoading(true);
+        try {
+            const res = await fetch(
+                "/api/auth/signup/check-availability",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                }
+            );
+
+            const data = await res.json();
+
+            if (data.success) {
+                nextStep();
+            } else {
+                setErrors({ api: data.message });
             }
-        );
-
-        const data = await res.json();
-
-        if (data.success) {
-            nextStep();
-        } else {
-            setErrors({ api: data.message });
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -237,6 +243,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                     {/* BUTTON */}
                     <button
                         onClick={HandleSignUp}
+                        disabled={isLoading}
                         className="
                         col-span-1 md:col-span-2
                         mt-4 h-12
@@ -248,9 +255,10 @@ export default function SignUpInfo({ formData, setFormData, nextStep }) {
                         active:scale-[0.98]
                         transition
                         shadow-md
+                        disabled:opacity-50 disabled:cursor-not-allowed
                         "
                     >
-                        Create Account
+                        {isLoading ? "Checking..." : "Create Account"}
                     </button>
 
 

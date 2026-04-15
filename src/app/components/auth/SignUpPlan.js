@@ -7,7 +7,9 @@ export default function SignUpPlan({
     formData,
     setFormData,
     nextStep,
-    prevStep
+    prevStep,
+    isLoading,
+    setIsLoading
 }) {
 
     const router = useRouter();
@@ -25,13 +27,18 @@ export default function SignUpPlan({
 
 
     function Next() {
+        if (isLoading) return;
 
         if (!formData.planId) {
             setError("Please select a membership plan.");
             return;
         }
 
-        nextStep();
+        setIsLoading(true);
+        setTimeout(() => {
+            nextStep();
+            setIsLoading(false);
+        }, 300);
     }
 
 
@@ -132,6 +139,7 @@ export default function SignUpPlan({
 
                     <button
                         onClick={Next}
+                        disabled={isLoading}
                         className="
                         flex-1
                         h-12
@@ -143,9 +151,10 @@ export default function SignUpPlan({
                         active:scale-[0.98]
                         transition
                         shadow-md
+                        disabled:opacity-50 disabled:cursor-not-allowed
                         "
                     >
-                        Continue
+                        {isLoading ? "Please wait..." : "Continue"}
                     </button>
 
 

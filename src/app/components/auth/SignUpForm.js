@@ -10,7 +10,8 @@ import SignUpApproval from "./SignUpApproval";
 const DEBUG_PRESET = true;
 
 export default function SignUpForm({ refCode }) {
-  const [step, setStep] = useState(1);
+const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const generatePresetData = () => {
     const randomNumber = Math.floor(1000 + Math.random() * 9000);
@@ -75,12 +76,14 @@ export default function SignUpForm({ refCode }) {
 
   return (
     <>
-      {step === 1 && (
+{step === 1 && (
         <SignUpInfo
           formData={formData}
           setFormData={setFormData}
-          nextStep={() => setStep(prev => prev + 1)}
-          prevStep={() => setStep(prev => prev - 1)}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          nextStep={() => !isLoading && setStep(prev => prev + 1)}
+          prevStep={() => !isLoading && setStep(prev => prev - 1)}
           refCode={refCode}
         />
       )}
@@ -88,24 +91,30 @@ export default function SignUpForm({ refCode }) {
         <SignUpBackgroundInfo
           formData={formData}
           setFormData={setFormData}
-          nextStep={() => setStep(prev => prev + 1)}
-          prevStep={() => setStep(prev => prev - 1)}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          nextStep={() => !isLoading && setStep(prev => prev + 1)}
+          prevStep={() => !isLoading && setStep(prev => prev - 1)}
         />
       )}
       {step === 3 && (
         <SignUpPlan
           formData={formData}
           setFormData={setFormData}
-          nextStep={() => setStep(prev => prev + 1)}
-          prevStep={() => setStep(prev => prev - 1)}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          nextStep={() => !isLoading && setStep(prev => prev + 1)}
+          prevStep={() => !isLoading && setStep(prev => prev - 1)}
         />
       )}
       {step === 4 && (
         <SignUpPayment
           formData={formData}
           setFormData={setFormData}
-          nextStep={() => setStep(prev => prev + 1)}
-          prevStep={() => setStep(prev => prev - 1)}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          nextStep={() => !isLoading && setStep(prev => prev + 1)}
+          prevStep={() => !isLoading && setStep(prev => prev - 1)}
         />
       )}
       {step === 5 && (
