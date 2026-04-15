@@ -99,11 +99,27 @@ export default function MembersAdmin({ dashboardData }) {
                     <div>{user.first_name} {user.last_name}</div>
                     <div>{format(new Date(user.created_at), "MMM dd, yyyy")}</div>
                     <div className="flex items-center justify-between">
-                        {user.status}
+                        <span
+                            className={
+                                user.status === "approved"
+                                ? "text-green-600"
+                                : user.status === "pending"
+                                ? "text-orange-500"
+                                : user.status === "declined"
+                                ? "text-red-600"
+                                : ""
+                            }
+                            >
+                            {user.status}
+                        </span>
                         {user.status === "pending" &&
-                        <button onClick={() => 
-                            Approve(user.id, user.plan, user.referred_by)} 
-                            className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                Approve(user.id, user.plan, user.referred_by);
+                            }}
+                            className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm"
+                        >
                             Approve
                         </button>}
                     </div>

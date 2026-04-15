@@ -30,7 +30,19 @@ export default function ReferralsMember({ userData, dashboardData }) {
                     <div>{user.username}</div>
                     <div>{user.first_name} {user.last_name}</div>
                     <div>{format(new Date(user.created_at), "MMM dd, yyyy")}</div>
-                    <div>{user.status}</div>
+                    <span
+                        className={
+                            user.status === "approved"
+                            ? "text-green-600"
+                            : user.status === "pending"
+                            ? "text-orange-500"
+                            : user.status === "declined"
+                            ? "text-red-600"
+                            : ""
+                        }
+                        >
+                        {user.status}
+                    </span>
                 </div>
             ))}
         </div>

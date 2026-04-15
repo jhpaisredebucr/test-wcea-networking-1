@@ -32,9 +32,10 @@ export async function GET(req) {
     // If admin → get ALL transactions
     if (role === "admin") {
       transactions = await query(
-        "SELECT * FROM transactions ORDER BY created_at DESC"
+        "SELECT * FROM transactions WHERE type != $1 ORDER BY created_at DESC",
+        ["plan"]
       );
-    } 
+    }
     // If regular user → get only their transactions
     else {
       transactions = await query(
