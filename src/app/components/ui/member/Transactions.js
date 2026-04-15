@@ -4,7 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import ApproveModal from "./ApproveModal";
 
-export default function Transactions({ transactions, userData }) {
+export default function Transactions({ transactions, userData, limit=20 }) {
 
   const [selectedTx, setSelectedTx] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ export default function Transactions({ transactions, userData }) {
       </div>
 
       {/* ROWS */}
-      {transactions.map((t, i) => (
+      {transactions.slice(0, limit).map((t, i) => (
         <div
           key={i}
           className="grid grid-cols-5 p-5 mt-2 bg-white rounded-lg shadow-sm"
