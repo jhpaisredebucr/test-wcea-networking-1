@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import ReferralsMember from "@/app/components/ui/member/Referrals";
+import MemberReferredMembers from "@/app/components/ui/MemberReferredMembers";
+import Card from "@/app/components/ui/Card";
 
 export default function Page() {
 
   const [dashboardData, setDashboardData] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [selectedDashboardData, setSelectedDashboardData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const fetchJson = async (url) => {
@@ -31,7 +35,6 @@ export default function Page() {
         );
 
         setDashboardData(dashRes.dashboardData);
-        console.log(dashRes)
 
       } catch (err) {
         console.error(err);
@@ -41,7 +44,7 @@ export default function Page() {
     };
 
     loadData();
-  }, [dashboardData]);
+  }, []);
 
   // if (loading) {
   //   return (
@@ -58,8 +61,16 @@ export default function Page() {
 
   return (
     <>
+      <p>Your Referral Code: {userData?.userInfo?.referral_code}</p>
+
+      <div className="grid grid-cols-2 gap-5 my-5">
+          <Card title="Total Referred" value={dashboardData?.totalReferredMembers} info=""/>
+          <Card title="Pending" value={dashboardData?.pendingCount} info=""/>
+      </div>
+
       <h1 className="text-3xl font-semibold mb-6">Referrals</h1>
-      <ReferralsMember userData={userData} dashboardData={dashboardData}/>
+      <ReferralsMember userData={userData} dashboardData={dashboardData} setSelectedDashboardData={setSelectedDashboardData} setIsOpen={setIsOpen} isOpen={isOpen}/>
+      {isOpen && <MemberReferredMembers dashboardData={selectedDashboardData} setIsOpen={setIsOpen} isOpen={isOpen}/>}
     </>
   );
 }

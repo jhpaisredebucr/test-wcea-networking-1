@@ -210,7 +210,7 @@ export default function HomePage() {
                     Community Basic
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-[#064f13]">
+                    <span className="text-3xl font-serif font-bold text-blue-800">
                       ₱350
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
@@ -234,7 +234,7 @@ export default function HomePage() {
               </div>
 
               {/* ── Elite (featured) ── */}
-              <div className="bg-white p-8 rounded-xl flex flex-col ring-2 ring-[#064f13] relative shadow-2xl shadow-[#064f13]/10 hover:-translate-y-2 transition-transform duration-300">
+              <div className="bg-white p-8 rounded-xl flex flex-col ring-2 ring-blue-950 relative shadow-2xl shadow-[#064f13]/10 hover:-translate-y-2 transition-transform duration-300">
                 <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#ffddaf] text-[#281800] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                   Most Popular
                 </div>
@@ -243,8 +243,8 @@ export default function HomePage() {
                     Community Elite
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-[#064f13]">
-                      ₱650
+                    <span className="text-3xl font-serif font-bold text-blue-800">
+                      ₱900
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
                   </div>
@@ -256,7 +256,7 @@ export default function HomePage() {
                     "Digital resource library",
                     "Priority program booking",
                   ].map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-[#191c1b]">
+                    <li key={item} className="flex items-center gap-3">
                       <CheckIcon />
                       <span>{item}</span>
                     </li>
@@ -264,7 +264,7 @@ export default function HomePage() {
                 </ul>
                 <button 
                   onClick={() => router.push('/home/signup')} 
-                  className="w-full py-4 rounded-lg font-bold bg-linear-to-br from-[#064f13] to-[#266829] text-white shadow-lg shadow-[#064f13]/20 hover:opacity-90 active:scale-95 transition-all">
+                  className="w-full py-4 rounded-lg font-bold bg-blue-500 text-white shadow-lg shadow-[#064f13]/20 hover:opacity-90 active:scale-95 transition-all">
                   Get Started
                 </button>
               </div>
@@ -276,7 +276,7 @@ export default function HomePage() {
                     Community Premium
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-[#064f13]">
+                    <span className="text-3xl font-serif font-bold text-blue-800">
                       ₱1,500
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
@@ -308,30 +308,50 @@ export default function HomePage() {
 
       {/* ── FOOTER ── */}
       <footer className="bg-zinc-100 border-t border-zinc-200/20">
-        <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto text-sm tracking-wide">
-          <div className="mb-8 md:mb-0">
-            <div className="text-xl font-serif text-emerald-900 mb-2">
-              World Council Executive Alliances
-            </div>
-            <p className="text-zinc-600">
-              © World Council Executive Alliances. Built for the community.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-8">
-            {["Privacy Policy", "Terms of Service", "Contact Us", "Careers"].map(
-              (link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="text-zinc-600 hover:text-emerald-600 transition-colors"
-                >
-                  {link}
-                </a>
-              )
-            )}
-          </div>
-        </div>
-      </footer>
+
+  <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto text-sm tracking-wide">
+
+    <div className="mb-8 md:mb-0">
+      <div className="text-xl font-serif text-blue-950 mb-2">
+        World Council Executive Alliances
+      </div>
+
+      <p className="text-zinc-600">
+        © World Council Executive Alliances. Built for the community.
+      </p>
+    </div>
+
+    <div className="flex flex-wrap justify-center gap-8">
+      {["Privacy Policy", "Terms of Service", "Contact Us", "Careers"].map(
+        (link) => (
+          <a
+            key={link}
+            href="#"
+            className="text-zinc-600 hover:text-emerald-600 transition-colors"
+          >
+            {link}
+          </a>
+        )
+      )}
+    </div>
+
+  </div>
+
+
+  {/* TECH TEAM FOOTER STRIP */}
+  <div className="bg-zinc-200/50 border-t border-zinc-300">
+    <div className="max-w-7xl mx-auto px-8 py-2 flex flex-col md:flex-row items-center justify-between text-sm">
+
+      <span>
+        Website designed & developed by
+        <span className="font-semibold text-(--primary) ml-1">
+          <a href='https://www.facebook.com/bokae22' target="_blank" className='underline'>Bok Tech</a>
+        </span>
+      </span>
+    </div>
+  </div>
+
+</footer>
     </div>
   );
 }
@@ -340,7 +360,7 @@ export default function HomePage() {
 function CheckIcon() {
   return (
     <svg
-      className="text-[#064f13] shrink-0 w-4 h-4"
+      className="text-blue-900 shrink-0 w-4 h-4"
       viewBox="0 0 24 24"
       fill="currentColor"
     >

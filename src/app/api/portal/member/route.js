@@ -11,6 +11,7 @@ export async function GET(req) {
             SELECT 
                 u.username,
                 u.status,
+                u.referral_code,
                 u.created_at,
                 p.first_name,
                 p.last_name,

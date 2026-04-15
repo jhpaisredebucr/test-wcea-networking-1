@@ -18,6 +18,7 @@ export default function SideBar({ role = "member" }) {
         { id: "commissions", label: "Commissions", path: "/u/commissions", icon: "/icons/money.svg" },
         { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/announcement.svg" },
         { id: "deposit", label: "Deposit", path: "/u/deposit", icon: "/icons/announcement.svg" },
+        { id: "genealogy", label: "Genealogy", path: "/u/genealogy", icon: "/icons/announcement.svg" },
     ];
 
     const adminMenu = [

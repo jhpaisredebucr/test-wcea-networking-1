@@ -1,19 +1,20 @@
-import { userInfo } from "node:os";
-import Card from "../Card";
 import { format } from "date-fns";
 
-export default function ReferralsMember({ userData, dashboardData }) {
+export default function ReferralsMember({ setIsOpen, isOpen,  dashboardData, role = "member", setSelectedDashboardData, debug="false" }) {
 
     const referrals = dashboardData?.referredMembers || [];
 
+    function seeReferredMember(dashboardData) {
+        if (role !== "member") return;
+        if (debug === "true") return;
+        setIsOpen(!isOpen);
+        setSelectedDashboardData(dashboardData);
+
+        console.log("Clicked:", dashboardData);
+    };
+
     return (
         <div>
-            <p>Your Referral Code: {userData?.userInfo?.referral_code}</p>
-
-            <div className="grid grid-cols-2 gap-5 mt-5">
-                <Card title="Total Referred" value={dashboardData?.totalReferredMembers} info=""/>
-                <Card title="Pending" value={dashboardData?.pendingCount} info=""/>
-            </div>
 
             <div className="grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">
                 <div>Username</div>
@@ -25,11 +26,14 @@ export default function ReferralsMember({ userData, dashboardData }) {
             {referrals.map((user, index) => (
                 <div
                     key={index}
-                    className="grid grid-cols-4 shadow-sm p-5 rounded-lg bg-white mt-2"
+                    onClick={() => seeReferredMember(user)}
+                    className={`grid grid-cols-4 shadow-sm p-5 rounded-lg bg-white mt-2 
+                    ${role === "member" ? "cursor-pointer hover:bg-gray-50" : ""}`}
                 >
                     <div>{user.username}</div>
                     <div>{user.first_name} {user.last_name}</div>
                     <div>{format(new Date(user.created_at), "MMM dd, yyyy")}</div>
+
                     <span
                         className={
                             user.status === "approved"
@@ -40,11 +44,12 @@ export default function ReferralsMember({ userData, dashboardData }) {
                             ? "text-red-600"
                             : ""
                         }
-                        >
+                    >
                         {user.status}
                     </span>
                 </div>
             ))}
+
         </div>
     );
 }
