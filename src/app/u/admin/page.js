@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AdminDashboard from "../../components/ui/admin/AdminPage";
+import DashboardAdmin from "@/app/components/ui/admin/Dashboard";
 
 export default function AdminPage() {
 
@@ -23,7 +23,7 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <AdminDashboard
+    <DashboardAdmin
       dashboardData={dashboardData}
       userData={userData}
     />
