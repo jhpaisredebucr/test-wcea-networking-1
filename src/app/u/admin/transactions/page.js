@@ -7,6 +7,7 @@ import Transactions from "@/app/components/ui/member/Transactions";
 
 export default function Page() {
   const [transactions, setData] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,9 +17,18 @@ export default function Page() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // TRANSACTION
         fetch("/api/transaction")
           .then(res => res.json())
           .then(d => setData(d.transactions));
+
+        // USER DATA
+        fetch("/api/users")
+          .then(res => res.json())
+          .then(data => {
+            setUserData(data.success ? data : null);
+          })
+          .catch(err => console.error("User fetch error:", err));
       } catch (err) {
         console.error(err);
       } finally {
@@ -47,7 +57,7 @@ export default function Page() {
                 Member&apos;s Transactions
             </h2>
 
-            <Transactions transactions={transactions}/>
+            <Transactions transactions={transactions} userData={userData}/>
         </>
     )
 }

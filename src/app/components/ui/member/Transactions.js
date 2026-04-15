@@ -4,7 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import ApproveModal from "./ApproveModal";
 
-export default function Transactions({ transactions }) {
+export default function Transactions({ transactions, userData }) {
 
   const [selectedTx, setSelectedTx] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -72,7 +72,7 @@ export default function Transactions({ transactions }) {
               {t.status}
             </span>
 
-            {t.status === "pending" && (
+            {t.status === "pending" && userData?.userInfo?.role === "admin" && (
               <button
                 onClick={() => setSelectedTx(t)}
                 className="px-2 py-1 bg-(--primary) text-white rounded"
