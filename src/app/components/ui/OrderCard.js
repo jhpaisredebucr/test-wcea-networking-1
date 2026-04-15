@@ -13,7 +13,9 @@ export default function OrderCard({orders, products}) {
                             src={product.img_url} 
                             alt="Product Picture" 
                             width={100} 
-                            height={60} 
+                            height={70} 
+                            crop="fill"
+                            gravity="center"
                             className="rounded-sm mr-5 h-auto w-auto"
                         />
                     ) : (

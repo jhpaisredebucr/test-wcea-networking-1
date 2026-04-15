@@ -19,7 +19,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
     return (
         <div className="
             p-4 rounded-xl bg-white border-0 border-(--primary)
-            flex flex-col gap-4
+            flex flex-col gap-4 shadow-sm
             transition duration-300 hover:-translate-y-2 hover:border hover:shadow-lg
         ">
             {/* Image — full width */}
@@ -38,7 +38,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
             <div className="flex flex-col gap-2 flex-1">
                 <p className="font-bold">{products?.product_name}</p>
                 <p className="text-sm text-gray-400">{products?.description}</p>
-                <p className="text-sm">Price: ₱{products?.price}</p>
+                <p className="text-2xl text-[#465a7b] font-bold">₱{products?.price}.00</p>
             </div>
 
             {quantity === 0 && <button 
@@ -46,7 +46,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
                     AddToCart(data);
                     setQuantity(quantity + 1)
                 }} 
-                className="cursor-pointer w-full px-5 py-3 rounded-xl bg-(--primary) text-white"
+                className="cursor-pointer w-full px-5 py-2 rounded-xl border border-(--primary)"
             >
                 Buy
             </button>}

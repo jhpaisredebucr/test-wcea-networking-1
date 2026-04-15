@@ -41,6 +41,7 @@ export default function AnnouncementCard({ announcements, role }) {
                         first_name="WCEA"
                         last_name=""
                         profile="logo_ett0lg"
+                        clickable={false}
                     >
                         <p className="text-sm text-gray-400">
                             {formatDistanceToNow(

@@ -4,14 +4,14 @@ import ProductCard from "../ProductCard";
 import { useState } from "react";
 
 export default function ProductsMember({ products, userData, dashboardData, AddToCart }) {
-
-    if (!products) {
+    
+    if (products.length === 0) {
         return <p>Loading products...</p>;
     }
 
     
     return (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 gap-4">
             
             {products.map((product) => (
                 <ProductCard
