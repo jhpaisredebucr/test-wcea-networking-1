@@ -1,8 +1,16 @@
-import { cookies } from "next/headers";
+
+
+import { cookies, headers } from "next/headers";
 import DashboardAdmin from "@/app/components/ui/admin/Dashboard";
 
 export default async function AdminPage() {
-    const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
+
+    const headersList = headers();
+    const host = headersList.get("host");
+    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+    const baseUrl = `${protocol}://${host}`;
+
+
     //USER INFO
     async function GetUserData() {
         const cookieStore = await cookies();
@@ -12,7 +20,8 @@ export default async function AdminPage() {
 
         if (!userID) return null;
 
-        const res = await fetch(`${API_HOST}/api/users?user-id=${userID}`);
+        const res = await fetch(`${baseUrl}/api/users?user-id=${userID}`);
+
         const data = await res.json();
 
         console.log("User data response:", data);
@@ -21,7 +30,8 @@ export default async function AdminPage() {
     }
 
     async function Analytics() {
-        const res = await fetch(`${API_HOST}/api/portal/admin/analytics`);
+        const res = await fetch(`${baseUrl}/api/portal/admin/analytics`);
+
         const data = await res.json();
         return data.dashboardData;
     }
