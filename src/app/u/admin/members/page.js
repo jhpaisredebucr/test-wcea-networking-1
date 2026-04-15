@@ -1,30 +1,33 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import MembersAdmin from "../../../components/ui/admin/Members";
-import { headers } from "next/headers";
 
-export default async function Page() {
+export default function Page() {
 
-  const headersList = headers();
-  const host = headersList.get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const baseUrl = `${protocol}://${host}`;
+  const [userData, setUserData] = useState(null);
+  const [dashboardData, setDashboardData] = useState(null);
 
-  // USER INFO
-  const userDataRes = await fetch(`${baseUrl}/api/users`, {
-    cache: "no-store"
-  });
+  useEffect(() => {
 
-  const userDataJson = await userDataRes.json();
-  const userData = userDataJson.success ? userDataJson : null;
+    // USER DATA
+    fetch("/api/users")
+      .then(res => res.json())
+      .then(data => {
+        setUserData(data.success ? data : null);
+      })
+      .catch(err => console.error("User fetch error:", err));
 
 
-  // DASHBOARD DATA
-  const dashboardRes = await fetch(`${baseUrl}/api/portal/admin/analytics`, {
-    cache: "no-store"
-  });
+    // DASHBOARD DATA
+    fetch("/api/portal/admin/analytics")
+      .then(res => res.json())
+      .then(data => {
+        setDashboardData(data.dashboardData);
+      })
+      .catch(err => console.error("Dashboard fetch error:", err));
 
-  const dashboardJson = await dashboardRes.json();
-  const dashboardData = dashboardJson.dashboardData;
-
+  }, []);
 
   return (
     <MembersAdmin
@@ -32,5 +35,4 @@ export default async function Page() {
       dashboardData={dashboardData}
     />
   );
-
 }
