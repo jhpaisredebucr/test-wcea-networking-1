@@ -8,11 +8,11 @@ export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
   const isAdminRoute = pathname.startsWith("/u/admin");
-  const isDashboardRoute = pathname.startsWith("/u/dashboard");
-  const isProfileRoute = pathname.startsWith("/u/profile");
+  const isMemberRoute = pathname.startsWith("/u/dashboard");
+
 
   const isProtectedRoute =
-    isAdminRoute || isDashboardRoute || isProfileRoute;
+    isAdminRoute || isMemberRoute;
 
   if (!token && isProtectedRoute) {
     return NextResponse.redirect(new URL("/", req.url));
@@ -29,6 +29,10 @@ export async function middleware(req) {
     const role = payload.role;
 
     if (isAdminRoute && role !== "admin") {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+    
+    if (isMemberRoute && role !== "member") {
       return NextResponse.redirect(new URL("/", req.url));
     }
 
