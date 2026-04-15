@@ -36,8 +36,8 @@ export default function Transactions({transactions}) {
                             className={
                                 transaction.status === "approved"
                                 ? "text-green-600"
-                                : transaction.status === "pending"
-                                ? "text-orange-500"
+                                : transaction.status === "Pending"
+                                ? "text-yellow-500"
                                 : transaction.status === "declined"
                                 ? "text-red-600"
                                 : ""
@@ -45,7 +45,7 @@ export default function Transactions({transactions}) {
                             >
                             {transaction.status}
                         </span>
-                        {transaction.status === "pending" &&
+                        {transaction.status === "Pending" &&
                         <button onClick={() => 
                             Approve(transaction.id)} 
                             className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm">
