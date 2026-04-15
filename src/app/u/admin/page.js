@@ -1,38 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import AdminDashboard from "../../components/ui/admin/AdminPage";
-import { cookies } from "next/headers";
 
-export default async function AdminPage() {
-    const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
-    //USER INFO
-    async function GetUserData() {
-        const cookieStore = await cookies();
-        const userID = cookieStore.get("userID")?.value;
+export default function AdminPage() {
 
-        console.log("userID:", userID);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
-        if (!userID) return null;
-
-        const res = await fetch(`${API_HOST}/api/users?user-id=${userID}`);
-        const data = await res.json();
-
-        console.log("User data response:", data);
-
-        return data.success ? data : null;
-    }
-
-    async function Analytics() {
-        const res = await fetch(`${API_HOST}/api/portal/admin/analytics`);
-        const data = await res.json();
-        return data.dashboardData;
-    }
+  useEffect(() => {
 
     // DASHBOARD DATA
-    const dashboardData = await Analytics();
-    const userData = await GetUserData();
+    fetch("/api/portal/admin/analytics")
+      .then(res => res.json())
+      .then(data => setDashboardData(data.dashboardData));
 
-    return (
-        <div>
-            <AdminDashboard dashboardData={dashboardData} userData={userData}/>
-        </div>
-    );
+    // USER DATA
+    fetch("/api/users")
+      .then(res => res.json())
+      .then(data => setUserData(data.success ? data : null));
+
+  }, []);
+
+  return (
+    <AdminDashboard
+      dashboardData={dashboardData}
+      userData={userData}
+    />
+  );
 }

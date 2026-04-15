@@ -1,36 +1,36 @@
 import MembersAdmin from "../../../components/ui/admin/Members";
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 
 export default async function Page() {
-    const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
-    //USER INFO
-    async function GetUserData() {
-        const cookieStore = await cookies();
-        const userID = cookieStore.get("userID")?.value;
 
-        console.log("userID:", userID);
+  const headersList = headers();
+  const host = headersList.get("host");
+  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
 
-        if (!userID) return null;
+  // USER INFO
+  const userDataRes = await fetch(`${baseUrl}/api/users`, {
+    cache: "no-store"
+  });
 
-        const res = await fetch(`${API_HOST}/api/users?user-id=${userID}`);
-        const data = await res.json();
+  const userDataJson = await userDataRes.json();
+  const userData = userDataJson.success ? userDataJson : null;
 
-        console.log("User data response:", data);
 
-        return data.success ? data : null;
-    }
+  // DASHBOARD DATA
+  const dashboardRes = await fetch(`${baseUrl}/api/portal/admin/analytics`, {
+    cache: "no-store"
+  });
 
-    async function Analytics() {
-        const res = await fetch(`${API_HOST}/api/portal/admin/analytics`);
-        const data = await res.json();
-        return data.dashboardData;
-    }
+  const dashboardJson = await dashboardRes.json();
+  const dashboardData = dashboardJson.dashboardData;
 
-    // DASHBOARD DATA
-    const dashboardData = await Analytics();
-    const userData = await GetUserData();
 
-    return (
-        <MembersAdmin userData={userData} dashboardData={dashboardData}/>
-    )
+  return (
+    <MembersAdmin
+      userData={userData}
+      dashboardData={dashboardData}
+    />
+  );
+
 }
