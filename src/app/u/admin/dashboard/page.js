@@ -1,48 +1,38 @@
+"use client";
 
-
-import { cookies, headers } from "next/headers";
+import { useEffect, useState } from "react";
 import DashboardAdmin from "@/app/components/ui/admin/Dashboard";
 
-export default async function AdminPage() {
+export default function AdminPage() {
 
-    const headersList = headers();
-    const host = headersList.get("host");
-    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const baseUrl = `${protocol}://${host}`;
+  const [dashboardData, setDashboardData] = useState(null);
+  const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
 
-    //USER INFO
-    async function GetUserData() {
-        const cookieStore = await cookies();
-        const userID = cookieStore.get("userID")?.value;
+    // USER INFO
+    fetch("/api/users")
+      .then(res => res.json())
+      .then(data => {
+        setUserData(data.success ? data : null);
+      })
+      .catch(err => console.error("User fetch error:", err));
 
-        console.log("userID:", userID);
-
-        if (!userID) return null;
-
-        const res = await fetch(`${baseUrl}/api/users?user-id=${userID}`);
-
-        const data = await res.json();
-
-        console.log("User data response:", data);
-
-        return data.success ? data : null;
-    }
-
-    async function Analytics() {
-        const res = await fetch(`${baseUrl}/api/portal/admin/analytics`);
-
-        const data = await res.json();
-        return data.dashboardData;
-    }
 
     // DASHBOARD DATA
-    const dashboardData = await Analytics();
-    const userData = await GetUserData();
+    fetch("/api/portal/admin/analytics")
+      .then(res => res.json())
+      .then(data => {
+        setDashboardData(data.dashboardData);
+      })
+      .catch(err => console.error("Dashboard fetch error:", err));
 
-    return (
-        <div>
-            <DashboardAdmin dashboardData={dashboardData} userData={userData}/>
-        </div>
-    );
+  }, []);
+
+  return (
+    <DashboardAdmin
+      dashboardData={dashboardData}
+      userData={userData}
+    />
+  );
 }
