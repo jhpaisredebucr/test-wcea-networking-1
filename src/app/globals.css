@@ -12,7 +12,11 @@
   --neutral-color: #83aeff;
   --success-color: #83ff83;
   --error-color: #ff6a6a;
-  --warn-color:  #ffd883;
+--warn-color:  #ffd883;
+
+--status-approved: var(--success-color);
+--status-pending: var(--warn-color);
+--status-declined: var(--error-color);
 }
 
 /* ---------- Theme 2: Dark ---------- */
