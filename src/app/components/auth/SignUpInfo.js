@@ -91,7 +91,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep, isLoading,
         <div className="w-full flex justify-center">
 
             {/* FORM CARD */}
-            <div className="w-full max-w-4xl bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-12">
+            <div className="w-full max-w-md sm:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100 p-4 sm:p-6 lg:p-8"> 
 
                 {/* HEADER */}
                 <div className="mb-8 text-center md:text-left flex justify-between">
@@ -250,13 +250,14 @@ export default function SignUpInfo({ formData, setFormData, nextStep, isLoading,
                         rounded-lg
                         font-semibold
                         text-white
-                        bg-(--primary)
+                        bg-[var(--primary)]
                         hover:opacity-90
                         active:scale-[0.98]
                         transition
                         shadow-md
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        "
+                        min-h-[44px]
+                        " 
                     >
                         {isLoading ? "Checking..." : "Create Account"}
                     </button>

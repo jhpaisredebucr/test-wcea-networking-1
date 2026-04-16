@@ -52,7 +52,7 @@ export default function SignUpPlan({
         <div className="w-full flex justify-center">
 
             {/* CARD */}
-            <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-12">
+            <div className="w-full max-w-md sm:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100 p-4 sm:p-6 lg:p-8"> 
 
                 {/* HEADER */}
                 <div className="mb-8 text-center md:text-left flex justify-between">
@@ -142,9 +142,9 @@ export default function SignUpPlan({
                         disabled={isLoading}
                         className="
                         flex-1
-                        h-12
+                        min-h-[44px] h-12
                         rounded-lg
-                        bg-(--primary)
+                        bg-[var(--primary)]
                         text-white
                         font-semibold
                         hover:opacity-90
@@ -152,7 +152,7 @@ export default function SignUpPlan({
                         transition
                         shadow-md
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        "
+                        " 
                     >
                         {isLoading ? "Please wait..." : "Continue"}
                     </button>

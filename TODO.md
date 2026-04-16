@@ -1,12 +1,15 @@
-# Transaction & Revenue Fix Progress
+# Mobile-Friendly Signup Task
 
-## Plan Steps:
-- [x] 1. Create TODO.md (done)
-- [x] 2. Edit src/app/api/portal/admin/analytics/route.js to fix revenue calculation
-- [x] 3. Test admin dashboard revenue (should be non-negative total approved transactions)
-- [x] 4. Verify member transactions display consistently
-- [x] 5. Check DB for data inconsistencies (optional: sums)
-- [x] 6. Complete task
+## Steps:
+- [ ] 1. Create this TODO.md ✅
+- [x] 2. Update src/app/home/(auth)/layout.js (responsive padding) ✅
+- [x] 3. Update src/app/home/(auth)/signup/page.js (fix grid, padding, max-width) ✅
+- [x] 4. Update src/app/components/auth/SignUpInfo.js (responsive card, fix CSS vars) ✅
+- [x] 5. Update src/app/components/auth/SignUpBackgroundInfo.js (responsive card, fix CSS vars) ✅
+- [x] 6. Update src/app/components/auth/SignUpPlan.js (responsive card, fix CSS vars) ✅
+- [x] 7. Update src/app/components/auth/SignUpPayment.js (responsive card, fix CSS vars) ✅
+- [x] 8. Update src/app/components/auth/SignUpApproval.js (responsive layout) ✅
+- [x] 9. Test on mobile: npm run dev, check /home/signup in dev tools ✅
+- [x] 10. Complete task ✅
 
-All steps complete: Transactions API verified working; revenue fixed (now total approved txns, non-negative); member/admin views consistent (personal vs aggregate).
-
+All steps completed. Signup is mobile-friendly.

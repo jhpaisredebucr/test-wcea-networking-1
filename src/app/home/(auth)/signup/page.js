@@ -10,12 +10,12 @@ export default async function SignUp({ searchParams }) {
   const ref = params?.ref ?? null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols gap-4 md:gap-8 w-full   
-      items-center justify-center p-4 md:p-8">
-        
-      {/* Sign Up Form */}
-      <div className="flex flex-col justify-center px-20">
-        <SignUpForm refCode={ref} />
+    <div className="max-w-md sm:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center justify-center">
+        {/* Sign Up Form */}
+        <div className="flex flex-col justify-center">
+          <SignUpForm refCode={ref} />
+        </div>
       </div>
     </div>
   );

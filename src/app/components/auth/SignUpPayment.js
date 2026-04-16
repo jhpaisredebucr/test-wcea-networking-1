@@ -238,7 +238,7 @@ export default function SignUpPayment({
             />
 
 
-            <div className="w-full max-w-5xl bg-white shadow-xl rounded-2xl border border-gray-100 p-8 md:p-12">
+            <div className="w-full max-w-md sm:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100 p-4 sm:p-6 lg:p-8"> 
 
 
                 {/* HEADER */}
@@ -319,7 +319,7 @@ export default function SignUpPayment({
 
                     <button
                         onClick={() => setIsUploadOpen(true)}
-                        className="px-5 py-2 rounded-lg bg-(--primary) text-white font-medium hover:opacity-90 transition"
+                    className="px-5 py-2 rounded-lg bg-[var(--primary)] text-white font-medium hover:opacity-90 transition min-h-[44px]" 
                     >
                         Upload Screenshot
                     </button>
@@ -338,7 +338,7 @@ export default function SignUpPayment({
 
                     <button
                         onClick={prevStep}
-                        className="flex-1 h-12 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+                    className="flex-1 min-h-[44px] h-12 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition" 
                     >
                         Back
                     </button>
@@ -346,7 +346,7 @@ export default function SignUpPayment({
                     <button
                         onClick={HandleSignUp}
                         disabled={loading}
-                        className="flex-1 h-12 rounded-lg bg-(--primary) text-white font-semibold hover:opacity-90 active:scale-[0.98] transition shadow-md disabled:opacity-50"
+                    className="flex-1 min-h-[44px] h-12 rounded-lg bg-[var(--primary)] text-white font-semibold hover:opacity-90 active:scale-[0.98] transition shadow-md disabled:opacity-50" 
                     >
                         {loading ? "Processing..." : "Submit Registration"}
                     </button>
