@@ -52,13 +52,20 @@ function convertTreeToGraph(tree) {
   const edges = [];
 
   function traverse(node, parent = null) {
-    const statusParts = node.name.match(/\\[(approved|pending|declined|unknown)\\]/i);
-    const status = statusParts ? statusParts[1].toLowerCase() : 'unknown';
-    console.log('Node status:', node.name, '->', status); // Debug
+    // Robust status detection
+    let status = 'unknown';
+    const statusMatch = node.name.match(/\[([^\]]+)\]/i);
+    if (statusMatch) {
+      const rawStatus = statusMatch[1].toLowerCase().trim();
+      if (rawStatus.includes('approved') || rawStatus.includes('active')) status = 'approved';
+      else if (rawStatus.includes('pending') || rawStatus.includes('waitlist')) status = 'pending';
+      else if (rawStatus.includes('declined') || rawStatus.includes('rejected') || rawStatus.includes('banned')) status = 'declined';
+    }
+    console.log('Node name:', node.name, '-> Raw:', statusMatch ? statusMatch[1] : null, '-> Parsed:', status);
     
-    const borderColor = status === 'approved' ? '#10b981' : status === 'pending' ? '#f59e0b' : status === 'declined' ? '#ef4444' : '#666';
-    const bgColor = status === 'approved' ? 'rgba(16, 185, 129, 0.1)' : status === 'pending' ? 'rgba(245, 158, 11, 0.1)' : status === 'declined' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(102, 102, 102, 0.1)';
-    const textColor = status === 'approved' ? '#065f46' : status === 'pending' ? '#92400e' : status === 'declined' ? '#991b1b' : '#6b7280';
+    const borderColor = status === 'approved' ? '#83ff83' : status === 'pending' ? '#ffd883' : status === 'declined' ? '#ff6a6a' : '#666666';
+    const bgColor = status === 'approved' ? 'rgba(131, 255, 131, 0.1)' : status === 'pending' ? 'rgba(255, 216, 131, 0.1)' : status === 'declined' ? 'rgba(255, 106, 106, 0.1)' : 'rgba(102, 102, 102, 0.1)';
+    const textColor = status === 'approved' ? '#3a9a3a' : status === 'pending' ? '#b86a00' : status === 'declined' ? '#b81d1d' : '#6b7280';
     
     nodes.push({
       id: node.id,

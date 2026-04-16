@@ -139,7 +139,7 @@ export default function Withdraw() {
   return (
     <div className="flex justify-center mt-10 py-7">
 
-      <div className="bg-white shadow-lg rounded-xl p-6 w-[420px]">
+      <div className="bg-white shadow-lg rounded-xl p-6 w-105">
 
         <h2 className="text-xl font-bold text-center">
           Withdraw Funds (Not Yet Working)
