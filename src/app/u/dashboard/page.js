@@ -48,18 +48,17 @@ export default function Page() {
     loadData();
   }, []); 
 
-  // TRANSACTIONS - Fetch transaction data
+// TRANSACTIONS - Fetch transaction data
   useEffect(() => {
     const loadData = async () => {
       try {
-        fetch("/api/transaction", {credentials: "include"})
-          .then(res => res.json())
-          .then(d => setData(d.transactions));
+        const res = await fetch("/api/transaction", {credentials: "include"});
+        const d = await res.json();
+        setData(d.transactions);
       } catch (err) {
         console.error(err);
-      } finally {
-        setLoading(false);
       }
+      // Removed finally setLoading(false) - handled by main dashboard fetch
     };
 
     loadData();

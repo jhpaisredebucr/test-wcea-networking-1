@@ -1,8 +1,10 @@
+import { useRouter } from "next/navigation";
 import Button from "../Button";
 import Card from "../Card"
 import FormPdf from "./FormPdf";
 import { useState } from "react";
-export default function DashboardMember({dashboardData, userData}) {
+    export default function DashboardMember({dashboardData, userData}) {
+    const router = useRouter();
     const API_HOST = process.env.NEXT_PUBLIC_API_HOST;
     const referralLink = `${API_HOST}/home/signup?ref=${userData?.userInfo?.referral_code}`;
 
@@ -30,7 +32,7 @@ export default function DashboardMember({dashboardData, userData}) {
             rowSpan="row-span-2" 
             colSpan="col-span-2">
                 
-                <Button>
+                <Button onClick={() => router.push('/u/withdraw')}>
                     Withdraw
                 </Button>
             </Card>
