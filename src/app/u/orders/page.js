@@ -61,9 +61,9 @@ export default function Page() {
   // }
 
   return (
-    <>
+    <div className="py-7">
       <h1 className="text-3xl font-semibold mb-6">My Orders</h1>
       <OrdersMember orders={orders} products={products} userData={userData} />
-    </>
+    </div>
   );
 }

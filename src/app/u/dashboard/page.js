@@ -100,12 +100,12 @@ export default function Page() {
 
   // MAIN
   return (
-    <>
+    <div className="py-7">
       <h1 className="text-3xl font-semibold mb-6">Dashboard</h1>
       <DashboardMember dashboardData={dashboardData} userData={userData} />
       <h2 className="text-2xl text-center font-semibold my-6 p-6 rounded-lg shadow bg-white">Latest Transaction</h2>
       <Transactions transactions={transactions} limit={3}/>
       {/* <MembershipFormPage></MembershipFormPage> */}
-    </>
+    </div>
   );
 }
