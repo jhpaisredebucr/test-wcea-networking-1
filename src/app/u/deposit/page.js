@@ -11,10 +11,9 @@ export default function Deposits() {
   const [preview, setPreview] = useState(null);
   const [userData, setUserData] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [initialLoading, setInitialLoading] = useState(true);
 
 
   const fetchJson = async (url) => {
@@ -29,7 +28,6 @@ export default function Deposits() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        setInitialLoading(true);
         //GET USER DATA
         const userRes = await fetchJson("/api/users");
 
@@ -41,45 +39,13 @@ export default function Deposits() {
 
       } catch (err) {
         console.error(err);
-        setError("Failed to load user");
       } finally {
-        setInitialLoading(false);
+        setLoading(false);
       }
     };
 
     loadData();
   }, []);
-
-  if (initialLoading) {
-    return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-            <div className="text-xl text-gray-700">Loading...</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error && !success) {
-    return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="text-red-500 text-xl max-w-md text-center flex flex-col items-center gap-4">
-            <p>{error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
 
   // -----------------------
@@ -265,7 +231,7 @@ export default function Deposits() {
 
     <div className="flex justify-center mt-10 py-7">
 
-      <div className="bg-white shadow-lg rounded-xl p-6 w-105">
+      <div className="bg-white shadow-lg rounded-xl p-6 w-[420px]">
 
         <h2 className="text-xl font-bold text-center">
           Deposit Funds
