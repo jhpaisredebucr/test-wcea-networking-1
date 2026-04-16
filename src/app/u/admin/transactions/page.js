@@ -9,6 +9,8 @@ export default function Page() {
   const [transactions, setTransactions] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
 
 
 
@@ -28,6 +30,59 @@ export default function Page() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const downloadPDF = (txns, from, to) => {
+    const { jsPDF } = require('jspdf');
+    const doc = new jsPDF();
+    
+    const filtered = txns.filter(t => {
+      const date = new Date(t.created_at);
+      const f = from ? new Date(from) : new Date(0);
+      const tt = to ? new Date(to) : new Date();
+      return date >= f && date <= tt;
+    });
+
+    doc.setFontSize(20);
+    doc.text('Admin Transaction History', 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Period: ${from || 'All time'} to ${to || 'All time'}`, 20, 35);
+    doc.text(`${filtered.length} transactions`, 20, 45);
+
+    // Table with lines
+    const tableHeaders = ['Date', 'Type', 'Amount', 'Method', 'Status'];
+    const colX = [20, 50, 80, 110, 140];
+    
+    // Header line
+    doc.setFontSize(11);
+    doc.setFont(undefined, 'bold');
+    tableHeaders.forEach((header, i) => {
+      doc.text(header, colX[i], y);
+    });
+    doc.setFont(undefined, 'normal');
+    doc.setLineWidth(0.5);
+    doc.line(20, y+2, 190, y+2);
+    y += 8;
+
+    filtered.forEach(t => {
+      if (y > 280) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.setFontSize(9);
+      doc.text(new Date(t.created_at).toLocaleDateString(), colX[0], y);
+      doc.text(t.type || 'N/A', colX[1], y);
+      doc.text(`₱${t.amount || 0}`, colX[2], y);
+      doc.text(t.payment_method || 'N/A', colX[3], y);
+      doc.text(t.status || 'unknown', colX[4], y);
+      
+      // Row lines
+      doc.setLineWidth(0.2);
+      doc.line(20, y+2, 190, y+2);
+      y += 6;
+    });
+
+    doc.save('admin-transactions.pdf');
   };
 
   useEffect(() => {
@@ -53,12 +108,23 @@ if (loading) {
                 <h2 className="text-xl font-bold">
                     All Transactions
                 </h2>
-                <button 
+                <div className="flex gap-2">
+                  <button 
                     onClick={fetchTransactions}
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
+                  >
                     Refresh
-                </button>
+                  </button>
+
+                  <input type="date" className="px-2 py-1 border rounded" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
+                  <input type="date" className="px-2 py-1 border rounded" value={toDate} onChange={(e) => setToDate(e.target.value)} />
+                  <button 
+                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                    onClick={() => downloadPDF(transactions, fromDate, toDate)}
+                  >
+                    Download PDF
+                  </button>
+                </div>
             </div>
             <Transactions transactions={transactions} userData={userData} onRefresh={fetchTransactions} />
         </div>
