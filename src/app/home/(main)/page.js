@@ -325,17 +325,15 @@ export default function HomePage() {
     </div>
 
     <div className="flex flex-wrap justify-center gap-8">
-      {["Privacy Policy", "Terms of Service", "Contact Us", "Careers"].map(
-        (link) => (
-          <a
+      {["Privacy Policy", "Terms of Service", "Contact Us", "Careers"].map((link) => (
+        <a
             key={link}
-            href="#"
+            href={link === "Privacy Policy" ? "/privacy-policy.html" : link === "Terms of Service" ? "/terms-of-service.html" : "#"}
             className="text-zinc-600 hover:text-emerald-600 transition-colors"
           >
             {link}
           </a>
-        )
-      )}
+        ))}
     </div>
 
   </div>
