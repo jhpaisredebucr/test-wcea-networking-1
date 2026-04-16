@@ -6,7 +6,7 @@ import MemberCard from "./MemberCard";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function MembersAdmin({ dashboardData }) {
+export default function MembersAdmin({ dashboardData, onRefresh }) {
     const router = useRouter();
 
     const referrals = [
@@ -59,6 +59,10 @@ export default function MembersAdmin({ dashboardData }) {
         console.log(dataReferral);
 
         console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
+
+        if (onRefresh) {
+          onRefresh();
+        }
     }
 
     const [isActive, setIsActive] = useState(false);

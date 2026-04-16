@@ -6,7 +6,7 @@ import Transactions from "@/app/components/ui/member/Transactions";
 
 
 export default function Page() {
-  const [transactions, setData] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,29 +14,26 @@ export default function Page() {
     
   }, []);
 
+  const fetchTransactions = async () => {
+    try {
+      // TRANSACTION
+      const resTx = await fetch("/api/transaction");
+      const txData = await resTx.json();
+      setTransactions(txData.transactions || []);
+
+      // USER DATA
+      const resUser = await fetch("/api/users");
+      const userDataRes = await resUser.json();
+      setUserData(userDataRes.success ? userDataRes : null);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        // TRANSACTION
-        fetch("/api/transaction")
-          .then(res => res.json())
-          .then(d => setData(d.transactions));
-
-        // USER DATA
-        fetch("/api/users")
-          .then(res => res.json())
-          .then(data => {
-            setUserData(data.success ? data : null);
-          })
-          .catch(err => console.error("User fetch error:", err));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
+    fetchTransactions();
   }, []);
 
   // if (loading) {
@@ -54,10 +51,10 @@ export default function Page() {
     return (
         <>
             <h2 className="text-xl font-bold">
-                Member&apos;s Transactions
+                All Transactions
             </h2>
 
-            <Transactions transactions={transactions} userData={userData}/>
+            <Transactions transactions={transactions} userData={userData} onRefresh={fetchTransactions} />
         </>
     )
 }

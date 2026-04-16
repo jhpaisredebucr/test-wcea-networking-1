@@ -4,7 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import ApproveModal from "./ApproveModal";
 
-export default function Transactions({ transactions, userData, limit=20 }) {
+export default function Transactions({ transactions, userData, onRefresh, limit=20 }) {
 
   const [selectedTx, setSelectedTx] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,9 @@ export default function Transactions({ transactions, userData, limit=20 }) {
 
       const data = await res.json();
       console.log(data);
+      if (data.success && onRefresh) {
+        onRefresh();
+      }
 
     } catch (err) {
       console.error(err);

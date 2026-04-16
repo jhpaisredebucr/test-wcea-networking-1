@@ -1,16 +1,21 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
-  const response = NextResponse.redirect(new URL('/', req.url));
+  try {
+    const response = NextResponse.redirect(new URL('/', req.url));
 
-  // Clear the token cookie
-  response.cookies.set('token', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    maxAge: 0,
-    path: '/'
-  });
+    // Clear the token cookie
+    response.cookies.set('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 0,
+      path: '/'
+    });
 
-  return response;
+    return response;
+  } catch (error) {
+    console.error("[auth/signout/route.js] error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }

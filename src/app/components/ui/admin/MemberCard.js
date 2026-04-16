@@ -9,7 +9,7 @@ export default function MemberCard({ user, onClose }) {
     const [orders, setOrders] = useState([]);
     const [products, setProducts] = useState([]);
     const [userData, setUserData] = useState(null);
-    const [transactions, setData] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [page, setPage] = useState(0);
 
     const fetchJson = async (url) => {
@@ -18,30 +18,30 @@ export default function MemberCard({ user, onClose }) {
         return res.json();
     };
 
+    const fetchData = async () => {
+        try {
+            const userRes = await fetchJson("/api/users");
+            setUserData(userRes);
+
+            const prodRes = await fetch("/api/products");
+            const prodData = await prodRes.json();
+            setProducts(prodData.products);
+
+            const orderRes = await fetch("/api/products/orders");
+            const orderData = await orderRes.json();
+            setOrders(orderData.orders);
+            
+            const txRes = await fetch("/api/transaction");
+            const txData = await txRes.json();
+            setTransactions(txData.transactions);
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
-        const loadData = async () => {
-            try {
-                const userRes = await fetchJson("/api/users");
-                setUserData(userRes);
-
-                fetch("/api/products")
-                    .then(res => res.json())
-                    .then(d => setProducts(d.products));
-
-                fetch("/api/products/orders")
-                    .then(res => res.json())
-                    .then(d => setOrders(d.orders));
-                    
-                fetch("/api/transaction")
-                    .then(res => res.json())
-                    .then(d => setData(d.transactions));
-
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        loadData();
+        fetchData();
     }, []);
 
     async function BanAccount(statusToAdd) {
@@ -182,6 +182,7 @@ export default function MemberCard({ user, onClose }) {
                     <p className="text-2xl font-semibold">Orders:</p>
                     <Transactions
                         transactions={userTransactions}
+                        onRefresh={fetchData}
                     />
                 </div>
 

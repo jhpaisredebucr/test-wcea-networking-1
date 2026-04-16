@@ -8,31 +8,31 @@ export default function Page() {
   const [userData, setUserData] = useState(null);
   const [dashboardData, setDashboardData] = useState(null);
 
+  const refreshDashboard = async () => {
+    try {
+      // USER DATA
+      const resUser = await fetch("/api/users");
+      const userRes = await resUser.json();
+      setUserData(userRes.success ? userRes : null);
+
+      // DASHBOARD DATA
+      const resDash = await fetch("/api/portal/admin/analytics");
+      const dashRes = await resDash.json();
+      setDashboardData(dashRes.dashboardData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
-
-    // USER DATA
-    fetch("/api/users")
-      .then(res => res.json())
-      .then(data => {
-        setUserData(data.success ? data : null);
-      })
-      .catch(err => console.error("User fetch error:", err));
-
-
-    // DASHBOARD DATA
-    fetch("/api/portal/admin/analytics")
-      .then(res => res.json())
-      .then(data => {
-        setDashboardData(data.dashboardData);
-      })
-      .catch(err => console.error("Dashboard fetch error:", err));
-
+    refreshDashboard();
   }, []);
 
   return (
     <MembersAdmin
       userData={userData}
       dashboardData={dashboardData}
+      onRefresh={refreshDashboard}
     />
   );
 }
