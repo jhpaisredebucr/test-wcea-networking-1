@@ -26,6 +26,17 @@ export async function PATCH(req) {
             plan: cleanPlan
         });
 
+        return NextResponse.json({
+            success: true,
+            message: "Debug mode",
+            debug: {
+                userId: cleanUserId,
+                plan: cleanPlan,
+                rowCount: result.rowCount,
+                updatedRows: result.rows
+            }
+        });
+
         // -----------------------
         // DEBUG BEFORE UPDATE (IMPORTANT)
         // -----------------------
