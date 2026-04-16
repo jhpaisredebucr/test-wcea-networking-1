@@ -100,6 +100,7 @@ export default function HomePage() {
                 alt="Partner 1"
                 width={120}
                 height={80}
+                className="h-auto w-auto"
                 priority
               />
               <Image
@@ -107,6 +108,7 @@ export default function HomePage() {
                 alt="Partner 2"
                 width={120}
                 height={80}
+                className="h-auto w-auto"
                 priority
               />
               <Image
@@ -114,6 +116,7 @@ export default function HomePage() {
                 alt="Partner 3"
                 width={120}
                 height={80}
+                className="h-auto w-auto"
                 priority
               />
             </div>
@@ -124,13 +127,13 @@ export default function HomePage() {
         <section className="bg-(--primary)/10 py-24 px-6 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             {/* Image column */}
-            <div className="w-full md:w-1/2 relative overflow-hidden rounded-xl">
+            <div className="w-full md:w-1/2 relative aspect-[4/5] overflow-hidden rounded-xl">
               <div className="aspect-square bg-[#62b4fe]/20 absolute -top-10 -left-10 w-full h-full rounded-full blur-3xl" />
               <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT0rBpcN2a-tjV4mS3gYH8zVVm-Dp7foNAQFbCkdbCUWkp6lOf7JD118QcKjcty8fkI-Q3kIYg3pFNz_10kUjoCtSd74bNKa1SsnqmoURH-JS0LItmX9xPPcfPbMPyZ0iVkyCP1dNpbxaIcS0p-7wUtjMJkhK1Ya-zFquYBq62K8zjaRkFHN4BwXIEaqZ3lvmCZ_zO4HFU51RIiEzhaAbFAkelnlZYmDfXhd68inCbLEaWglf1kGiycVRCjkWCTFq9RpkExSwS6Mkw"
                 alt="Diverse hands stacked together"
                 fill
-                className="relative z-10 w-full aspect-[4/5] object-cover rounded-xl shadow-2xl"
+                className="relative z-10 object-cover rounded-xl shadow-2xl"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
               />
