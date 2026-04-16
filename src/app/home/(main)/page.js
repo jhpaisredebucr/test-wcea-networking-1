@@ -348,7 +348,7 @@ export default function HomePage() {
       <span>
         Website designed & developed by
         <span className="font-semibold text-(--primary) ml-1">
-          <a href='https://www.facebook.com/bokae22' target="_blank" className='underline'>Bok Tech</a>
+          <a href='https://www.facebook.com/profile.php?id=100063680607062' target="_blank" className='underline'>Bok Tech</a>
         </span>
       </span>
     </div>
