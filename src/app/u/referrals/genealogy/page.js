@@ -30,15 +30,15 @@ export default function Page() {
 
         const root = {
           id: userRes.userInfo.referral_code,
-          name: `${userRes.profile?.first_name || ''} ${userRes.profile?.last_name || ''} (${userRes.userInfo.username}) [${userRes.userInfo.status}]`,
+          name: `${(userRes.profile?.first_name ?? 'N/A')} ${(userRes.profile?.last_name ?? '')} (${userRes.userInfo.username}) [${userRes.profile?.status ?? 'approved'}]`,
           children: []
-        };
+        }; 
 
         const directChildren = (dashRes.dashboardData?.referredMembers || []).map(member => ({
           id: member.referral_code,
-          name: `${member.first_name || ''} ${member.last_name || ''} (${member.username}) [${member.status}]`,
+          name: `${(member.first_name ?? 'N/A')} ${(member.last_name ?? '')} (${member.username}) [${member.status ?? 'pending'}]`,
           children: []
-        }));
+        })); 
 
         setRootTree({ ...root, children: directChildren });
 
@@ -114,7 +114,7 @@ export default function Page() {
 
         <button
           onClick={() => router.push("/u/referrals")}
-          className="bg-(--primary) text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
+          className="bg-(--primary)  text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
         >
           View Member Table
         </button>

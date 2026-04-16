@@ -72,7 +72,7 @@ function convertTreeToGraph(tree) {
       const canExpand = !hasChildren && (node.depth || 1) < 3;
       const indicator = canExpand ? ' (expand)' : '';
       
-      const label = node.data?.label || node.name || '';
+const label = node.data?.label ?? node.name ?? 'Unknown User';
       const finalLabel = label + indicator;
       
       nodes.push({
@@ -157,7 +157,7 @@ export default function ReferralTree({ data, fetchChildren, maxDepth = 3 }) {
       const members = await fetchChildren(nodeId);
       const children = members.map(member => ({
         id: member.referral_code,
-        name: `${member.first_name || ''} ${member.last_name || ''} (${member.username}) [${member.status}]`,
+name: `${(member.first_name ?? 'N/A')} ${(member.last_name ?? '')} (${member.username}) [${member.status ?? 'pending'}]`,
         children: [],
         depth: currentDepth + 1,
         canExpand: currentDepth + 1 < maxDepth

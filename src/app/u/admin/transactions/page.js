@@ -10,9 +10,7 @@ export default function Page() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    
-  }, []);
+
 
   const fetchTransactions = async () => {
     try {
@@ -50,12 +48,19 @@ if (loading) {
 }
 
     return (
-        <>
-            <h2 className="text-xl font-bold">
-                All Transactions
-            </h2>
-
+        <div>
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold">
+                    All Transactions
+                </h2>
+                <button 
+                    onClick={fetchTransactions}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                    Refresh
+                </button>
+            </div>
             <Transactions transactions={transactions} userData={userData} onRefresh={fetchTransactions} />
-        </>
+        </div>
     )
 }

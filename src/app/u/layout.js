@@ -68,9 +68,9 @@ export default function DashboardLayout({ children }) {
       <SideBar role={user.userInfo.role}/>
 
       <div className="w-full flex">
-        <div className="w-full ml-56 px-15 bg-gray-100 min-h-[calc(100vh-64px)]">
-          {children}
-        </div>
+      <div className={`w-full ml-56 px-15 \${user.userInfo?.role === 'admin' ? 'py-[15px]' : ''} bg-gray-100 min-h-[calc(100vh-64px)]`}>
+        {children}
+      </div>
       </div>
     </>
   );

@@ -8,12 +8,13 @@ import { useRouter } from "next/navigation";
 
 export default function MembersAdmin({ dashboardData, onRefresh }) {
     const router = useRouter();
+    const [searchTerm, setSearchTerm] = useState('');
 
     const referrals = [
         ...(dashboardData?.pendingRequest || []),
         ...(dashboardData?.bannedMembers || []),
         ...(dashboardData?.approvedMembers || [])
-    ];
+    ].filter(user => user.username.toLowerCase().includes(searchTerm.toLowerCase()));
 
     console.log(referrals);
 
@@ -78,9 +79,24 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
     return (
         <div>
             {isActive && <MemberCard user={user} onClose={PopUpMemberCard}/>}
-            <div className="grid grid-cols-2 gap-5">
+<div className="grid grid-cols-2 gap-5 mb-4">
                 <Card title="Total Members" value={dashboardData?.totalMembers} info=""/>
                 <Card title="Pending" value={dashboardData?.totalRequest} info=""/>
+            </div>
+            <div className="flex gap-2 mb-4">
+                <input
+                    type="text"
+                    placeholder="Search by username..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <button 
+                    onClick={() => setSearchTerm('')}
+                    className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                >
+                    Clear
+                </button>
             </div>
 
             <div className="grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">

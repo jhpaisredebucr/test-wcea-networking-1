@@ -4,7 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import ApproveModal from "./ApproveModal";
 
-export default function Transactions({ transactions = [], userData, onRefresh, limit=20 }) {
+export default function Transactions({ transactions = [], userData, onRefresh, limit=20, pagination }) {
 
   const [selectedTx, setSelectedTx] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export default function Transactions({ transactions = [], userData, onRefresh, l
       </div>
 
       {/* ROWS */}
-      {Array.isArray(transactions) && transactions.slice(0, limit).map((t, i) => (
+{Array.isArray(transactions) && transactions.map((t, i) => (
         <div
           key={t.id || i}
           className="grid grid-cols-5 p-5 mt-2 bg-white rounded-lg shadow-sm"
@@ -90,7 +90,17 @@ export default function Transactions({ transactions = [], userData, onRefresh, l
 
       {(!Array.isArray(transactions) || transactions.length === 0) && (
         <div className="p-8 text-center text-gray-500">
-          No transactions found
+          No transactions found{pagination?.hasMore !== false && ' (showing first page)'}
+        </div>
+      )}
+      {pagination && (
+        <div className="flex justify-between mt-4">
+          <span>Page {Math.floor(pagination.offset / pagination.limit) + 1} of {Math.ceil(pagination.total / pagination.limit)}</span>
+          {pagination.hasMore && (
+            <button onClick={onRefresh} className="px-4 py-2 bg-blue-500 text-white rounded">
+              Load More
+            </button>
+          )}
         </div>
       )}
 
