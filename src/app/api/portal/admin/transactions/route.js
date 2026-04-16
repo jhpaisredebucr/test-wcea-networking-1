@@ -2,53 +2,83 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function PATCH(req) {
-    // const { userId, plan } = await req.json();
-
-    // const result = await query("SELECT * FROM transactions WHERE user_id =$1", [userId])
-    // return NextResponse.json({result});
-
     try {
         const { userId, plan } = await req.json();
 
-        // Validate input
+        // -----------------------
+        // VALIDATION
+        // -----------------------
         if (!userId || !plan) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "User ID and plan are required", userId, plan,
+                    message: "User ID and plan are required",
                 },
                 { status: 400 }
             );
         }
 
-        // Update only if status is pending AND plan matches "Plan"
+        const cleanUserId = Number(userId);
+        const cleanPlan = String(plan).trim();
+
+        console.log("INPUT:", {
+            userId: cleanUserId,
+            plan: cleanPlan
+        });
+
+        // -----------------------
+        // DEBUG BEFORE UPDATE (IMPORTANT)
+        // -----------------------
+        const before = await query(
+            `SELECT * FROM transactions WHERE user_id = $1`,
+            [cleanUserId]
+        );
+
+        console.log("BEFORE UPDATE:", before.rows || before);
+
+        // -----------------------
+        // UPDATE QUERY
+        // -----------------------
         const result = await query(
             `
             UPDATE transactions
-            SET status = $1
-            WHERE user_id = $2
-            AND status = $3
-            AND type = $4
-            RETURNING user_id, status
+            SET status = 'approved'
+            WHERE user_id = $1
+              AND status = 'pending'
+              AND type = $2
+            RETURNING *;
             `,
-            ["approved", userId, "Pending", plan]
+            [cleanUserId, cleanPlan]
         );
 
-        // If no rows updated
-        if (result.rowCount === 0) {
+        const rows = result.rows || [];
+
+        console.log("AFTER UPDATE ROWS:", rows);
+
+        // -----------------------
+        // IF NOTHING UPDATED
+        // -----------------------
+        if (rows.length === 0) {
             return NextResponse.json(
                 {
                     success: false,
-                    message: "User not eligible for approval",
+                    message: "No matching pending transaction found",
+                    debug: {
+                        userId: cleanUserId,
+                        plan: cleanPlan
+                    }
                 },
                 { status: 404 }
             );
         }
 
+        // -----------------------
+        // SUCCESS RESPONSE
+        // -----------------------
         return NextResponse.json({
             success: true,
             message: "User approved successfully",
-            updatedUser: result[0],
+            updated: rows[0]
         });
 
     } catch (error) {
@@ -57,7 +87,7 @@ export async function PATCH(req) {
         return NextResponse.json(
             {
                 success: false,
-                message: error.message, // show actual error temporarily
+                message: error.message,
             },
             { status: 500 }
         );
