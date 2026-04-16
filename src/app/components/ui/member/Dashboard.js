@@ -23,7 +23,7 @@ import { useState } from "react";
         <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
             <Card 
             title="Available Balance" 
-            src="/icons/money.svg" 
+            src="/icons/wallet.svg" 
             bold="font-bold"
             color="bg-blue-200" 
             value={`₱${dashboardData?.userBalance}`} 

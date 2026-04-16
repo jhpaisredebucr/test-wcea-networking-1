@@ -15,9 +15,9 @@ export default function SideBar({ role = "member" }) {
         { id: "orders", label: "My Orders", path: "/u/orders", icon: "/icons/my-orders.svg" },
         { id: "referrals", label: "Referrals", path: "/u/referrals", icon: "/icons/referrals.svg" },
         { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/page-flip.svg" },
-        { id: "commissions", label: "Commissions", path: "/u/commissions", icon: "/icons/page-flip.svg" },
-        { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/money.svg" },
-        { id: "deposit", label: "Deposit", path: "/u/deposit", icon: "/icons/money.svg" },
+        { id: "commissions", label: "Commissions", path: "/u/commissions", icon: "/icons/money.svg" },
+        { id: "withdraw", label: "Withdraw", path: "/u/withdraw", icon: "/icons/wallet.svg" },
+        { id: "deposit", label: "Deposit", path: "/u/deposit", icon: "/icons/building-bank.svg" },
     ];
 
     const adminMenu = [
