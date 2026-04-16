@@ -114,7 +114,7 @@ export default function Page() {
 
         <button
           onClick={() => router.push("/u/referrals")}
-          className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
+          className="bg-(--primary) text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
         >
           View Member Table
         </button>

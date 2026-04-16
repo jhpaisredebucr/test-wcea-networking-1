@@ -1,12 +1,8 @@
-# API Try-Catch Addition
+# TODO: Apply global text-color from globals.css to all website text
 
 ## Steps:
-- [x] 1. Edit src/app/api/announcement/route.js
-- [x] 2. Edit src/app/api/auth/signout/route.js
-- [x] 3. Edit src/app/api/portal/admin/members/route.js
-- [x] 4. Edit src/app/api/portal/admin/analytics/route.js
-- [x] 5. Edit src/app/api/portal/member/route.js
-- [x] 6. Verify with search_files
-- [x] 7. Test server
+1. [x] Update globals.css: Defined --text-color (#151a16), applied `*, *::before, *::after { color: var(--text-color) !important; }` + contrasts for buttons/bgs.
+2. [x] Started dev server with `npm run dev` for testing.
+3. [x] Task complete - all website text now uses global text-color from globals.css (visit http://localhost:3000).
 
-
+No further overrides needed.

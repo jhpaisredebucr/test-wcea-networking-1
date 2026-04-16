@@ -40,7 +40,7 @@ import { useState } from "react";
             <Card title="Total Commissions"
             src="/icons/money.svg" 
             color="bg-orange-200" 
-            value={`₱${dashboardData?.totalCommissionValue}`} 
+            value={`${dashboardData?.totalCommissionValue} CREDITS`} 
             info="" 
             bold="font-bold"
             colSpan="col-span-2"/>
