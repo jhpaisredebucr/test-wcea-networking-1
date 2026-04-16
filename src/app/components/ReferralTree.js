@@ -109,13 +109,13 @@ function convertTreeToGraph(tree) {
   return { nodes, edges };
 }
 
-export default function ReferralTree({ data, fetchChildren }) {
+export default function ReferralTree({ data, fetchChildren, maxDepth = 3 }) {
   const [treeData, setTreeData] = React.useState(data);
   const [expandedNodes, setExpandedNodes] = React.useState(new Set());
   const [loadingNodes, setLoadingNodes] = React.useState(new Set());
 
-  const loadChildren = React.useCallback(async (nodeId) => {
-    if (loadingNodes.has(nodeId) || expandedNodes.has(nodeId)) return;
+  const loadChildren = React.useCallback(async (nodeId, currentDepth = 1) => {
+    if (loadingNodes.has(nodeId) || expandedNodes.has(nodeId) || currentDepth >= maxDepth) return;
     
     setLoadingNodes(prev => new Set(prev).add(nodeId));
     
@@ -124,7 +124,8 @@ export default function ReferralTree({ data, fetchChildren }) {
       const children = members.map(member => ({
         id: member.referral_code,
         name: `${member.first_name || ''} ${member.last_name || ''} (${member.username}) [${member.status}]`,
-        children: []
+        children: [],
+        depth: currentDepth + 1
       }));
 
       setTreeData(prev => {
@@ -154,7 +155,7 @@ export default function ReferralTree({ data, fetchChildren }) {
         return newSet;
       });
     }
-  }, [fetchChildren, loadingNodes, expandedNodes]);
+  }, [fetchChildren, loadingNodes, expandedNodes, maxDepth]);
 
   const { nodes, edges } = useMemo(() => {
     const graph = convertTreeToGraph(treeData);
@@ -162,7 +163,7 @@ export default function ReferralTree({ data, fetchChildren }) {
   }, [treeData]);
 
   const onNodeClick = (_, node) => {
-    loadChildren(node.id);
+    loadChildren(node.id, (node.depth || 1));
   };
 
   return (
@@ -175,7 +176,7 @@ export default function ReferralTree({ data, fetchChildren }) {
       >
         <MiniMap />
         <Controls />
-        <Background />
+        <Background variant="dots" gap={12} size={1} />
       </ReactFlow>
     </div>
   );

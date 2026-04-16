@@ -66,7 +66,8 @@ export default function Page() {
       {/* TREE AREA */}
       <div className="w-full h-[calc(100vh-64px)] overflow-hidden">
 
-        {rootTree ? (
+{rootTree ? (
+        <>
           <ReferralTree
             data={rootTree}
             fetchChildren={async (refCode) => {
@@ -75,12 +76,25 @@ export default function Page() {
               );
               return res.dashboardData.referredMembers || [];
             }}
+            maxDepth={3}
           />
-        ) : (
-          <div className="h-full flex items-center justify-center text-gray-500">
-            No referrals yet
-          </div>
-        )}
+          {userData?.referredBy && (
+            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-lg shadow border max-w-md mx-auto z-40">
+              <h3 className="font-bold text-sm mb-1">↑ Referred by:</h3>
+              <p className="text-sm">
+                <span className="font-mono bg-blue-100 px-2 py-1 rounded text-xs mr-2">
+                  {userData.referredBy.referral_code}
+                </span>
+                {userData.referredBy.username}
+              </p>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="h-full flex items-center justify-center text-gray-500">
+          No referrals yet
+        </div>
+      )}
 
       </div>
 
@@ -100,7 +114,7 @@ export default function Page() {
 
         <button
           onClick={() => router.push("/u/referrals")}
-          className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg shadow hover:opacity-90 pointer-events-auto"
+          className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
         >
           View Member Table
         </button>
