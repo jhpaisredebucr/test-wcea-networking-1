@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import Image from "next/image";
+import AdsSidebar from "@/app/components/ui/AdsSidebar";
 export default function HomePage() {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function HomePage() {
   return (
     <div className="bg-background text-foreground font-sans selection:bg-[--success-color] selection:text-background">
 
-      <main className="">
+<main className="relative min-h-screen">
         {/* ── HERO ── */}
         <section className="relative min-h-100 flex items-center overflow-hidden">
 
@@ -27,7 +28,7 @@ export default function HomePage() {
 
             {/* BLUE OVERLAY */}
             <div className="absolute inset-0 bg-blue-400/90 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/0 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/0 to-transparent" />
 
             {/* Dark gradient overlay */}
             <div
@@ -74,7 +75,7 @@ export default function HomePage() {
 
           <div className="absolute bottom-0 left-0 w-full leading-none z-20">
             <svg
-              className="block w-full h-[120px]"
+              className="block w-full h-30"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1440 320"
               preserveAspectRatio="none"
@@ -91,7 +92,7 @@ export default function HomePage() {
         {/* ── PARTNERS ── */}
         <section className="bg-[var(--primary)/10] py-20 px-6">
           <div className="max-w-7xl mx-auto flex flex-col items-center">
-              <h2 className="font-sans text-sm font-bold text-[var(--primary)] mb-12 tracking-[0.2em] uppercase">
+              <h2 className="font-sans text-sm font-bold text-(--primary) mb-12 tracking-[0.2em] uppercase">
               Our Partners
             </h2>
             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 grayscale opacity-90 hover:grayscale-0 transition-all duration-500">
@@ -127,7 +128,7 @@ export default function HomePage() {
         <section className="bg-(--primary)/10 py-24 px-6 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             {/* Image column */}
-            <div className="w-full md:w-1/2 relative aspect-[4/5] overflow-hidden rounded-xl">
+            <div className="w-full md:w-1/2 relative aspect-4/5 overflow-hidden rounded-xl">
               <div className="aspect-square bg-[#62b4fe]/20 absolute -top-10 -left-10 w-full h-full rounded-full blur-3xl" />
               <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT0rBpcN2a-tjV4mS3gYH8zVVm-Dp7foNAQFbCkdbCUWkp6lOf7JD118QcKjcty8fkI-Q3kIYg3pFNz_10kUjoCtSd74bNKa1SsnqmoURH-JS0LItmX9xPPcfPbMPyZ0iVkyCP1dNpbxaIcS0p-7wUtjMJkhK1Ya-zFquYBq62K8zjaRkFHN4BwXIEaqZ3lvmCZ_zO4HFU51RIiEzhaAbFAkelnlZYmDfXhd68inCbLEaWglf1kGiycVRCjkWCTFq9RpkExSwS6Mkw"
@@ -219,7 +220,7 @@ export default function HomePage() {
                     <span className="text-[#3f4941] text-sm">/month</span>
                   </div>
                 </div>
-                <ul className="space-y-4 mb-10 flex-grow">
+                <ul className="space-y-4 mb-10 grow">
                   {["Monthly newsletter", "Community forum access", "Basic wellness tips"].map(
                     (item) => (
                       <li key={item} className="flex items-center gap-3 text-[#3f4941]">
@@ -252,7 +253,7 @@ export default function HomePage() {
                     <span className="text-[#3f4941] text-sm">/month</span>
                   </div>
                 </div>
-                <ul className="space-y-4 mb-10 flex-grow">
+                <ul className="space-y-4 mb-10 grow">
                   {[
                     "All Basic features",
                     "Bi-weekly workshops",
@@ -285,7 +286,7 @@ export default function HomePage() {
                     <span className="text-[#3f4941] text-sm">/month</span>
                   </div>
                 </div>
-                <ul className="space-y-4 mb-10 flex-grow">
+                <ul className="space-y-4 mb-10 grow">
                   {[
                     "All Elite features",
                     "1-on-1 wellness coaching",
@@ -307,6 +308,7 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        <AdsSidebar />
       </main>
 
       {/* ── FOOTER ── */}
