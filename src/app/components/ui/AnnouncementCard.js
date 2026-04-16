@@ -54,7 +54,7 @@ export default function AnnouncementCard({ announcements, role }) {
                     {role === "admin" && (
                         <>
                             <Image
-                                src="/icons/delete-circled.svg"
+                                src="/icons/delete-circled-outline.svg"
                                 alt="icon"
                                 width={20}
                                 height={20}
