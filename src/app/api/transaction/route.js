@@ -5,6 +5,9 @@ import jwt from "jsonwebtoken";
 export async function GET(req) {
   try {
     const token = req.cookies.get("token")?.value;
+    const { searchParams } = new URL(req.url);
+    const limit = Math.min(parseInt(searchParams.get("limit") || "50"), 100);
+    const offset = parseInt(searchParams.get("offset") || "0");
 
     if (!token) {
       return NextResponse.json(
@@ -14,7 +17,6 @@ export async function GET(req) {
     }
 
     let decoded;
-
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
@@ -25,37 +27,51 @@ export async function GET(req) {
     }
 
     const userID = decoded.id;
-    const role = decoded.role; // must exist inside JWT payload
+    const role = decoded.role;
 
     let transactions;
 
-    // If admin → get ALL transactions
+    // Safe explicit columns (matches UI: id, amount, type, status, created_at, payment_method)
+    const baseSelect = "SELECT id, user_id, amount, type, status, created_at, payment_method FROM transactions";
+
     if (role === "admin") {
       transactions = await query(
-        "SELECT * FROM transactions WHERE type != $1 ORDER BY created_at DESC",
-        ["plan"]
+        `${baseSelect} WHERE type != $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3`,
+        ["plan", limit, offset]
       );
-    }
-    // If regular user → get only their transactions
-    else {
+    } else {
       transactions = await query(
-        "SELECT * FROM transactions WHERE user_id = $1 ORDER BY created_at DESC",
-        [userID]
+        `${baseSelect} WHERE user_id = $1 ORDER BY created_at DESC LIMIT $2 OFFSET $3`,
+        [userID, limit, offset]
       );
     }
+
+    // Get total count for pagination
+    let totalCountQuery, totalCountParams;
+    if (role === "admin") {
+      totalCountQuery = "SELECT COUNT(*) FROM transactions WHERE type != $1";
+      totalCountParams = ["plan"];
+    } else {
+      totalCountQuery = "SELECT COUNT(*) FROM transactions WHERE user_id = $1";
+      totalCountParams = [userID];
+    }
+    const totalResult = await query(totalCountQuery, totalCountParams);
+    const total = Number(totalResult[0].count);
 
     return NextResponse.json({
       success: true,
       transactions,
+      pagination: { total, limit, offset, hasMore: offset + limit < total }
+    }, {
+      headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=30" }
     });
 
   } catch (err) {
     console.error("Transaction API error:", err);
-
     return NextResponse.json(
       {
         success: false,
-        message: err.message,
+        message: "Server error"
       },
       { status: 500 }
     );

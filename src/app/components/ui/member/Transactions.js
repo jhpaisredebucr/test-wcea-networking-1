@@ -4,7 +4,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import ApproveModal from "./ApproveModal";
 
-export default function Transactions({ transactions, userData, onRefresh, limit=20 }) {
+export default function Transactions({ transactions = [], userData, onRefresh, limit=20 }) {
 
   const [selectedTx, setSelectedTx] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,20 +46,20 @@ export default function Transactions({ transactions, userData, onRefresh, limit=
       </div>
 
       {/* ROWS */}
-      {transactions.slice(0, limit).map((t, i) => (
+      {Array.isArray(transactions) && transactions.slice(0, limit).map((t, i) => (
         <div
-          key={i}
+          key={t.id || i}
           className="grid grid-cols-5 p-5 mt-2 bg-white rounded-lg shadow-sm"
         >
           <div>{format(new Date(t.created_at), "MMM dd, yyyy")}</div>
 
           <div>
-            {t.type.charAt(0).toUpperCase() + t.type.slice(1)}
+            {t.type ? t.type.charAt(0).toUpperCase() + t.type.slice(1) : 'N/A'}
           </div>
 
-          <div>₱{t.amount}</div>
+          <div>₱{t.amount || 0}</div>
 
-          <div>{t.payment_method}</div>
+          <div>{t.payment_method || 'N/A'}</div>
 
           <div className="flex justify-between items-center">
 
@@ -72,7 +72,7 @@ export default function Transactions({ transactions, userData, onRefresh, limit=
                   : "text-red-600"
               }
             >
-              {t.status}
+              {t.status || 'unknown'}
             </span>
 
             {t.status === "pending" && userData?.userInfo?.role === "admin" && (
@@ -87,6 +87,12 @@ export default function Transactions({ transactions, userData, onRefresh, limit=
           </div>
         </div>
       ))}
+
+      {(!Array.isArray(transactions) || transactions.length === 0) && (
+        <div className="p-8 text-center text-gray-500">
+          No transactions found
+        </div>
+      )}
 
       {/* MODAL COMPONENT */}
       <ApproveModal
