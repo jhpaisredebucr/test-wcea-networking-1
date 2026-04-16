@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ReferralsMember from "@/app/components/ui/member/Referrals";
 import MemberReferredMembers from "@/app/components/ui/MemberReferredMembers";
 import Card from "@/app/components/ui/Card";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
 
@@ -12,6 +13,8 @@ export default function Page() {
   const [selectedDashboardData, setSelectedDashboardData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
 
   const fetchJson = async (url) => {
     const res = await fetch(url);
@@ -61,7 +64,10 @@ export default function Page() {
 
   return (
     <>
-      <p>Your Referral Code: {userData?.userInfo?.referral_code}</p>
+      <div className="flex justify-between items-center py-7">
+        <p>Your Referral Code: {userData?.userInfo?.referral_code}</p>
+        <button onClick={() => router.push("/u/referrals/genealogy")} className="p-2 bg-(--primary) text-white rounded-lg">Open Member Tree</button>
+      </div>
 
       <div className="grid grid-cols-2 gap-5 my-5">
           <Card title="Total Referred" value={dashboardData?.totalReferredMembers} info=""/>

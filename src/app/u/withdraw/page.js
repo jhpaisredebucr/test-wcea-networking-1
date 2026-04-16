@@ -101,7 +101,7 @@ export default function Withdraw() {
   // UI
   // -----------------------
   return (
-    <div className="flex justify-center mt-10">
+    <div className="flex justify-center mt-10 py-7">
 
       <div className="bg-white shadow-lg rounded-xl p-6 w-[420px]">
 

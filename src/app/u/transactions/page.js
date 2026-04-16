@@ -41,9 +41,9 @@ export default function Page() {
   // }
 
   return (
-    <>
+    <div className="py-7">
       <h1 className="text-3xl font-semibold mb-6">Transactions</h1>
       <Transactions transactions={transactions} />
-    </>
+    </div>
   );
 }
