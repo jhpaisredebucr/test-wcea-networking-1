@@ -1,6 +1,6 @@
 "use client"
 
-import Card from "../Card";
+import Card from "../card/Card";
 import { format } from "date-fns";
 import MemberCard from "./MemberCard";
 import { useState } from "react";

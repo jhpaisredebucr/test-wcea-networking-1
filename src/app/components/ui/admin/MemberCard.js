@@ -18,29 +18,29 @@ export default function MemberCard({ user, onClose }) {
         return res.json();
     };
 
-    const fetchData = async () => {
-        try {
-            const userRes = await fetchJson("/api/users");
-            setUserData(userRes);
-
-            const prodRes = await fetch("/api/products");
-            const prodData = await prodRes.json();
-            setProducts(prodData.products);
-
-            const orderRes = await fetch("/api/products/orders");
-            const orderData = await orderRes.json();
-            setOrders(orderData.orders);
-            
-            const txRes = await fetch("/api/transaction");
-            const txData = await txRes.json();
-            setTransactions(txData.transactions);
-
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userRes = await fetchJson("/api/users");
+                setUserData(userRes);
+
+                const prodRes = await fetch("/api/products");
+                const prodData = await prodRes.json();
+                setProducts(prodData.products);
+
+                const orderRes = await fetch("/api/products/orders");
+                const orderData = await orderRes.json();
+                setOrders(orderData.orders);
+                
+                const txRes = await fetch("/api/transaction");
+                const txData = await txRes.json();
+                setTransactions(txData.transactions);
+
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        
         fetchData();
     }, []);
 

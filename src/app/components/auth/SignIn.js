@@ -3,7 +3,7 @@
 import Input from "../ui/Input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import SemanticCard from "../ui/SemanticCard";
+import SemanticCard from "../ui/card/SemanticCard";
 
 export default function SignInForm() {
     const router = useRouter();

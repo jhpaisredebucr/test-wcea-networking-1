@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import UploadImageModal from "../ui/UploadPicture";
+import UploadImageModal from "../ui/modal/UploadPicture";
 import { useRouter } from "next/navigation";
 
 export default function SignUpPayment({

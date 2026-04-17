@@ -1,5 +1,5 @@
-import Card from "../Card";
-import OrderCard from "../OrderCard";
+import Card from "../card/Card";
+import OrderCard from "../card/OrderCard";
 
 export default function OrdersMember({ orders = [], products = [], userData }) {
 

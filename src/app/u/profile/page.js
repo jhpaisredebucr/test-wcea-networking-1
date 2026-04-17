@@ -1,8 +1,8 @@
 "use client";
 
 import Profile from "@/app/components/ui/Profile";
-import ProfileCard from "@/app/components/ui/ProfileCard";
-import UploadImageModal from "@/app/components/ui/UploadPicture";
+import ProfileCard from "@/app/components/ui/card/ProfileCard";
+import UploadImageModal from "@/app/components/ui/modal/UploadPicture";
 import { useState, useEffect } from "react";
 
 export default function ProfilePage() {

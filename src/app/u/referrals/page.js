@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import ReferralsMember from "@/app/components/ui/member/Referrals";
 import MemberReferredMembers from "@/app/components/ui/MemberReferredMembers";
-import Card from "@/app/components/ui/Card";
+import Card from "@/app/components/ui/card/Card";
 import { useRouter } from "next/navigation";
 
 export default function Page() {

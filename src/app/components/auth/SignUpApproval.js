@@ -1,6 +1,6 @@
 "use client"
 
-import Card from "../ui/Card"
+import Card from "../ui/card/Card"
 
 export default function SignUpApproval() {
     return (

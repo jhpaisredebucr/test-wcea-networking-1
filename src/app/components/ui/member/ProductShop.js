@@ -1,6 +1,6 @@
 "use client"
 
-import ProductCard from "../ProductCard";
+import ProductCard from "../card/ProductCard";
 import { useState } from "react";
 
 export default function ProductsMember({ products, userData, dashboardData, AddToCart }) {

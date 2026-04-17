@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import Button from "../Button";
-import Card from "../Card"
+import Card from "../card/Card"
 import FormPdf from "./FormPdf";
 import { useState } from "react";
     export default function DashboardMember({dashboardData, userData}) {

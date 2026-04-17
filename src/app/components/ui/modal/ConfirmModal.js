@@ -1,6 +1,6 @@
 "use client";
 
-export default function DeleteConfirmModal({ isOpen, onClose, onConfirm }) {
+export default function ConfirmModal({ isOpen, onClose, onConfirm, children, title, content, button, buttonColor="bg-blue-500" }) {
 
     if (!isOpen) return null;
 
@@ -8,14 +8,13 @@ export default function DeleteConfirmModal({ isOpen, onClose, onConfirm }) {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
             <div className="bg-white w-80 p-6 rounded-lg shadow-lg flex flex-col gap-5">
-
+                {children}
                 {/* TITLE */}
                 <p className="text-lg font-bold">
-                    Delete Announcement?
+                    {title}
                 </p>
-
                 <p className="text-sm text-gray-500">
-                    Are you sure you want to delete this post? This action cannot be undone.
+                    {content}
                 </p>
 
                 {/* BUTTONS */}
@@ -33,9 +32,9 @@ export default function DeleteConfirmModal({ isOpen, onClose, onConfirm }) {
                             onConfirm();
                             onClose();
                         }}
-                        className="px-4 py-2 rounded-lg bg-red-400 text-white hover:opacity-90 transition"
+                        className={`px-4 py-2 rounded-lg ${buttonColor} text-white hover:opacity-90 transition`}
                     >
-                        Delete
+                        {button}
                     </button>
 
                 </div>

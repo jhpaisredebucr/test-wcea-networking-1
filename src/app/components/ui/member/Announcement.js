@@ -1,4 +1,4 @@
-import AnnouncementCard from "../AnnouncementCard";
+import AnnouncementCard from "../card/AnnouncementCard";
 
 export default function AnnouncementMember({announcements, userData}) {
     if (!announcements) {

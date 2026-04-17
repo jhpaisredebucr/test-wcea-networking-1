@@ -4,7 +4,7 @@ import { useState } from "react";
 import Profile from "@/app/components/ui/Profile";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
-import DeleteConfirmModal from "./DeletePost";
+import ConfirmModal from "../modal/ConfirmModal";
 
 export default function AnnouncementCard({ announcements, role }) {
 
@@ -62,10 +62,14 @@ export default function AnnouncementCard({ announcements, role }) {
                                 onClick={() => setOpenDelete(true)}
                             />
 
-                            <DeleteConfirmModal
+                            <ConfirmModal
                                 isOpen={openDelete}
                                 onClose={() => setOpenDelete(false)}
                                 onConfirm={() => DeletePost(announcements?.id)}
+                                title="Delete Announcement?"
+                                content="Are you sure you want to delete this post? This action cannot be undone."
+                                button="Delete"
+                                buttonColor="bg-red-400"
                             />
                         </>
                     )}
