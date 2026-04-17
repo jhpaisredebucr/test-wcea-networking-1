@@ -128,13 +128,14 @@ export default function Page() {
       {isBuying === true && <BuyModal setBuying={setBuying} product={cart} userData={userData} dashboardData={dashboardData}/>}
       <div className="flex justify-between items-center">
         {/* <h1 className="text-3xl font-semibold mb-5">Product Shop</h1> */}
-
+      </div>
+      <div className="mb-5 p-3 text-blue-500 border border-blue-300 rounded-2xl flex justify-between items-center">
+        Explore and shop high-quality premium products
         {cart.length !== 0 && 
         <button className="text-white text-lg font-bold bg-blue-500 py-1 px-4 rounded-lg" onClick={() => setBuying(true)}>
           Cart ({totalItems}) ₱{total}
         </button>}
       </div>
-      <div className="mb-5 p-3 text-blue-500 border border-blue-300 rounded-2xl ">Explore and shop high-quality premium products</div>
 
       {/* <button onClick={debug}>DEBUG</button> */}
       <ProductsMember

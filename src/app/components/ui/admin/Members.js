@@ -81,7 +81,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
     return (
         <div>
             {isActive && <MemberCard user={user} onClose={PopUpMemberCard}/>}
-<div className="grid grid-cols-2 gap-5 mb-4">
+            <div className="grid grid-cols-2 gap-5 mb-4">
                 <Card title="Total Members" value={dashboardData?.totalMembers} info=""/>
                 <Card title="Pending" value={dashboardData?.totalRequest} info=""/>
             </div>

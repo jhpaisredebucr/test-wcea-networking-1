@@ -6,7 +6,8 @@ import { query } from "@/lib/db";
             //Total Members
             const totalUser = await query("SELECT COUNT(*) FROM users WHERE status=$1", ["approved"]);
             const totalMembers = Number(totalUser[0].count);
-            const totalOrders = await query("SELECT COUNT(*) FROM orders WHERE status=$1", ["approved"])
+            const totalOrders = await query("SELECT COUNT(*) FROM orders WHERE status=$1", ["pending"])
+            const totalPendingOrders = Number(totalOrders[0].count);
 
             //Pending Request
             const pendingRequest = await query(
@@ -98,7 +99,7 @@ import { query } from "@/lib/db";
             const totalPendingRequest = await query("SELECT COUNT(*) FROM users where status=$1",["pending"]);
             const totalRequest = Number(totalPendingRequest[0].count);
 
-            const dashboardData = {totalMembers, totalRequest, topReferrer, revenue, pendingRequest, approvedMembers, bannedMembers}
+            const dashboardData = {totalMembers, totalRequest, topReferrer, revenue, pendingRequest, approvedMembers, bannedMembers, totalPendingOrders}
             
             return NextResponse.json({ dashboardData });
         } catch (error) {

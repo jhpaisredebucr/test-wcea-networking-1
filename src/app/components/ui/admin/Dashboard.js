@@ -7,7 +7,7 @@ export default function DashboardAdmin({dashboardData}) {
             <Card title="Pending Requests" value={dashboardData?.totalRequest} info=" "/>
             <Card title="Top Referrers" value={dashboardData?.topReferrer?.[0]?.username} info=" " colSpan={2} rowSpan={2}/>
             <Card title="Revenue" value={`₱${dashboardData?.revenue?.admin_revenue}`} info=" "/>
-            <Card title="" value="" info="" rowSpan={2}/>
+            <Card title="Total Pending Orders" value={dashboardData?.totalPendingOrders} info=" " rowSpan={2}/>
             <Card title="" value="" info="" rowSpan={2}/>
             <Card title="" value="" info=""/>
             <Card title="" value="" info=""/>
