@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import AnnouncementMember from "@/app/components/ui/member/Announcement";
+import AnnouncementMember from "@/app/components/member/Announcement";
 import Image from "next/image";
 import AddAnnouncementModal from "@/app/components/modal/AddAnnouncementModal";
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ProductsMember from "@/app/components/ui/member/ProductShop";
+import ProductsMember from "@/app/components/member/ProductShop";
 import BuyModal from "@/app/components/modal/BuyModal";
 
 export default function Page() {

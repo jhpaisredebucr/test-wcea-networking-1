@@ -3,7 +3,7 @@
 import Input from "../ui/Input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import SemanticCard from "../ui/card/SemanticCard";
+import SemanticCard from "../card/SemanticCard";
 
 export default function SignUpInfo({ formData, setFormData, nextStep, isLoading, setIsLoading }) {
     const router = useRouter();

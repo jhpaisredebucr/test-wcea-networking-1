@@ -1,6 +1,6 @@
 'use client';
 
-import Commissions from "@/app/components/ui/member/Commissions";
+import Commissions from "@/app/components/member/Commissions";
 import { useEffect, useState } from "react";
 
 export default function Page() {

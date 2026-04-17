@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Transactions from "@/app/components/ui/member/Transactions";
+import Transactions from "@/app/components/member/Transactions";
 
 
 

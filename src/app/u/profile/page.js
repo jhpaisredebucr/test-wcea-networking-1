@@ -1,7 +1,7 @@
 "use client";
 
 import Profile from "@/app/components/ui/Profile";
-import ProfileCard from "@/app/components/ui/card/ProfileCard";
+import ProfileCard from "@/app/components/card/ProfileCard";
 import UploadImageModal from "@/app/components/modal/UploadPicture";
 import { useState, useEffect } from "react";
 
