@@ -73,9 +73,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
         setUser(user);
         setIsActive(!isActive);
         console.log(user);
-        if (onRefresh) {
-          onRefresh();
-        }
+
     }
 
     return (

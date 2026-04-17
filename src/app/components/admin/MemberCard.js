@@ -18,8 +18,7 @@ export default function MemberCard({ user, onClose }) {
         return res.json();
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const fetchData = async () => {
             try {
                 const userRes = await fetchJson("/api/users");
                 setUserData(userRes);
@@ -40,8 +39,12 @@ export default function MemberCard({ user, onClose }) {
                 console.error(err);
             }
         };
+
+    useEffect(() => {
+        
         
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function BanAccount(statusToAdd) {

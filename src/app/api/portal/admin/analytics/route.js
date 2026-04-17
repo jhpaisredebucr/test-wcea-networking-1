@@ -4,7 +4,7 @@ import { query } from "@/lib/db";
     export async function GET(req) {
         try {
             //Total Members
-            const totalUser = await query("SELECT COUNT(*) FROM users WHERE status=$1", ["approved"]);
+            const totalUser = await query("SELECT COUNT(*) FROM users WHERE status=$1 AND role =$2", ["approved", "member"]);
             const totalMembers = Number(totalUser[0].count);
             const totalOrders = await query("SELECT COUNT(*) FROM orders WHERE status=$1", ["pending"])
             const totalPendingOrders = Number(totalOrders[0].count);
@@ -24,8 +24,9 @@ import { query } from "@/lib/db";
                     FROM users u
                     JOIN user_profiles p ON p.user_id = u.id
                     WHERE u.status = $1
+                    AND u.role = $2
                 `
-                ,["pending"]
+                ,["pending", "member"]
             );
 
             const approvedMembers = await query(
@@ -42,8 +43,9 @@ import { query } from "@/lib/db";
                     FROM users u
                     JOIN user_profiles p ON p.user_id = u.id
                     WHERE u.status = $1
+                    AND u.role = $2
                 `
-                ,["approved"]
+                ,["approved", "member"]
             );
 
             const bannedMembers = await query(
@@ -60,8 +62,9 @@ import { query } from "@/lib/db";
                     FROM users u
                     JOIN user_profiles p ON p.user_id = u.id
                     WHERE u.status = $1
+                    AND u.role = $2
                 `
-                ,["banned"]
+                ,["banned", "member"]
             );
 
             const topReferrer = await query(
