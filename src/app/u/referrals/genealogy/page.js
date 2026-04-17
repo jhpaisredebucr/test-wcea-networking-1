@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ReferralTree from "@/app/components/ui/member/ReferralTree";
+import ReferralTree from "@/app/components/member/ReferralTree";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -64,7 +64,7 @@ export default function Page() {
     <div className="w-full h-[calc(100vh-64px-56px)] bg-gray-100 relative overflow-hidden">
 
       {/* TREE AREA */}
-      <div className="w-full h-[calc(100vh-64px-56pxx)] overflow-hidden">
+      <div className="w-full h-[calc(100vh-64px-56px)] overflow-hidden">
 
 {rootTree ? (
         <>
