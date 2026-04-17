@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardAdmin from "@/app/components/ui/admin/Dashboard";
+import DashboardAdmin from "@/app/components/admin/Dashboard";
 
 export default function AdminPage() {
 

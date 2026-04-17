@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProductsMember from "@/app/components/ui/member/ProductShop";
-import BuyModal from "@/app/components/ui/modal/BuyModal";
+import BuyModal from "@/app/components/modal/BuyModal";
 
 export default function Page() {
   const [products, setProducts] = useState([]);

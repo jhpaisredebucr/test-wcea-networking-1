@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import ReferralsMember from "@/app/components/ui/member/Referrals";
+import ReferralsMember from "@/app/components/member/Referrals";
 import MemberReferredMembers from "@/app/components/ui/MemberReferredMembers";
-import Card from "@/app/components/ui/card/Card";
+import Card from "@/app/components/card/Card";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import Title from "@/app/components/ui/Title";
 
 export default function Page() {
 
@@ -132,10 +132,10 @@ export default function Page() {
 
       {/* REFERRALS */}
       <div className="my-6 p-3 rounded-lg shadow bg-white flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Image src="/icons/referrals.svg" alt="icon" width={20} height={20}/>
-          <h2 className="text-lg font-semibold">Referrals</h2>
-        </div>
+        <Title
+          title="Referrals"
+          icon="/icons/referrals.svg"
+        />
         
         <div className="flex gap-5">
           <input

@@ -2,7 +2,7 @@
 
 import Profile from "@/app/components/ui/Profile";
 import ProfileCard from "@/app/components/ui/card/ProfileCard";
-import UploadImageModal from "@/app/components/ui/modal/UploadPicture";
+import UploadImageModal from "@/app/components/modal/UploadPicture";
 import { useState, useEffect } from "react";
 
 export default function ProfilePage() {

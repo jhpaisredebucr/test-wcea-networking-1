@@ -1,6 +1,6 @@
 "use client";
 
-import ReferralsMember from "./member/Referrals";
+import ReferralsMember from "../member/Referrals";
 import { useEffect, useState } from "react";
 
 export default function MemberReferredMembers({

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import TopBar from "@/app/components/layout/DashboardTopBar";
 import SideBar from "@/app/components/layout/DashboardSideBar";
-import UploadImageModal from "@/app/components/ui/modal/UploadPicture";
+import UploadImageModal from "@/app/components/modal/UploadPicture";
 import Loading from "../components/ui/Loading";
 import ErrorText from "../components/ui/ErrorText";
 

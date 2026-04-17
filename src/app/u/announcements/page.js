@@ -1,12 +1,21 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import AnnouncementMember from "@/app/components/ui/member/Announcement";
+import AnnouncementMember from "@/app/components/member/Announcement";
+import Title from "@/app/components/ui/Title";
 
 export default function Page() {
   const [announcements, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const filterAnnouncements = announcements.filter(user =>
+    user.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.short_description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.long_description?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
 
   useEffect(() => {
     const loadData = async () => {
@@ -59,8 +68,29 @@ export default function Page() {
 
   return (
     <div className="py-7">
-      {/* <h1 className="text-3xl font-semibold mb-6">Announcement</h1> */}
-      <AnnouncementMember announcements={announcements} />
+      <div className="mb-6 p-3 rounded-lg shadow bg-white flex justify-between items-center">
+        <Title
+          title="Announcement"
+          icon="/icons/announcement.svg"
+        />
+        
+        <div className="flex gap-5">
+          <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <button 
+              onClick={() => setSearchTerm('')}
+              className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+          >
+              Clear
+          </button>
+        </div>
+      </div>
+      <AnnouncementMember announcements={filterAnnouncements} />
     </div>
   );
 }

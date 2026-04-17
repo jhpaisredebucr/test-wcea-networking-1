@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import AnnouncementMember from "@/app/components/ui/member/Announcement";
 import Image from "next/image";
-import AddAnnouncementModal from "@/app/components/ui/modal/AddAnnouncementModal";
+import AddAnnouncementModal from "@/app/components/modal/AddAnnouncementModal";
 
 export default function AnnouncementAdminPage() {
 

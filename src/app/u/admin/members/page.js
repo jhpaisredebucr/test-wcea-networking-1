@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MembersAdmin from "../../../components/ui/admin/Members";
+import MembersAdmin from "../../../components/admin/Members";
 
 export default function Page() {
 
