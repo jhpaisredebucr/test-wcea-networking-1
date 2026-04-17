@@ -61,10 +61,10 @@ export default function Page() {
   }
 
   return (
-    <div className="w-full h-[calc(100vh-64px-28px)] bg-gray-100 relative overflow-hidden">
+    <div className="w-full h-[calc(100vh-64px-56px)] bg-gray-100 relative overflow-hidden">
 
       {/* TREE AREA */}
-      <div className="w-full h-[calc(100vh-64px-28px)] overflow-hidden">
+      <div className="w-full h-[calc(100vh-64px-56pxx)] overflow-hidden">
 
 {rootTree ? (
         <>
