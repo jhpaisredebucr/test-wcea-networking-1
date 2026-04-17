@@ -26,16 +26,14 @@ export async function PATCH(req) {
             plan: cleanPlan
         });
 
-        return NextResponse.json({
-            success: true,
-            message: "Debug mode",
-            debug: {
-                userId: cleanUserId,
-                plan: cleanPlan,
-                rowCount: result.rowCount,
-                updatedRows: result.rows
-            }
-        });
+        // return NextResponse.json({
+        //     success: true,
+        //     message: "Debug mode",
+        //     debug: {
+        //         userId: cleanUserId,
+        //         plan: cleanPlan,
+        //     }
+        // });
 
         // -----------------------
         // DEBUG BEFORE UPDATE (IMPORTANT)
@@ -44,8 +42,6 @@ export async function PATCH(req) {
             `SELECT * FROM transactions WHERE user_id = $1`,
             [cleanUserId]
         );
-
-        console.log("BEFORE UPDATE:", before.rows || before);
 
         // -----------------------
         // UPDATE QUERY
@@ -62,21 +58,18 @@ export async function PATCH(req) {
             [cleanUserId, cleanPlan]
         );
 
-        const rows = result.rows || [];
-
-        console.log("AFTER UPDATE ROWS:", rows);
-
         // -----------------------
         // IF NOTHING UPDATED
         // -----------------------
-        if (rows.length === 0) {
+        if (result.length === 0) {
             return NextResponse.json(
                 {
                     success: false,
                     message: "No matching pending transaction found",
                     debug: {
                         userId: cleanUserId,
-                        plan: cleanPlan
+                        plan: cleanPlan,
+                        row: result
                     }
                 },
                 { status: 404 }
@@ -89,7 +82,7 @@ export async function PATCH(req) {
         return NextResponse.json({
             success: true,
             message: "User approved successfully",
-            updated: rows[0]
+            updated: result
         });
 
     } catch (error) {

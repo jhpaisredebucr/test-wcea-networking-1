@@ -76,16 +76,24 @@ import { query } from "@/lib/db";
                 `
             );
             
-            const result = await query(`
+           const revenueResult = await query(`
                 SELECT
                     COALESCE(
-                        (SELECT SUM(amount)
-                        FROM transactions
-                        WHERE status = 'approved'),
-                    0)::float AS admin_revenue;
-
+                        (
+                            SELECT SUM(amount)
+                            FROM transactions
+                            WHERE status = 'approved'
+                        ), 0
+                    )
+                    -
+                    COALESCE(
+                        (
+                            SELECT SUM(reward_amount)
+                            FROM referral_rewards
+                        ), 0
+                    )::float AS admin_revenue;
             `);
-            const revenue = result[0];
+            const revenue = revenueResult[0];
 
             const totalPendingRequest = await query("SELECT COUNT(*) FROM users where status=$1",["pending"]);
             const totalRequest = Number(totalPendingRequest[0].count);

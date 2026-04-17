@@ -54,7 +54,7 @@ export async function POST(req) {
       );
     }
 
-    // ✅ CREATE JWT using jose
+    //  CREATE JWT using jose
     const token = await new SignJWT({
       id: user.id,
       username: user.username,

@@ -73,7 +73,9 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
         setUser(user);
         setIsActive(!isActive);
         console.log(user);
-        router.refresh()
+        if (onRefresh) {
+          onRefresh();
+        }
     }
 
     return (
