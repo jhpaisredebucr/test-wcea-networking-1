@@ -13,6 +13,7 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const file = formData.get("file");
+    const folder = formData.get("folder") || "unknown";
 
     if (file.size > 10 * 1024 * 1024) {
       return NextResponse.json({ message: "Max 2MB only" }, { status: 400 });
@@ -25,7 +26,7 @@ export async function POST(req) {
       );
     }
 
-    // ✅ Validate file type (basic)
+    // Validate file type
     if (!file.type.startsWith("image/")) {
       return NextResponse.json(
         { success: false, message: "Only image uploads allowed" },
@@ -39,8 +40,8 @@ export async function POST(req) {
     const uploadResult = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         {
-          folder: "uploads", // ✅ organize files
-          resource_type: "image", // ✅ important
+          folder: folder,
+          resource_type: "image", 
         },
         (error, result) => {
           if (error) return reject(error);

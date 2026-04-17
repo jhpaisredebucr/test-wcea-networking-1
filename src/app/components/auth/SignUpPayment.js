@@ -118,39 +118,9 @@ export default function SignUpPayment({
 
             setLoading(true);
 
-
-            // CLOUDINARY UPLOAD
-            console.log("[CLOUDINARY_UPLOAD] Starting...");
-
-            const uploadData = new FormData();
-            uploadData.append("file", formData.paymentProof);
-
-            const cloudinaryRes = await fetch(
-                "/api/cloudinary/upload",
-                {
-                    method: "POST",
-                    body: uploadData
-                }
-            );
-
-            const cloudinaryData = await cloudinaryRes.json();
-
-            logState("CLOUDINARY_RESPONSE", cloudinaryData);
-
-            if (!cloudinaryData.url) {
-                console.error("[ERROR] Cloudinary upload failed");
-                setError("Image upload failed.");
-                return;
-            }
-
-
             // SIGNUP REQUEST
-            const updatedFormData = {
-                ...formData,
-                paymentUrl: cloudinaryData.url
-            };
 
-            logState("SIGNUP_PAYLOAD", updatedFormData);
+            logState("SIGNUP_PAYLOAD", formData);
 
             const signupRes = await fetch(
                 "/api/auth/signup",
@@ -159,7 +129,7 @@ export default function SignUpPayment({
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(updatedFormData)
+                    body: JSON.stringify(formData)
                 }
             );
 
@@ -172,6 +142,47 @@ export default function SignUpPayment({
                 return;
             }
 
+            // CLOUDINARY UPLOAD
+            console.log("[CLOUDINARY_UPLOAD] Starting...");
+
+            const uploadData = new FormData();
+            uploadData.append("file", formData.paymentProof);
+            uploadData.append("folder", `users/${signupData.user.id}/payment-proofs`);
+
+            const cloudinaryRes = await fetch(
+                "/api/cloudinary/upload",
+                {
+                    method: "POST",
+                    body: uploadData
+                }
+            );
+
+            if (!cloudinaryRes.ok) {
+                const errorText = await cloudinaryRes.text();
+                console.error("[CLOUDINARY_HTTP_ERROR]", errorText);
+                setError("Image upload failed.");
+                setLoading(false);
+                return;
+            }
+
+            const cloudinaryData = await cloudinaryRes.json();
+
+            logState("CLOUDINARY_RESPONSE", cloudinaryData);
+
+            const imageUrl = cloudinaryData?.url;
+
+            if (!imageUrl) {
+                console.error("[ERROR] Missing secure_url from Cloudinary");
+                setError("Image upload failed.");
+                setLoading(false);
+                return;
+            }
+
+            const updatedFormData = {
+                ...formData,
+                paymentUrl: imageUrl
+            };
+
 
             // TRANSACTION
             console.log("[TRANSACTION_CREATE] Starting...");
@@ -180,7 +191,7 @@ export default function SignUpPayment({
                 user_id: signupData.user.id,
                 type: "plan",
                 amount: planPrice,
-                proof: cloudinaryData.url,
+                proof: imageUrl,
                 payment_method: formData.paymentMethod
             };
 

@@ -127,9 +127,7 @@ export default function Page() {
     <div className="py-7">
       {isBuying === true && <BuyModal setBuying={setBuying} product={cart} userData={userData} dashboardData={dashboardData}/>}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-semibold mb-5">
-          Product Shop
-        </h1>
+        {/* <h1 className="text-3xl font-semibold mb-5">Product Shop</h1> */}
 
         {cart.length !== 0 && 
         <button className="text-white text-lg font-bold bg-blue-500 py-1 px-4 rounded-lg" onClick={() => setBuying(true)}>

@@ -53,7 +53,7 @@ const handleSignOut = async () => {
     return (
         <div className={`fixed left-0 top-15 h-[calc(100vh-60px)] w-56
             md:${menuActive ? "bg-amber-600":"bg-amber-200"}
-            bg-gray-50 py-6 z-10 overflow-y-auto no-scrollbar`}>
+            bg-white py-6 z-10 overflow-y-auto no-scrollbar`}>
             
             <p className="text-3xl font-semibold mb-6 pl-6">
                 {role === "admin" ? "Admin" : "Member"}
