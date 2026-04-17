@@ -1,8 +1,6 @@
 import { format } from "date-fns";
 
-export default function ReferralsMember({ setIsOpen, isOpen,  dashboardData, role = "member", setSelectedDashboardData, debug="false" }) {
-
-    const referrals = dashboardData?.referredMembers || [];
+export default function ReferralsMember({ setIsOpen, isOpen,  referrals, role = "member", setSelectedDashboardData, debug="false" }) {
 
     function seeReferredMember(dashboardData) {
         if (role !== "member") return;
