@@ -1,3 +1,5 @@
+//CLIENT COMPONENT
+
 "use client";
 
 import React, { useMemo } from "react";

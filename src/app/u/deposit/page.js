@@ -1,3 +1,5 @@
+//SERVER COMPONENT
+
 'use client'
 
 import { userInfo } from "node:os";

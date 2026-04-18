@@ -59,6 +59,7 @@ export async function POST(req) {
       id: user.id,
       username: user.username,
       role: user.role,
+      referral_code: user.referral_code,
     })
       .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
@@ -68,7 +69,7 @@ export async function POST(req) {
     const res = NextResponse.json({
       success: true,
       message: "Successfully logged in",
-      user: { id: user.id, username: user.username, role: user.role },
+      user: { id: user.id, username: user.username, role: user.role, referral_code: user.referral_code },
     });
 
     res.cookies.set("token", token, {

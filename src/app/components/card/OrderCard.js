@@ -1,5 +1,6 @@
+"use client"
+
 import { CldImage } from "next-cloudinary";
-import Image from "next/image"
 
 export default function OrderCard({orders, products}) {
     const product = products.find(p => p.id === orders?.product_id);

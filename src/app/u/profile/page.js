@@ -1,3 +1,5 @@
+//SERVER COMPONENT
+
 "use client";
 
 import Profile from "@/app/components/ui/Profile";

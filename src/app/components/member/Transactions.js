@@ -1,8 +1,10 @@
+//CLIENT COMPONENT
+
 "use client";
 
 import { useState } from "react";
 import { format } from "date-fns";
-import ApproveModal from "./ApproveModal";
+import ApproveModal from "../modal/ApproveModal";
 
 export default function Transactions({ transactions = [], userData, onRefresh, limit=20, pagination }) {
 

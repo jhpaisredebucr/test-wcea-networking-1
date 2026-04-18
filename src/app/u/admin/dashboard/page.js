@@ -1,16 +1,21 @@
 import DashboardAdmin from "@/app/components/admin/Dashboard";
 import { getUserFromToken } from "@/lib/users";
 import { getAdminAnalytics } from "@/lib/analytics";
-import { cookies } from "next/headers";
+import { getCurrentUserToken } from "@/lib/token";
 
 export const revalidate = 60;
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  const user = await getCurrentUserToken();
+  
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
+
+  const userId = user.id;
 
   // USER
-  const userData = await getUserFromToken(token);
+  const userData = await getUserFromToken(userId);
 
   // DASHBOARD
   const dashboardData = await getAdminAnalytics();

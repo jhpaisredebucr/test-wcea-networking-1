@@ -1,8 +1,7 @@
-import AnnouncementMemberContainer from "@/app/components/member/AnnouncementMemberContainer";
+//SERVER COMPONENT
 
-import { getUserFromToken } from "@/lib/users";
+import AnnouncementMember from "@/app/components/member/Announcement";
 import { getAnnouncements } from "@/lib/announcement";
-import { cookies } from "next/headers";
 
 export const revalidate = 60;
 
@@ -11,7 +10,7 @@ export default async function Page() {
   const announcements = await getAnnouncements();
 
   return (
-    <AnnouncementMemberContainer
+    <AnnouncementMember
       announcements={announcements}
     />
   );

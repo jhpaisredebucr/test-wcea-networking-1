@@ -1,20 +1,6 @@
 import { query } from "@/lib/db";
-import jwt from "jsonwebtoken";
 
-export async function getUserFromToken(token) {
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-
-  let decoded;
-
-  try {
-    decoded = jwt.verify(token, process.env.JWT_SECRET);
-  } catch (err) {
-    throw new Error("Invalid token");
-  }
-
-  const userID = decoded.id;
+export async function getUserFromToken(userID) {
 
   // -----------------------
   // 1. MAIN USER

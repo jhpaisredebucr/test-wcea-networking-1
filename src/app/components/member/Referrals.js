@@ -1,3 +1,5 @@
+//CLIENT COMPONENT
+
 import { format } from "date-fns";
 
 export default function ReferralsMember({ setIsOpen, isOpen,  referrals, role = "member", setSelectedDashboardData, debug="false" }) {

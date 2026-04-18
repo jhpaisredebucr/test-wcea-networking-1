@@ -1,3 +1,7 @@
+//CLIENT COMPONENT
+
+"use client"
+
 import { useRouter } from "next/navigation";
 import Button from "../ui/Button";
 import Card from "../card/Card"

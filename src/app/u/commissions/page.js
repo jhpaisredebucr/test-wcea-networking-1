@@ -1,48 +1,25 @@
-'use client';
-
 import Commissions from "@/app/components/member/Commissions";
-import { useEffect, useState } from "react";
+import { getUserCommissions, getAdminCommissions } from "@/lib/commissions";
+import { getCurrentUserToken } from "@/lib/token";
 
-export default function Page() {
-  const [commissions, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default async function Page() {
 
-  useEffect(() => {
-    
-  }, []);
+  const user = await getCurrentUserToken();
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        fetch("/api/commissions")
-          .then(res => res.json())
-          .then(d => setData(d.commission));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (!user) {
+    return <div>Unauthorized</div>;
+  }
 
-    loadData();
-  }, []);
+  const userId = user.id;
+  const role = user.role;
 
-if (loading) {
-  return (
-    <div className="w-full flex">
-      <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-          <div className="text-xl text-gray-700">Loading...</div>
-        </div>
-      </div>
-    </div>
-  );
-}
+  const commissions =
+    role === "admin"
+      ? await getAdminCommissions()
+      : await getUserCommissions(userId);
 
   return (
     <div>
-      {/* <h1 className="text-3xl font-semibold mb-6">Commissions</h1> */}
       <Commissions commissions={commissions} />
     </div>
   );

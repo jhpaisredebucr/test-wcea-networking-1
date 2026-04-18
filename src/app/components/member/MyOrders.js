@@ -1,3 +1,7 @@
+//CLIENT COMPONENT
+
+"use client"
+
 import Card from "../card/Card";
 import OrderCard from "../card/OrderCard";
 
@@ -7,17 +11,8 @@ export default function OrdersMember({ orders = [], products = [], userData }) {
         return <p>Loading orders...</p>;
     }
 
-    const userOrders = orders.filter(
-        order =>
-            order.user_id === userData?.userInfo?.id ||
-            order.user_id === userData?.id
-    );
+    const hasOrder = orders.length > 0;
 
-    const hasOrder = userOrders.length > 0;
-
-    // function debug() {
-    //     console.log(orders, products, userData);
-    // }
 
     return (
         <div>
@@ -28,7 +23,7 @@ export default function OrdersMember({ orders = [], products = [], userData }) {
                     </p>
                 )}
 
-                {userOrders.map((order) => (
+                {orders.map((order) => (
                     <OrderCard 
                         key={order.id}
                         orders={order}
@@ -36,7 +31,6 @@ export default function OrdersMember({ orders = [], products = [], userData }) {
                     />
                 ))}
             </div>
-            {/* <button onClick={debug} className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Debug</button> */}
         </div>
     );
 }
