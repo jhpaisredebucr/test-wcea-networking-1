@@ -6,6 +6,8 @@ import { getUserFromToken } from "@/lib/users";
 import { getMemberDashboardData } from "@/lib/dashboard";
 import { getCurrentUserToken } from "@/lib/token";
 
+export const revalidate = 120;
+
 export default async function Page() {
   const user = await getCurrentUserToken();
 

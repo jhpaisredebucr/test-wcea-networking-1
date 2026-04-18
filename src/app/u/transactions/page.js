@@ -4,6 +4,8 @@ import TransactionsContainer from "@/app/components/member/TransactionsContainer
 import { getTransactions } from "@/lib/transaction";
 import { getCurrentUserToken } from "@/lib/token";
 
+export const revalidate = 10;
+
 export default async function Page() {
   const user = await getCurrentUserToken();
 

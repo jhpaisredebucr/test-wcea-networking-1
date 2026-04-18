@@ -8,6 +8,8 @@ import { getUserFromToken } from "@/lib/users";
 import { getMemberDashboardData } from "@/lib/dashboard";
 import { getTransactions } from "@/lib/transaction";
 
+export const revalidate = 10;
+
 export default async function Page() {
 
   const user = await getCurrentUserToken();
