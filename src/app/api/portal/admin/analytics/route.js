@@ -67,18 +67,26 @@ import { query } from "@/lib/db";
                 ,["banned", "member"]
             );
 
-            const topReferrer = await query(
-                `
-                    SELECT 
-                        u.username,
-                        COUNT(r.id) AS total_referred
-                    FROM users u
-                    JOIN users r ON r.referred_by = u.referral_code
-                    GROUP BY u.username
-                    ORDER BY total_referred DESC
-                    LIMIT 1;
-                `
-            );
+            const topReferrer = await query(`
+                SELECT 
+                    u.username,
+                    up.first_name,
+                    up.middle_name,
+                    up.last_name,
+                    COUNT(r.id) AS total_referred
+                FROM users u
+                JOIN users r 
+                    ON r.referred_by = u.referral_code
+                JOIN user_profiles up 
+                    ON up.user_id = u.id
+                GROUP BY 
+                    u.username,
+                    up.first_name,
+                    up.middle_name,
+                    up.last_name
+                ORDER BY total_referred DESC
+                LIMIT 1;
+            `);
             
            const revenueResult = await query(`
                 SELECT

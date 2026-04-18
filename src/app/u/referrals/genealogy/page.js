@@ -79,7 +79,7 @@ export default function Page() {
             maxDepth={3}
           />
           {userData?.referredBy && (
-            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-lg shadow border max-w-md mx-auto z-40">
+            <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-lg shadow border max-w-md mx-auto z-20">
               <h3 className="font-bold text-sm mb-1">↑ Referred by:</h3>
               <p className="text-sm">
                 <span className="font-mono bg-blue-100 px-2 py-1 rounded text-xs mr-2">
@@ -99,7 +99,7 @@ export default function Page() {
       </div>
 
       {/* FLOATING HEADER */}
-      <div className="absolute top-4 left-4 right-4 z-50 flex flex-col md:flex-row md:justify-between md:items-center gap-3 pointer-events-none">
+      <div className="absolute top-4 left-4 right-4 z-30 flex flex-col md:flex-row md:justify-between md:items-center gap-3 pointer-events-none">
 
         <div className="bg-white/90 backdrop-blur-md px-4 py-3 rounded-lg shadow border pointer-events-auto">
           <h1 className="text-lg font-bold">Genealogy Tree</h1>
@@ -114,7 +114,7 @@ export default function Page() {
 
         <button
           onClick={() => router.push("/u/referrals")}
-          className="bg-(--primary)  text-white px-4 py-2 rounded-lg z-5 shadow hover:opacity-90 pointer-events-auto"
+          className="bg-(--primary)  text-white px-4 py-2 rounded-lg z-10 shadow hover:opacity-90 pointer-events-auto"
         >
           View Member Table
         </button>
