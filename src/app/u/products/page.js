@@ -124,7 +124,7 @@ export default function Page() {
 
   // UI
   return (
-    <div className="py-7">
+    <div>
       {isBuying === true && <BuyModal setBuying={setBuying} product={cart} userData={userData} dashboardData={dashboardData}/>}
       <div className="flex justify-between items-center">
         {/* <h1 className="text-3xl font-semibold mb-5">Product Shop</h1> */}

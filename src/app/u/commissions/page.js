@@ -41,7 +41,7 @@ if (loading) {
 }
 
   return (
-    <div className="py-7">
+    <div>
       {/* <h1 className="text-3xl font-semibold mb-6">Commissions</h1> */}
       <Commissions commissions={commissions} />
     </div>
