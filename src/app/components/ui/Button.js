@@ -5,20 +5,20 @@ import { useRouter, usePathname } from "next/navigation";
 /* ─────────────────────────────
    NORMAL BUTTON
 ───────────────────────────── */
-function Button({ children, onClick, icon }) {
+function Button({ children, onClick, icon, bgColor="bg-(--primary)", textColor="text-white", border, width="w-full" }) {
     return (
         <button
             onClick={onClick}
-            className="
-                w-full cursor-pointer 
-                p-2 bg-(--primary) 
-                rounded-2xl text-white 
+            className={`
+                ${width} cursor-pointer 
+                p-2 ${bgColor} ${border}
+                rounded-2xl ${textColor} 
                 font-bold flex gap-4 justify-center
                 items-center
                 hover:opacity-90
                 active:scale-95
                 transition
-            "
+            `}
         >
             {icon && (
                 <img className="w-5 h-5" src={icon} alt="icon" />

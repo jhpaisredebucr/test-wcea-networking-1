@@ -19,7 +19,7 @@ export default function ProductCard({ products, userData, setBuying, setSelected
     return (
         <div className="
             p-4 rounded-xl bg-white border-0 border-(--primary)
-            flex flex-col gap-4 shadow-sm
+            flex flex-col gap-4 shadow-[0_0_4px_rgba(0,0,0,0.10)]
             transition duration-300 hover:-translate-y-2 hover:border hover:shadow-lg
         ">
             {/* Image — full width */}

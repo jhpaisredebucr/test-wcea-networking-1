@@ -120,6 +120,10 @@ export default function ProfilePage() {
 
     const uploadData = new FormData();
     uploadData.append("file", file);
+    uploadData.append("folder", `users/${formData.userInfo.id}/profile`);
+    uploadData.append("public_id", `${formData?.userInfo.id}-profile`);
+    uploadData.append("overwrite", "true");
+    console.log(formData);
 
     const cloudinaryRes = await fetch("/api/cloudinary/upload", {
       method: "POST",

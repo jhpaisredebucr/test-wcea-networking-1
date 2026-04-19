@@ -32,13 +32,18 @@ import { useState } from "react";
             color="bg-blue-200" 
             value={`₱${dashboardData?.userBalance}`} 
             valueSize="text-4xl" 
-            info="" 
+            info=" " 
             rowSpan="row-span-2" 
             colSpan="col-span-2">
+                <div className="flex gap-2">
+                    <Button bgColor=" " textColor="text-blue-500" border="border" onClick={() => router.push('/u/withdraw') }>
+                        Withdraw
+                    </Button>
+                    <Button bgColor=" " textColor="text-blue-500" border="border" onClick={() => router.push('/u/deposit')}>
+                        Deposit
+                    </Button>
+                </div>
                 
-                <Button onClick={() => router.push('/u/withdraw')}>
-                    Withdraw
-                </Button>
             </Card>
 
             <Card title="Total Commissions"
@@ -70,16 +75,15 @@ import { useState } from "react";
                         </p>
                     </div>
                     
-                    <div className="flex-4">
-                        <Button
-                            onClick={handleCopy}
-                            className={`flex bg-(--primary) p-3 rounded-xl text-white
-                            ${copied? `bg-(--secondary)` : "bg-(--primary)" }`}
-                            icon="/icons/copy-white.svg" >
-                            
-                            {copied ? "Copied" : "Copy Link"}
-                        </Button>
-                    </div>
+                    <Button
+                        onClick={handleCopy}
+                        className={`flex bg-(--primary) p-3 rounded-xl text-white
+                        ${copied? `bg-(--secondary)` : "bg-(--primary)" }`}
+                        icon="/icons/copy-white.svg" 
+                        width="px-4">
+                        
+                        {copied ? "Copied" : "Copy Link"}
+                    </Button>
                 </div>
             </Card>
             {/* <Card title="" value="" info=""/>

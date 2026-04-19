@@ -7,7 +7,7 @@ export default function OrderCard({orders, products}) {
 
     return (
         <div>
-            <div className="grid grid-cols-4 items-center p-5 rounded-lg bg-white">
+            <div className="grid grid-cols-4 items-center p-5 rounded-lg bg-white shadow-[0_0_4px_rgba(0,0,0,0.10)]">
                 <div className="flex col-span-2 items-center">
                     {product?.img_url ? (
                         <CldImage 

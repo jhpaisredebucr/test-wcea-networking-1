@@ -33,7 +33,7 @@ export default function AnnouncementCard({ announcements, role }) {
 
     return (
         <div>
-            <div className="p-5 rounded-lg shadow-[0_0_4px_rgba(0,0,0,0.15)] bg-white">
+            <div className="p-5 rounded-lg shadow-[0_0_4px_rgba(0,0,0,0.10)] bg-white">
 
                 <div className="flex justify-between items-center">
 

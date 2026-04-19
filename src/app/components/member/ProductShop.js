@@ -63,8 +63,8 @@ export default function ProductShop({ products, dashboardData, userData }) {
         />
       )}
 
-      <div className="mb-5 p-3 text-blue-500 border border-blue-300 rounded-2xl flex justify-between items-center">
-        Explore and shop high-quality premium products
+      <div className="mb-5 p-3 text-blue-600 border border-blue-400 rounded-2xl flex justify-between items-center">
+        Explore and shop high-quality premium products!
 
         {cart.length !== 0 && (
           <button
