@@ -78,7 +78,7 @@ export default function ProductShop({ products, dashboardData, userData }) {
 
       {/* PRODUCT GRID (merged from ProductsMember) */}
       {products.length === 0 ? (
-        <p>Loading products...</p>
+        <p className="text-center text-gray-500">No products loaded</p>
       ) : (
         <div className="grid grid-cols-3 gap-4">
           {products.map((product) => (
