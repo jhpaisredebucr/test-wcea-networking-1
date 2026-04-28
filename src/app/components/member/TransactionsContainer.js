@@ -42,11 +42,11 @@ export default function TransactionsContainer({
     doc.text(`${filtered.length} transactions`, 20, 45);
 
     let y = 60;
-    const colX = [20, 50, 80, 110, 140];
+    const colX = [10, 30, 50, 75, 102, 132, 165];
 
     doc.setFontSize(11);
     doc.setFont(undefined, 'bold');
-    ['Date', 'Type', 'Amount', 'Method', 'Status'].forEach((h, i) => {
+    ['Date', 'Type', 'Amount', 'Method', 'Txn ID', 'Ref No', 'Status'].forEach((h, i) => {
       doc.text(h, colX[i], y);
     });
 
@@ -65,7 +65,9 @@ export default function TransactionsContainer({
       doc.text(t.type || 'N/A', colX[1], y);
       doc.text(`₱${t.amount || 0}`, colX[2], y);
       doc.text(t.payment_method || 'N/A', colX[3], y);
-      doc.text(t.status || 'unknown', colX[4], y);
+      doc.text((t.transaction_id || `TXN-${t.id || "-"}`).toString().slice(0, 12), colX[4], y);
+      doc.text((t.reference_no || 'N/A').toString().slice(0, 10), colX[5], y);
+      doc.text(t.status || 'unknown', colX[6], y);
 
       doc.line(20, y + 2, 190, y + 2);
       y += 6;
@@ -75,12 +77,11 @@ export default function TransactionsContainer({
   }, []);
 
   return (
-    <div className="py-7">
+    <div className="py-4 sm:py-6">
 
       {/* TOP CONTROLS */}
-      <div className="flex justify-between items-center mb-6">
-
-        <div className="flex gap-2">
+      <div className="mb-6 flex justify-between">
+        <div className="flex flex-wrap gap-2">
 
           {/* Refresh Button */}
           <button

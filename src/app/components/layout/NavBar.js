@@ -1,44 +1,17 @@
 "use client"
-import { useRouter } from "next/navigation"
 import Image from "next/image";
 import { useState } from "react";
 import { NavBarButton } from "../ui/Button";
 
 export default function Navbar() {
-    const router = useRouter();
     const [open, setOpen] = useState(false);
 
-    function Home() {
-        router.push("/home")
-    }
-
-    function About() {
-        router.push("/home/about")
-    }
-
-    function LogIn() {
-        router.push("/home/signin")
-    }
-
-    function Register() {
-        router.push("/home/signup")
-    }
-
-    function Contacts() {
-        router.push("/home/contacts")
-    }
-
-    function Memberships() {
-        router.push("/home/memberships")
-    }
-
     const navItems = [
-        { label: "Home", href: "/home", onClick: Home },
-        // { label: "About", onClick: About },
-        { label: "Login", href: "/home/signin", onClick: LogIn },
-        { label: "Register", href: "/home/signup", onClick: Register },
-        { label: "Contacts", href: "/home/contacts", onClick: Contacts },
-        { label: "Memberships", href: "/home/memberships", onClick: Memberships }
+        { label: "Home", href: "/home" },
+        { label: "Login", href: "/home/signin" },
+        { label: "Register", href: "/home/signup" },
+        { label: "Contacts", href: "/home/contacts" },
+        { label: "Memberships", href: "/home/memberships" }
     ];
 
     
@@ -63,7 +36,7 @@ export default function Navbar() {
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-1 lg:gap-2">
                     {navItems.map((item) => (
-                        <NavBarButton key={item.label} onClick={item.onClick} href={item.href}>
+                        <NavBarButton key={item.label} href={item.href}>
                             {item.label}
                         </NavBarButton>
                     ))}
@@ -122,8 +95,8 @@ export default function Navbar() {
                         {navItems.map((item) => (
                             <NavBarButton 
                                 key={item.label} 
+                                href={item.href}
                                 onClick={() => {
-                                    item.onClick();
                                     setOpen(false);
                                 }}
                                 className="w-full justify-start"

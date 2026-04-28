@@ -2,13 +2,14 @@
 
 'use client'
 
-import { userInfo } from "node:os";
 import { useEffect, useState } from "react";
 
 export default function Deposits() {
 
   const [method, setMethod] = useState("");
   const [amount, setAmount] = useState("");
+  const [transactionId, setTransactionId] = useState("");
+  const [referenceNo, setReferenceNo] = useState("");
   const [proof, setProof] = useState(null);
   const [preview, setPreview] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -187,7 +188,9 @@ export default function Deposits() {
             type: "deposit",
             amount: amount,
             proof: cloudinaryData.url,
-            payment_method: method
+            payment_method: method,
+            transaction_id: transactionId || null,
+            reference_no: referenceNo || null
 
           })
         }
@@ -209,6 +212,8 @@ export default function Deposits() {
 
       setMethod("");
       setAmount("");
+      setTransactionId("");
+      setReferenceNo("");
       setProof(null);
       setPreview(null);
 
@@ -231,9 +236,9 @@ export default function Deposits() {
   // -----------------------
   return (
 
-    <div className="flex justify-center mt-10 py-7">
+    <div className="mt-4 flex justify-center py-4 sm:mt-8 sm:py-6">
 
-      <div className="bg-white shadow-lg rounded-xl p-6 w-[420px]">
+      <div className="w-full max-w-xl rounded-xl bg-white p-4 shadow-lg sm:p-6">
 
         <h2 className="text-xl font-bold text-center">
           Deposit Funds
@@ -275,6 +280,32 @@ export default function Deposits() {
             className="w-full border p-2 mt-1 rounded-lg"
           />
 
+        </div>
+
+        {/* TRANSACTION ID */}
+        <div className="mt-5">
+          <p className="text-sm">Transaction ID (Optional)</p>
+
+          <input
+            type="text"
+            value={transactionId}
+            placeholder="Enter transaction ID"
+            onChange={(e)=>setTransactionId(e.target.value)}
+            className="w-full border p-2 mt-1 rounded-lg"
+          />
+        </div>
+
+        {/* REFERENCE NO */}
+        <div className="mt-5">
+          <p className="text-sm">Reference No. (Optional)</p>
+
+          <input
+            type="text"
+            value={referenceNo}
+            placeholder="Enter reference number"
+            onChange={(e)=>setReferenceNo(e.target.value)}
+            className="w-full border p-2 mt-1 rounded-lg"
+          />
         </div>
 
 

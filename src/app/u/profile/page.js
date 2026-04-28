@@ -45,12 +45,10 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-            <div className="text-xl text-gray-700">Loading...</div>
-          </div>
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-dashed"></div>
+          <div className="text-xl text-gray-700">Loading...</div>
         </div>
       </div>
     );
@@ -58,17 +56,15 @@ export default function ProfilePage() {
 
   if (error) {
     return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="text-red-500 text-xl max-w-md text-center flex flex-col items-center gap-4">
-            <p>{error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Retry
-            </button>
-          </div>
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex max-w-md flex-col items-center gap-4 text-center text-xl text-red-500">
+          <p>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          >
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -153,7 +149,7 @@ export default function ProfilePage() {
   const { profile, contacts, address, userInfo, referredBy } = formData || {};
 
   return (
-    <div className="flex flex-col max-w-3xl mx-auto mt-20 p-6 bg-white rounded-xl shadow-md items-center">
+    <div className="mx-auto mt-3 flex w-full max-w-3xl flex-col items-center rounded-xl bg-white p-4 shadow-md sm:mt-6 sm:p-6">
 
       {/* MODAL */}
       <UploadImageModal
@@ -175,7 +171,7 @@ export default function ProfilePage() {
       </p>
 
       {/* PERSONAL INFO */}
-      <div className="grid grid-cols-3 gap-2 mt-6 w-full">
+      <div className="mt-6 grid w-full grid-cols-1 gap-2 md:grid-cols-3">
         <ProfileCard label="First Name">
           <input
             className={inputStyle}
@@ -202,7 +198,7 @@ export default function ProfilePage() {
       </div>
 
       {/* ACCOUNT INFO */}
-      <div className="grid grid-cols-2 gap-2 mt-4 w-full">
+      <div className="mt-4 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="Username">
           <input
             className={inputStyle}
@@ -220,7 +216,7 @@ export default function ProfilePage() {
         </ProfileCard>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-2 w-full">
+      <div className="mt-2 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="Referred By">
           <input
             className={inputStyle}
@@ -239,7 +235,7 @@ export default function ProfilePage() {
       </div>
 
       {/* CONTACT INFO */}
-      <div className="grid grid-cols-2 gap-2 mt-4 w-full">
+      <div className="mt-4 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="Email">
           <input
             className={inputStyle}
@@ -258,7 +254,7 @@ export default function ProfilePage() {
       </div>
 
       {/* ADDRESS */}
-      <div className="grid grid-cols-2 gap-2 mt-4 w-full">
+      <div className="mt-4 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="City">
           <input
             className={inputStyle}
@@ -276,7 +272,7 @@ export default function ProfilePage() {
         </ProfileCard>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-2 w-full">
+      <div className="mt-2 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="Postal Code">
           <input
             className={inputStyle}
@@ -295,7 +291,7 @@ export default function ProfilePage() {
       </div>
 
       {/* DOB */}
-      <div className="grid grid-cols-1 gap-2 mt-4 w-full">
+      <div className="mt-4 grid w-full grid-cols-1 gap-2">
         <ProfileCard label="Date of Birth">
           <input
             type="date"
@@ -307,7 +303,7 @@ export default function ProfilePage() {
       </div>
 
       {/* STATUS + ROLE */}
-      <div className="grid grid-cols-2 gap-2 mt-4 w-full">
+      <div className="mt-4 grid w-full grid-cols-1 gap-2 md:grid-cols-2">
         <ProfileCard label="Status">
           <input
             className={inputStyle}

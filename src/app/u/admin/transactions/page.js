@@ -35,6 +35,7 @@ export default function Page() {
   const downloadPDF = (txns, from, to) => {
     const { jsPDF } = require('jspdf');
     const doc = new jsPDF();
+    let y = 55;
     
     const filtered = txns.filter(t => {
       const date = new Date(t.created_at);
@@ -91,12 +92,10 @@ export default function Page() {
 
 if (loading) {
   return (
-    <div className="w-full flex">
-      <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-          <div className="text-xl text-gray-700">Loading...</div>
-        </div>
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-dashed"></div>
+        <div className="text-xl text-gray-700">Loading...</div>
       </div>
     </div>
   );
@@ -104,11 +103,11 @@ if (loading) {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-4">
+            <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <h2 className="text-xl font-bold">
                     All Transactions
                 </h2>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <button 
                     onClick={fetchTransactions}
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"

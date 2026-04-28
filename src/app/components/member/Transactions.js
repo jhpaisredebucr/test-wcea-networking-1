@@ -37,33 +37,47 @@ export default function Transactions({ transactions = [], userData, onRefresh, l
 
   return (
     <div>
-
-      {/* HEADER */}
-      <div className="grid grid-cols-5 p-5 mt-5 bg-white font-semibold rounded-lg shadow-sm">
+      <div className="hidden md:grid md:grid-cols-7 p-5 mt-5 bg-white font-semibold rounded-lg shadow-sm">
         <div>Date</div>
         <div>Type</div>
         <div>Amount</div>
         <div>Payment Method</div>
+        <div>Transaction ID</div>
+        <div>Reference No.</div>
         <div>Status</div>
       </div>
 
       {/* ROWS */}
 {Array.isArray(transactions) && transactions.map((t, i) => (
-        <div
-          key={t.id || i}
-          className="grid grid-cols-5 p-5 mt-2 bg-white rounded-lg shadow-sm"
-        >
-          <div>{format(new Date(t.created_at), "MMM dd, yyyy")}</div>
+        <div key={t.id || i} className="mt-2 rounded-lg bg-white p-4 shadow-sm md:grid md:grid-cols-7 md:p-5">
+          <div className="mb-2 text-sm text-gray-600 md:mb-0 md:text-base md:text-black">{format(new Date(t.created_at), "MMM dd, yyyy")}</div>
 
-          <div>
+          <div className="mb-1 md:mb-0">
+            <span className="text-xs text-gray-500 md:hidden">Type: </span>
             {t.type ? t.type.charAt(0).toUpperCase() + t.type.slice(1) : 'N/A'}
           </div>
 
-          <div>₱{t.amount || 0}</div>
+          <div className="mb-1 md:mb-0">
+            <span className="text-xs text-gray-500 md:hidden">Amount: </span>
+            ₱{t.amount || 0}
+          </div>
 
-          <div>{t.payment_method || 'N/A'}</div>
+          <div className="mb-1 md:mb-0">
+            <span className="text-xs text-gray-500 md:hidden">Method: </span>
+            {t.payment_method || 'N/A'}
+          </div>
 
-          <div className="flex justify-between items-center">
+          <div className="mb-1 md:mb-0 break-all">
+            <span className="text-xs text-gray-500 md:hidden">Transaction ID: </span>
+            {t.transaction_id || `TXN-${t.id || "-"}`}
+          </div>
+
+          <div className="mb-1 md:mb-0 break-all">
+            <span className="text-xs text-gray-500 md:hidden">Reference No: </span>
+            {t.reference_no || 'N/A'}
+          </div>
+
+          <div className="mt-2 flex items-center justify-between md:mt-0">
 
             <span
               className={

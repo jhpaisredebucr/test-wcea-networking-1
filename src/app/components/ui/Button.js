@@ -32,7 +32,7 @@ function Button({ children, onClick, icon, bgColor="bg-(--primary)", textColor="
 /* ─────────────────────────────
    NAVBAR BUTTON (ACTIVE UNDERLINE)
 ───────────────────────────── */
-function NavBarButton({ children, href }) {
+function NavBarButton({ children, href, onClick, className = "" }) {
     const router = useRouter();
     const pathname = usePathname();
 
@@ -40,7 +40,10 @@ function NavBarButton({ children, href }) {
 
     return (
         <button
-            onClick={() => router.push(href)}
+            onClick={() => {
+                if (href) router.push(href);
+                if (onClick) onClick();
+            }}
             className={`
                 relative
                 flex-1
@@ -69,6 +72,7 @@ function NavBarButton({ children, href }) {
                     ? "after:scale-x-100"
                     : "after:scale-x-0 hover:after:scale-x-100"
                 }
+                ${className}
             `}
         >
             {children}

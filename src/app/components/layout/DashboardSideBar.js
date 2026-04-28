@@ -2,9 +2,12 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import SidebarButton from "../ui/SideBarButton";
-import { useState } from "react";
 
-export default function SideBar({ role = "member" }) {
+export default function SideBar({
+    role = "member",
+    isMobileMenuOpen = false,
+    onCloseMobileMenu = () => {}
+}) {
 
     const router = useRouter();
     const pathname = usePathname();
@@ -24,6 +27,7 @@ export default function SideBar({ role = "member" }) {
     const adminMenu = [
         { id: "dashboard", label: "Dashboard", path: "/u/admin/dashboard", icon: "/icons/dashboard.svg" },
         { id: "members", label: "Members", path: "/u/admin/members", icon: "/icons/referrals.svg" },
+        { id: "products", label: "Products", path: "/u/admin/products", icon: "/icons/product-shop.svg" },
         { id: "transactions", label: "Transactions", path: "/u/admin/transactions", icon: "/icons/money-thin.svg" },
         { id: "announcement", label: "Announcement", path: "/u/admin/announcements", icon: "/icons/announcement.svg" }
     ];
@@ -34,8 +38,6 @@ export default function SideBar({ role = "member" }) {
     ];
 
     const menu = role === "admin" ? adminMenu : memberMenu;
-
-    const [menuActive] = useState(true);
 
     const handleSignOut = async () => {
 
@@ -55,12 +57,57 @@ export default function SideBar({ role = "member" }) {
     };
 
     return (
+        <>
+        <div className={`fixed inset-0 z-30 h-screen w-full bg-black/30 transition md:hidden ${
+            isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}>
+            <button
+                type="button"
+                aria-label="Close navigation menu"
+                onClick={onCloseMobileMenu}
+                className="h-full w-full"
+            />
+        </div>
 
-        <div
-            className={`hidden md:block fixed left-0 top-15 h-[calc(100vh-60px)] w-56
-            md:${menuActive ? "" : ""}
-            bg-white py-6 z-10 overflow-y-auto no-scrollbar`}
-        >
+        <div className={`fixed left-0 top-0 z-40 h-screen w-72 max-w-[85vw] bg-white py-5 shadow-xl transition-transform duration-200 md:hidden ${
+            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        }`}>
+            <div className="flex items-center justify-between px-4 pb-3">
+                <p className="text-xs text-gray-400">MENU</p>
+                <button
+                    type="button"
+                    aria-label="Close drawer"
+                    onClick={onCloseMobileMenu}
+                    className="rounded border border-gray-200 px-2 py-1 text-sm"
+                >
+                    Close
+                </button>
+            </div>
+
+            <div>
+                {menu.map(item => (
+                    <SidebarButton
+                        key={item.id}
+                        id={item.id}
+                        page={pathname}
+                        setPage={() => {
+                            router.push(item.path);
+                            onCloseMobileMenu();
+                        }}
+                        icon={item.icon}
+                        className={`block px-5 py-3 transition ${
+                            pathname.startsWith(item.path)
+                                ? "border-r-4 border-(--primary) font-semibold"
+                                : "text-gray-500"
+                        }`}
+                    >
+                        {item.label}
+                    </SidebarButton>
+                ))}
+            </div>
+        </div>
+
+        <div className="relative hidden h-screen w-56 shrink-0 overflow-y-auto bg-white py-6 no-scrollbar md:block">
 
             {/* TITLE */}
             {/* <p className="text-3xl font-semibold mb-6 pl-6">
@@ -126,6 +173,7 @@ export default function SideBar({ role = "member" }) {
             </div>
 
         </div>
+        </>
 
     );
 }

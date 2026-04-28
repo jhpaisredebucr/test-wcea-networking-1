@@ -268,7 +268,7 @@ export default function SignUpPayment({
 
                     <button
                         onClick={() => router.push("/home")}
-                        className="text-sm text-gray-500 hover:text-gray-800 transition"
+                        className="inline-flex items-center gap-1 rounded-md border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     >
                         ← Back to Homepage
                     </button>

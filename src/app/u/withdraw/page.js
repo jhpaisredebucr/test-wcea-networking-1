@@ -43,12 +43,10 @@ export default function Withdraw() {
 
   if (initialLoading) {
     return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-            <div className="text-xl text-gray-700">Loading...</div>
-          </div>
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-dashed"></div>
+          <div className="text-xl text-gray-700">Loading...</div>
         </div>
       </div>
     );
@@ -56,17 +54,15 @@ export default function Withdraw() {
 
   if (error && !success) {
     return (
-      <div className="w-full flex">
-        <div className="w-full ml-56 px-20 py-7 bg-gray-100 min-h-screen flex items-center justify-center">
-          <div className="text-red-500 text-xl max-w-md text-center flex flex-col items-center gap-4">
-            <p>{error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Retry
-            </button>
-          </div>
+      <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex max-w-md flex-col items-center gap-4 text-center text-xl text-red-500">
+          <p>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+          >
+            Retry
+          </button>
         </div>
       </div>
     );
@@ -139,9 +135,9 @@ export default function Withdraw() {
   // UI
   // -----------------------
   return (
-    <div className="flex justify-center mt-10">
+    <div className="mt-4 flex justify-center sm:mt-8">
 
-      <div className="bg-white shadow-lg rounded-xl p-6 w-105">
+      <div className="w-full max-w-xl rounded-xl bg-white p-4 shadow-lg sm:p-6">
 
         <h2 className="text-xl font-bold text-center">
           Withdraw Funds (Not Yet Working)

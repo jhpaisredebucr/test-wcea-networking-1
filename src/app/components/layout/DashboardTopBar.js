@@ -7,7 +7,7 @@ import Profile from "@/app/components/ui/Profile";
 import { useRouter } from "next/navigation";
 import ProfileDropdown from "@/app/components/ui/ProfileDropdown";
 
-export default function TopBar({ userData }) {
+export default function TopBar({ userData, onMenuToggle, isMobileMenuOpen = false }) {
 
     const router = useRouter();
 
@@ -77,10 +77,19 @@ const handleSignOut = async () => {
     }, []);
 
     return (
-        <div className="flex sticky items-center justify-between h-15 px-5 bg-white top-0 z-20">
+        <div className="relative z-20 flex h-15 items-center justify-between border-b border-gray-100 bg-white px-3 sm:px-5">
 
             {/* LEFT SIDE */}
             <div className="flex items-center">
+                <button
+                    type="button"
+                    onClick={onMenuToggle}
+                    className="mr-2 rounded-md border border-gray-200 px-2 py-1 text-gray-700 md:hidden"
+                    aria-label="Toggle navigation menu"
+                    aria-expanded={isMobileMenuOpen}
+                >
+                    ☰
+                </button>
                 <button onClick={GoHome}>
                     <Image
                         src="/images/logo.ico"
@@ -91,18 +100,18 @@ const handleSignOut = async () => {
                     />
                 </button>
 
-                <span className="text-3xl font-semibold text-blue-500">
+                <span className="text-2xl font-semibold text-blue-500 sm:text-3xl">
                     WC
                 </span>
 
-                <span className="text-3xl font-semibold ">
+                <span className="text-2xl font-semibold sm:text-3xl">
                     EA
                 </span>
             </div>
 
 
             {/* RIGHT SIDE */}
-            <div className="flex items-center px-8">
+            <div className="flex items-center gap-2 px-1 sm:px-4">
 
                 {/* NOTIFICATIONS */}
                 <div ref={notifRef}>

@@ -18,6 +18,7 @@ export default function DashboardLayout({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // fetch user only (shared)
   useEffect(() => {
@@ -57,21 +58,36 @@ export default function DashboardLayout({ children }) {
   if (error) return <ErrorText label={error} fullScreen />;
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-100">
       <UploadImageModal
         isOpen={isUploadOpen}
         onClose={() => setIsUploadOpen(false)}
         onUpload={(url) => console.log(url)}
       />
 
-      <TopBar userData={user} />
-      <SideBar role={user.userInfo.role}/>
+      <TopBar
+        userData={user}
+        isMobileMenuOpen={isMobileMenuOpen}
+        onMenuToggle={() => setIsMobileMenuOpen((prev) => !prev)}
+      />
 
-      <div className="w-full flex">
-      <div className={`w-full md:ml-56 px-15 py-7 \${user.userInfo?.role === 'admin' ? 'py-[15px]' : ''} bg-gray-100 min-h-[calc(100vh-64px)]`}>
-        {children}
+      <div className="relative md:flex md:min-h-screen">
+        <SideBar
+          role={user.userInfo.role}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+        />
+
+        <main
+          className={`w-full px-4 py-5 sm:px-6 md:min-h-screen md:px-8 lg:px-10 ${
+            user.userInfo?.role === "admin" ? "py-4" : "py-6"
+          }`}
+        >
+          <div className="mx-auto w-full max-w-[1400px]">
+            {children}
+          </div>
+        </main>
       </div>
-      </div>
-    </>
+    </div>
   );
 }

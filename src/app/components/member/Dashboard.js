@@ -24,7 +24,7 @@ import { useState } from "react";
     };
 
     return (
-        <div className="grid grid-cols-4 auto-rows-[130px] gap-5 w-full">
+        <div className="grid w-full grid-cols-1 gap-4 auto-rows-auto sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[130px]">
             <Card 
             title="Available Balance" 
             src="/icons/wallet.svg" 
@@ -33,9 +33,9 @@ import { useState } from "react";
             value={`₱${dashboardData?.userBalance}`} 
             valueSize="text-4xl" 
             info=" " 
-            rowSpan="row-span-2" 
-            colSpan="col-span-2">
-                <div className="flex gap-2">
+            rowSpan="lg:row-span-2" 
+            colSpan="sm:col-span-2">
+                <div className="flex flex-wrap gap-2">
                     <Button bgColor=" " textColor="text-blue-500" border="border" onClick={() => router.push('/u/withdraw') }>
                         Withdraw
                     </Button>
@@ -52,7 +52,7 @@ import { useState } from "react";
             value={`${dashboardData?.totalCommissionValue} CREDITS`} 
             info="" 
             bold="font-bold"
-            colSpan="col-span-2"/>
+            colSpan="sm:col-span-2"/>
 
             <Card title="Total Referred" 
             src="/icons/referrals.svg" 
@@ -60,17 +60,17 @@ import { useState } from "react";
             bold="font-bold"
             value={dashboardData?.totalReferredMembers} 
             info="" 
-            colSpan="col-span-2"/>
+            colSpan="sm:col-span-2"/>
             
             <Card title="Referral Link" 
             value="" 
             valueSize="lg" 
             bold="" 
             info=" " 
-            colSpan="col-span-4">                
-                <div className="flex gap-4 justify-between items-center border-2 border-gray-200 border-dotted p-2 rounded-xl">
-                    <div className="flex-6">
-                        <p className="font-bold class flex-7">
+            colSpan="sm:col-span-2 lg:col-span-4">                
+                <div className="flex flex-col gap-3 border-2 border-dotted border-gray-200 p-3 rounded-xl md:flex-row md:items-center md:justify-between">
+                    <div className="min-w-0 flex-1">
+                        <p className="break-all font-bold">
                             {referralLink}
                         </p>
                     </div>
