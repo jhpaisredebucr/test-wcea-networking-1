@@ -95,7 +95,7 @@ const handleSignOut = async () => {
                     WC
                 </span>
 
-                <span className="text-3xl font-semibold ml-1">
+                <span className="text-3xl font-semibold ">
                     EA
                 </span>
             </div>

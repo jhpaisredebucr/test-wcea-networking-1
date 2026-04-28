@@ -21,7 +21,7 @@ const [step, setStep] = useState(1);
       username: `user${randomNumber}`,
       email: `user${randomNumber}@test.com`,
       contactNumber: randomPhone,
-      referralCode: refCode || `MEM-GMXCWR`,
+      referralCode: refCode || `MEM-RBFJMG`,
       password: "yeolswi",
       confirmPassword: "yeolswi",
 
