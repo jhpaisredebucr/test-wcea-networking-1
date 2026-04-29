@@ -11,6 +11,7 @@ export default function Navbar() {
         { label: "Login", href: "/home/signin" },
         { label: "Register", href: "/home/signup" },
         { label: "Contacts", href: "/home/contacts" },
+        { label: "About", href: "/home/about" },
         { label: "Memberships", href: "/home/memberships" }
     ];
 
