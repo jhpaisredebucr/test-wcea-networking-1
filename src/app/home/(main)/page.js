@@ -97,7 +97,7 @@ export default function HomePage() {
             </h2>
             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 grayscale opacity-90 hover:grayscale-0 transition-all duration-500">
               <Image
-                src="/images/brands/wcea-acsr.png"
+                src="/images/logos/acsr.png"
                 alt="Partner 1"
                 width={120}
                 height={80}
@@ -105,7 +105,7 @@ export default function HomePage() {
                 priority
               />
               <Image
-                src="/images/brands/mnd-bmb.png"
+                src="/images/logos/memo-ni-dok.png"
                 alt="Partner 2"
                 width={120}
                 height={80}
@@ -113,7 +113,23 @@ export default function HomePage() {
                 priority
               />
               <Image
-                src="/images/brands/wcea-ministry.png"
+                src="/images/logos/wcea.png"
+                alt="Partner 3"
+                width={120}
+                height={80}
+                className="h-auto w-auto"
+                priority
+              />
+              <Image
+                src="/images/logos/whea.jpeg"
+                alt="Partner 3"
+                width={120}
+                height={80}
+                className="h-auto w-auto"
+                priority
+              />
+              <Image
+                src="/images/logos/gaf-champ.png"
                 alt="Partner 3"
                 width={120}
                 height={80}
