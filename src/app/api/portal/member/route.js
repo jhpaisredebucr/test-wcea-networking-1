@@ -25,6 +25,7 @@ export async function GET(req) {
           u.status, 
           u.referral_code, 
           u.created_at,
+          u.package,
           p.first_name, 
           p.last_name,
 

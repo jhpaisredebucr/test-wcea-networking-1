@@ -30,15 +30,26 @@ export default function Page() {
           `/api/portal/member?referralCode=${userRes.userInfo.referral_code}&userId=${userRes.userInfo.id}&limit=10&offset=0`
         );
 
+        const rootData = {
+          first_name: userRes.profile?.first_name,
+          last_name: userRes.profile?.last_name,
+          status: userRes.profile?.status ?? 'approved',
+          earnings_from_user: '0.00',
+          total_count: 0,
+          package: userRes.userInfo.package || 'N/A'
+        };
+
         const root = {
           id: userRes.userInfo.referral_code,
-          name: `${(userRes.profile?.first_name ?? 'N/A')} ${(userRes.profile?.last_name ?? '')} (${userRes.userInfo.username}) [${userRes.profile?.status ?? 'approved'}]`,
+          name: `${(userRes.profile?.first_name ?? 'N/A')} ${(userRes.profile?.last_name ?? '')} (You)`,
+          data: { fullData: rootData },
           children: []
         }; 
 
         const directChildren = (dashRes.dashboardData?.referredMembers || []).map(member => ({
           id: member.referral_code,
           name: `${(member.first_name ?? 'N/A')} ${member.last_name ?? ''} [${member.status ?? 'pending'}]\n₱${member.earnings_from_user ?? '0.00'}`,
+          data: { fullData: member },
           children: []
         })); 
 
