@@ -34,7 +34,8 @@ const [step, setStep] = useState(1);
       streetAddress: `${randomNumber} Sample Street`,
       postalCode: "4103",
 
-      planId: Math.floor(Math.random() * 3) + 1,
+      packagePrice: null,
+      maxLevel: null,
 
       paymentMethod: "gcash",
       paymentProof: null,
@@ -61,7 +62,8 @@ const [step, setStep] = useState(1);
     streetAddress: "",
     postalCode: "",
 
-    planId: null,
+    packagePrice: null,
+    maxLevel: null,
 
     paymentMethod: "",
     paymentProof: null,

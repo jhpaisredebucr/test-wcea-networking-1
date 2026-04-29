@@ -24,7 +24,8 @@ export async function POST(req) {
             streetAddress,
             postalCode,
             // Step 3
-            planId,
+            packagePrice,
+            maxLevel,
             // Step 4
             paymentMethod,
             paymentUrl,
@@ -46,11 +47,11 @@ export async function POST(req) {
         //users
         const result = await query(
             `
-                INSERT INTO users (username, password, referred_by, referral_code, plan, payment_method)
-                VALUES ($1, $2, $3, $4, $5, $6)
+                INSERT INTO users (username, password, referred_by, referral_code, package, max_levels, payment_method)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
                 RETURNING *
             `,
-            [username, hashedPass, referralCode, code, planId, paymentMethod]
+            [username, hashedPass, referralCode, code, packagePrice, maxLevel, paymentMethod]
         );
 
         const user = result[0];

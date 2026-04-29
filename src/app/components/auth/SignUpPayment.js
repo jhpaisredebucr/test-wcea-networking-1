@@ -190,7 +190,7 @@ export default function SignUpPayment({
             const transactionPayload = {
                 user_id: signupData.user.id,
                 type: "plan",
-                amount: planPrice,
+                amount: formData.packagePrice,
                 proof: imageUrl,
                 payment_method: formData.paymentMethod
             };

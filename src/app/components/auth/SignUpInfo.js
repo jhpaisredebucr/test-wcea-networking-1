@@ -17,6 +17,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep, isLoading,
             username,
             email,
             contactNumber,
+            referralCode,
             password,
             confirmPassword
         } = formData;
@@ -26,6 +27,7 @@ export default function SignUpInfo({ formData, setFormData, nextStep, isLoading,
         if (!username) newErrors.username = "Username is required.";
         if (!email) newErrors.email = "Email is required.";
         if (!contactNumber) newErrors.contactNumber = "Contact number is required.";
+        if (!referralCode) newErrors.referralCode = "Referral code is required.";
         if (!password) newErrors.password = "Password is required.";
         if (!confirmPassword)
             newErrors.confirmPassword = "Please confirm your password.";
@@ -183,10 +185,11 @@ export default function SignUpInfo({ formData, setFormData, nextStep, isLoading,
 
 
                     {/* Referral */}
-                    <FormField>
+                    <FormField error={errors.referralCode}>
                         <Input
                             label="Referral Code"
                             type="text"
+                            required
                             value={formData.referralCode}
                             onChange={(val) =>
                                 setFormData({

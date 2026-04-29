@@ -16,10 +16,21 @@ export default function SignUpPlan({
     const [error, setError] = useState(null);
 
 
-    function SetPlan(planId) {
+    function SetPlan(planId, price) {
+        const maxLevels = {
+          99: 3,
+          199: 5,
+          999: 7,
+          1999: 10,
+          5000: 13,
+          17000: 15
+        }[price] || 3;
+
         setFormData(prev => ({
             ...prev,
-            planId
+            planId,
+            packagePrice: price,
+            maxLevel: maxLevels
         }));
 
         setError(null);
@@ -49,10 +60,10 @@ export default function SignUpPlan({
 
     return (
 
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center py-8 px-4 sm:px-6 lg:px-8">
 
             {/* CARD */}
-            <div className="w-full max-w-md sm:max-w-lg lg:max-w-2xl xl:max-w-4xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100 p-4 sm:p-6 lg:p-8"> 
+            <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-4xl xl:max-w-6xl mx-auto bg-white shadow-xl rounded-2xl border border-gray-100 p-3 sm:p-6 lg:p-8">
 
                 {/* HEADER */}
                 <div className="mb-8 text-center md:text-left flex justify-between">
@@ -85,31 +96,52 @@ export default function SignUpPlan({
 
 
                 {/* PLAN GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
 
                     <PlanCard
-                        title="Community Basic"
-                        price="₱300"
-                        selected={formData.planId === 1}
-                        onClick={() => SetPlan(1)}
+                        title="Basic"
+                        price="₱99"
+                        selected={formData.packagePrice === 99}
+                        onClick={() => SetPlan(1, 99)}
                     />
 
 
                     <PlanCard
-                        title="Community Elite"
-                        price="₱900"
-                        selected={formData.planId === 2}
+                        title="Standard"
+                        price="₱199"
+                        selected={formData.packagePrice === 199}
+                        onClick={() => SetPlan(2, 199)}
+                    />
+
+                    <PlanCard
+                        title="Pro"
+                        price="₱999"
+                        selected={formData.packagePrice === 999}
                         highlight
-                        onClick={() => SetPlan(2)}
+                        onClick={() => SetPlan(3, 999)}
                     />
 
 
                     <PlanCard
-                        title="Community Premium"
-                        price="₱1500"
-                        selected={formData.planId === 3}
-                        onClick={() => SetPlan(3)}
+                        title="Elite"
+                        price="₱1,999"
+                        selected={formData.packagePrice === 1999}
+                        onClick={() => SetPlan(4, 1999)}
+                    />
+
+                    <PlanCard
+                        title="Council"
+                        price="₱5,000"
+                        selected={formData.packagePrice === 5000}
+                        onClick={() => SetPlan(5, 5000)}
+                    />
+
+                    <PlanCard
+                        title="World Council International"
+                        price="₱17,000"
+                        selected={formData.packagePrice === 17000}
+                        onClick={() => SetPlan(6, 17000)}
                     />
 
 
@@ -190,10 +222,11 @@ function PlanCard({
             text-center
             rounded-xl
             border
-            p-6
-            transition
+            p-4 sm:p-6
+            transition-all duration-200
             hover:-translate-y-1
-            hover:shadow-md
+            hover:shadow-xl
+            active:scale-[0.98]
             
             ${selected
                 ? "border-(--primary) ring-2 ring-(--primary)"
