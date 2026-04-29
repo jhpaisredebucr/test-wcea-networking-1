@@ -22,7 +22,7 @@ export default function Navbar() {
                 {/* Logo and Brand */}
                 <div className="flex items-center gap-2 sm:gap-3">
                     <Image 
-                        src="/images/logo.ico" 
+                        src="/logos/wcea_official_logo.png" 
                         alt="logo" 
                         width={35} 
                         height={35}
