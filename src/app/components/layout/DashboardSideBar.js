@@ -16,6 +16,7 @@ export default function SideBar({
         { id: "announcement", label: "Announcement", path: "/u/announcements", icon: "/icons/announcement.svg" },
         { id: "dashboard", label: "Dashboard", path: "/u/dashboard", icon: "/icons/dashboard.svg" },
         { id: "products", label: "Product Shop", path: "/u/products", icon: "/icons/product-shop.svg" },
+        { id: "packages", label: "Package Shop", path: "/u/packages", icon: "/icons/product-shop.svg" },
         { id: "orders", label: "My Orders", path: "/u/orders", icon: "/icons/my-orders.svg" },
         { id: "referrals", label: "Referrals", path: "/u/referrals", icon: "/icons/referrals.svg" },
         { id: "transactions", label: "Transactions", path: "/u/transactions", icon: "/icons/page-flip.svg" },
@@ -28,6 +29,7 @@ export default function SideBar({
         { id: "dashboard", label: "Dashboard", path: "/u/admin/dashboard", icon: "/icons/dashboard.svg" },
         { id: "members", label: "Members", path: "/u/admin/members", icon: "/icons/referrals.svg" },
         { id: "products", label: "Products", path: "/u/admin/products", icon: "/icons/product-shop.svg" },
+        { id: "packages", label: "Packages", path: "/u/admin/packages", icon: "/icons/product-shop.svg" },
         { id: "transactions", label: "Transactions", path: "/u/admin/transactions", icon: "/icons/money-thin.svg" },
         { id: "announcement", label: "Announcement", path: "/u/admin/announcements", icon: "/icons/announcement.svg" }
     ];
