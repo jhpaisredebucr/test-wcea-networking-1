@@ -39,15 +39,16 @@ export async function POST(req) {
     }
 
     // ----------------------------
-    // INSERT TRANSACTION
+    // INSERT TRANSACTION (linked to first order)
     // ----------------------------
+    const firstOrderId = insertedOrders[0].id;
     const transactionResult = await query(
       `
-      INSERT INTO transactions (user_id, type, amount, status)
-      VALUES ($1, 'purchase', $2, 'pending')
+      INSERT INTO transactions (user_id, order_id, type, amount, status)
+      VALUES ($1, $2, 'purchase', $3, 'pending')
       RETURNING *
       `,
-      [user_id, totalAmount]
+      [user_id, firstOrderId, totalAmount]
     );
 
     return NextResponse.json({
