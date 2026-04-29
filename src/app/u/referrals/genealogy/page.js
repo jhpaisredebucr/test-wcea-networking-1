@@ -27,7 +27,7 @@ export default function Page() {
         setUserData(userRes);
 
         const dashRes = await fetchJson(
-          `/api/portal/member?userReferralCode=${userRes.userInfo.referral_code}`
+          `/api/portal/member?referralCode=${userRes.userInfo.referral_code}&userId=${userRes.userInfo.id}&limit=10&offset=0`
         );
 
         const root = {
@@ -38,7 +38,7 @@ export default function Page() {
 
         const directChildren = (dashRes.dashboardData?.referredMembers || []).map(member => ({
           id: member.referral_code,
-          name: `${(member.first_name ?? 'N/A')} ${(member.last_name ?? '')} (${member.username}) [${member.status ?? 'pending'}]`,
+          name: `${(member.first_name ?? 'N/A')} ${member.last_name ?? ''} [${member.status ?? 'pending'}]\n₱${member.earnings_from_user ?? '0.00'}`,
           children: []
         })); 
 
@@ -74,9 +74,9 @@ export default function Page() {
             data={rootTree}
             fetchChildren={async (refCode) => {
               const res = await fetchJson(
-                `/api/portal/member?userReferralCode=${refCode}`
+`/api/portal/member?referralCode=${refCode}&userId=${userData.userInfo.id}`
               );
-              return res.dashboardData.referredMembers || [];
+              return res.data || [];
             }}
             maxDepth={3}
           />
@@ -107,7 +107,7 @@ export default function Page() {
           <h1 className="text-lg font-bold">Genealogy Tree</h1>
 
           <p className="text-sm text-gray-600 mt-1">
-            Referral Code:{" "}
+            Referral Code: {" "}
             <span className="font-mono bg-secondary/20 px-2 py-1 rounded text-primary">
               {userData?.userInfo?.referral_code}
             </span>

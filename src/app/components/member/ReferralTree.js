@@ -13,7 +13,7 @@ import "reactflow/dist/style.css";
 import dagre from "dagre";
 
 // layout config
-const nodeWidth = 150;
+const nodeWidth = 180;
 const nodeHeight = 60;
 
 // dagre layout function
@@ -53,63 +53,66 @@ function convertTreeToGraph(tree) {
   const nodes = [];
   const edges = [];
 
-    function traverse(node, parent = null) {
-      // Robust status detection
-      let status = 'unknown';
-      const statusMatch = node.name.match(/\[([^\]]+)\]/i);
-      if (statusMatch) {
-        const rawStatus = statusMatch[1].toLowerCase().trim();
-        if (rawStatus.includes('approved') || rawStatus.includes('active')) status = 'approved';
-        else if (rawStatus.includes('pending') || rawStatus.includes('waitlist')) status = 'pending';
-        else if (rawStatus.includes('declined') || rawStatus.includes('rejected') || rawStatus.includes('banned')) status = 'declined';
-      }
-      console.log('Node name:', node.name, '-> Raw:', statusMatch ? statusMatch[1] : null, '-> Parsed:', status);
-      
-      const borderColor = status === 'approved' ? '#83ff83' : status === 'pending' ? '#ffd883' : status === 'declined' ? '#ff6a6a' : '#666666';
-      const bgColor = status === 'approved' ? 'rgba(131, 255, 131, 0.1)' : status === 'pending' ? 'rgba(255, 216, 131, 0.1)' : status === 'declined' ? 'rgba(255, 106, 106, 0.1)' : 'rgba(102, 102, 102, 0.1)';
-      const textColor = status === 'approved' ? '#059669' : status === 'pending' ? '#d97706' : status === 'declined' ? '#dc2626' : '#6b7280';
-      
-      // Show expand indicator if node has no children but can expand (not at max depth)  
-      const hasChildren = node.children && node.children.length > 0;
-      const canExpand = !hasChildren && (node.depth || 1) < 3;
-      const indicator = canExpand ? ' (expand)' : '';
-      
-const label = node.data?.label ?? node.name ?? 'Unknown User';
-      const finalLabel = label + indicator;
-      
-      nodes.push({
-        id: node.id,
-        data: { label: finalLabel },
-        position: { x: 0, y: 0 }, // temp (dagre will fix)
-        style: {
-          border: `1px solid ${borderColor}`,
-          padding: 10,
-          borderRadius: 10,
-          background: bgColor,
-          color: textColor,
-          width: nodeWidth,
-          textAlign: "center",
-          fontSize: '12px',
-          lineHeight: 1.2,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-      });
-
-      if (parent) {
-        edges.push({
-          id: `${parent}-${node.id}`,
-          source: parent,
-          target: node.id,
-          animated: true,
-        });
-      }
-
-      if (node.children) {
-        node.children.forEach((child) => traverse(child, node.id));
-      }
+  function traverse(node, parent = null) {
+    // Robust status detection
+    let status = 'unknown';
+    const statusMatch = node.name.match(/\[([^\]]+)\]/i);
+    if (statusMatch) {
+      const rawStatus = statusMatch[1].toLowerCase().trim();
+      if (rawStatus.includes('approved') || rawStatus.includes('active')) status = 'approved';
+      else if (rawStatus.includes('pending') || rawStatus.includes('waitlist')) status = 'pending';
+      else if (rawStatus.includes('declined') || rawStatus.includes('rejected') || rawStatus.includes('banned')) status = 'declined';
     }
+    console.log('Node name:', node.name, '-> Raw:', statusMatch ? statusMatch[1] : null, '-> Parsed:', status);
+    
+    const borderColor = status === 'approved' ? '#83ff83' : status === 'pending' ? '#ffd883' : status === 'declined' ? '#ff6a6a' : '#666666';
+    const bgColor = status === 'approved' ? 'rgba(131, 255, 131, 0.1)' : status === 'pending' ? 'rgba(255, 216, 131, 0.1)' : status === 'declined' ? 'rgba(255, 106, 106, 0.1)' : 'rgba(102, 102, 102, 0.1)';
+    const textColor = status === 'approved' ? '#059669' : status === 'pending' ? '#d97706' : status === 'declined' ? '#dc2626' : '#6b7280';
+    
+    // Show expand indicator if node has no children but can expand (not at max depth)  
+    const hasChildren = node.children && node.children.length > 0;
+    const canExpand = !hasChildren && (node.depth || 1) < 3;
+    const indicator = canExpand ? ' (expand)' : '';
+    
+    const label = node.data?.label ?? node.name ?? 'Unknown User';
+    const finalLabel = label + indicator;
+    
+    nodes.push({
+      id: node.id,
+      data: { label: finalLabel },
+      position: { x: 0, y: 0 }, // temp (dagre will fix)
+      style: {
+        border: `1px solid ${borderColor}`,
+        padding: 8,
+        borderRadius: 10,
+        background: bgColor,
+        color: textColor,
+        width: nodeWidth,
+        height: nodeHeight,
+        textAlign: "center",
+        fontSize: '12px',
+        lineHeight: 1.3,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        whiteSpace: 'pre-line',
+      },
+    });
+
+    if (parent) {
+      edges.push({
+        id: `${parent}-${node.id}`,
+        source: parent,
+        target: node.id,
+        animated: true,
+      });
+    }
+
+    if (node.children) {
+      node.children.forEach((child) => traverse(child, node.id));
+    }
+  }
 
   traverse(tree);
 
@@ -159,7 +162,7 @@ export default function ReferralTree({ data, fetchChildren, maxDepth = 3 }) {
       const members = await fetchChildren(nodeId);
       const children = members.map(member => ({
         id: member.referral_code,
-name: `${(member.first_name ?? 'N/A')} ${(member.last_name ?? '')} (${member.username}) [${member.status ?? 'pending'}]`,
+        name: `${(member.first_name ?? 'N/A')} ${member.last_name ?? ''} [${member.status ?? 'pending'}]\n₱${member.earnings_from_user ?? '0.00'}`,
         children: [],
         depth: currentDepth + 1,
         canExpand: currentDepth + 1 < maxDepth
