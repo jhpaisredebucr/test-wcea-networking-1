@@ -57,7 +57,7 @@ export default function Page() {
   if (loading) {
     return (
       <div className="w-full h-[calc(100vh-64px-28px)] flex items-center justify-center bg-gray-100">
-        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-primary border-dashed rounded-full animate-spin" />
       </div>
     );
   }
@@ -84,7 +84,7 @@ export default function Page() {
             <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-lg shadow border max-w-md mx-auto z-20">
               <h3 className="font-bold text-sm mb-1">↑ Referred by:</h3>
               <p className="text-sm">
-                <span className="font-mono bg-blue-100 px-2 py-1 rounded text-xs mr-2">
+                <span className="font-mono bg-secondary/20 px-2 py-1 rounded text-xs mr-2 text-primary">
                   {userData.referredBy.referral_code}
                 </span>
                 {userData.referredBy.username}
@@ -108,7 +108,7 @@ export default function Page() {
 
           <p className="text-sm text-gray-600 mt-1">
             Referral Code:{" "}
-            <span className="font-mono bg-blue-100 px-2 py-1 rounded">
+            <span className="font-mono bg-secondary/20 px-2 py-1 rounded text-primary">
               {userData?.userInfo?.referral_code}
             </span>
           </p>

@@ -367,7 +367,7 @@ export default function Deposits() {
           <button
             onClick={SubmitDeposit}
             disabled={loading}
-            className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg disabled:opacity-50"
+            className="mt-6 w-full bg-primary text-white py-2 rounded-lg disabled:opacity-50"
           >
             {loading ? "Submitting..." : "Submit Deposit"}
           </button>

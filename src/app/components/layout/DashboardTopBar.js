@@ -100,7 +100,7 @@ const handleSignOut = async () => {
                     />
                 </button>
 
-                <span className="text-2xl font-semibold text-blue-500 sm:text-3xl">
+                <span className="text-2xl font-semibold text-(--primary) sm:text-3xl">
                     WC
                 </span>
 

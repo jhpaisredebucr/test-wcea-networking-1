@@ -196,7 +196,7 @@ export default function AdminProductsPage() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, product_name: event.target.value }))
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-primary"
             placeholder="Example: Networking Router"
           />
         </div>
@@ -213,7 +213,7 @@ export default function AdminProductsPage() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, price: event.target.value }))
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-primary"
             placeholder="0"
           />
         </div>
@@ -228,7 +228,7 @@ export default function AdminProductsPage() {
             onChange={(event) =>
               setForm((prev) => ({ ...prev, description: event.target.value }))
             }
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-primary"
             placeholder="Short product description"
           />
         </div>
@@ -241,7 +241,7 @@ export default function AdminProductsPage() {
             type="file"
             accept="image/*"
             onChange={(event) => setImageFile(event.target.files?.[0] || null)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm file:mr-3 file:rounded file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:text-blue-600"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 file:mr-3 file:rounded file:border-0 file:bg-secondary/20 file:px-3 file:py-2 file:text-primary"
           />
         </div>
 
@@ -274,7 +274,7 @@ export default function AdminProductsPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? "Adding..." : "Add Product"}
           </button>
@@ -323,7 +323,7 @@ export default function AdminProductsPage() {
                   <p className="line-clamp-2 text-sm text-gray-500">
                     {product.description || "No description"}
                   </p>
-                  <p className="text-lg font-bold text-blue-700">
+                  <p className="text-lg font-bold text-primary">
                     P{Number(product.price || 0).toFixed(2)}
                   </p>
                   <button

@@ -27,7 +27,7 @@ export default function HomePage() {
             />
 
             {/* BLUE OVERLAY */}
-            <div className="absolute inset-0 bg-blue-400/90 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
             <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/0 to-transparent" />
 
             {/* Dark gradient overlay */}
@@ -45,7 +45,7 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <h1 className="font-serif text-5xl md:text-6xl font-bold text-white leading-tight mb-6 tracking-tight">
                 Cultivating{" "}
-                <span className="text-blue-500 italic">Community</span> and
+                <span className="text-primary italic">Community</span> and
                 Wellness for All.
               </h1>
 
@@ -129,7 +129,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             {/* Image column */}
             <div className="w-full md:w-1/2 relative aspect-4/5 overflow-hidden rounded-xl">
-              <div className="aspect-square bg-[#62b4fe]/20 absolute -top-10 -left-10 w-full h-full rounded-full blur-3xl" />
+              <div className="aspect-square bg-(--primary)/20 absolute -top-10 -left-10 w-full h-full rounded-full blur-3xl" />
               <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT0rBpcN2a-tjV4mS3gYH8zVVm-Dp7foNAQFbCkdbCUWkp6lOf7JD118QcKjcty8fkI-Q3kIYg3pFNz_10kUjoCtSd74bNKa1SsnqmoURH-JS0LItmX9xPPcfPbMPyZ0iVkyCP1dNpbxaIcS0p-7wUtjMJkhK1Ya-zFquYBq62K8zjaRkFHN4BwXIEaqZ3lvmCZ_zO4HFU51RIiEzhaAbFAkelnlZYmDfXhd68inCbLEaWglf1kGiycVRCjkWCTFq9RpkExSwS6Mkw"
                 alt="Diverse hands stacked together"
@@ -147,7 +147,7 @@ export default function HomePage() {
               </span>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-[#191c1b] leading-tight mb-8">
                 A New Standard for{" "}
-                <span className="text-[#00629e] italic">Shared Growth</span>
+                <span className="text-(--primary) italic">Shared Growth</span>
               </h2>
               <div className="space-y-6 text-[#3f4941] text-lg">
                 <p>
@@ -167,7 +167,7 @@ export default function HomePage() {
                 <div className="flex items-start gap-4">
                   {/* Groups icon (SVG inline) */}
                   <svg
-                    className="text-[#00629e] mt-1 shrink-0 w-6 h-6"
+                    className="text-(--primary) mt-1 shrink-0 w-6 h-6"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2}
@@ -214,7 +214,7 @@ export default function HomePage() {
                     Community Basic
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-blue-800">
+                    <span className="text-3xl font-serif font-bold text-primary">
                       ₱350
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
@@ -238,7 +238,7 @@ export default function HomePage() {
               </div>
 
               {/* ── Elite (featured) ── */}
-              <div className="bg-white p-8 rounded-xl flex flex-col ring-2 ring-blue-950 relative shadow-2xl shadow-[#064f13]/10 hover:-translate-y-2 transition-transform duration-300">
+              <div className="bg-white p-8 rounded-xl flex flex-col ring-2 ring-primary relative shadow-2xl shadow-[#064f13]/10 hover:-translate-y-2 transition-transform duration-300">
                 <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#ffddaf] text-[#281800] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                   Most Popular
                 </div>
@@ -247,7 +247,7 @@ export default function HomePage() {
                     Community Elite
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-blue-800">
+                    <span className="text-3xl font-serif font-bold text-primary">
                       ₱900
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
@@ -268,7 +268,7 @@ export default function HomePage() {
                 </ul>
                 <button 
                   onClick={() => router.push('/home/signup')} 
-                  className="w-full py-4 rounded-lg font-bold bg-blue-500 text-white shadow-lg shadow-[#064f13]/20 hover:opacity-90 active:scale-95 transition-all">
+                  className="w-full py-4 rounded-lg font-bold bg-primary text-white shadow-lg shadow-[#064f13]/20 hover:opacity-90 active:scale-95 transition-all">
                   Get Started
                 </button>
               </div>
@@ -280,7 +280,7 @@ export default function HomePage() {
                     Community Premium
                   </h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-serif font-bold text-blue-800">
+                    <span className="text-3xl font-serif font-bold text-primary">
                       ₱1,500
                     </span>
                     <span className="text-[#3f4941] text-sm">/month</span>
@@ -317,7 +317,7 @@ export default function HomePage() {
   <div className="flex flex-col md:flex-row justify-between items-center px-8 py-12 max-w-7xl mx-auto text-sm tracking-wide">
 
     <div className="mb-8 md:mb-0">
-      <div className="text-xl font-serif text-blue-950 mb-2">
+      <div className="text-xl font-serif text-primary mb-2">
         World Council Executive Alliances
       </div>
 
@@ -363,7 +363,7 @@ export default function HomePage() {
 function CheckIcon() {
   return (
     <svg
-      className="text-blue-900 shrink-0 w-4 h-4"
+      className="text-primary shrink-0 w-4 h-4"
       viewBox="0 0 24 24"
       fill="currentColor"
     >

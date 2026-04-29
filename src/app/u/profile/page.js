@@ -47,7 +47,7 @@ export default function ProfilePage() {
     return (
       <div className="flex min-h-[50vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-dashed"></div>
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-dashed"></div>
           <div className="text-xl text-gray-700">Loading...</div>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function ProfilePage() {
           <p>{error}</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="mt-4 rounded bg-primary px-4 py-2 text-white hover:bg-secondary"
           >
             Retry
           </button>
@@ -324,7 +324,7 @@ export default function ProfilePage() {
       {/* SAVE BUTTON */}
       <button
         onClick={handleSave}
-        className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        className="mt-6 px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition"
       >
         Save Changes
       </button>

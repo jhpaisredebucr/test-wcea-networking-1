@@ -94,7 +94,7 @@ if (loading) {
   return (
     <div className="flex min-h-[50vh] items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-dashed"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-dashed"></div>
         <div className="text-xl text-gray-700">Loading...</div>
       </div>
     </div>
@@ -110,7 +110,7 @@ if (loading) {
                 <div className="flex flex-wrap gap-2">
                   <button 
                     onClick={fetchTransactions}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    className="px-4 py-2 bg-primary text-white rounded hover:bg-secondary"
                   >
                     Refresh
                   </button>

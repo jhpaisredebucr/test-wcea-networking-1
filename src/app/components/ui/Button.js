@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 /* ─────────────────────────────
    NORMAL BUTTON
 ───────────────────────────── */
-function Button({ children, onClick, icon, bgColor="bg-(--primary)", textColor="text-white", border, width="w-full" }) {
+function Button({ children, onClick, icon, bgColor="bg-(--primary)", textColor="text-white", border, width="w-full", className="" }) {
     return (
         <button
             onClick={onClick}
@@ -15,9 +15,9 @@ function Button({ children, onClick, icon, bgColor="bg-(--primary)", textColor="
                 rounded-2xl ${textColor} 
                 font-bold flex gap-4 justify-center
                 items-center
-                hover:opacity-90
                 active:scale-95
                 transition
+                ${className}
             `}
         >
             {icon && (

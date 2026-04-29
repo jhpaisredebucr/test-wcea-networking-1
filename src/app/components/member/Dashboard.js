@@ -36,10 +36,22 @@ import { useState } from "react";
             rowSpan="lg:row-span-2" 
             colSpan="sm:col-span-2">
                 <div className="flex flex-wrap gap-2">
-                    <Button bgColor=" " textColor="text-blue-500" border="border" onClick={() => router.push('/u/withdraw') }>
+                    <Button 
+                        bgColor="bg-transparent" 
+                        textColor="text-(--primary)" 
+                        border="border-2 border-(--primary)" 
+                        onClick={() => router.push('/u/withdraw') }
+                        className="hover:bg-(--primary) hover:text-white transition-all duration-300 focus:ring-2 focus:ring-(--primary) focus:ring-offset-2"
+                    >
                         Withdraw
                     </Button>
-                    <Button bgColor=" " textColor="text-blue-500" border="border" onClick={() => router.push('/u/deposit')}>
+                    <Button 
+                        bgColor="bg-transparent" 
+                        textColor="text-(--primary)" 
+                        border="border-2 border-(--primary)" 
+                        onClick={() => router.push('/u/deposit')}
+                        className="hover:bg-(--primary) hover:text-white transition-all duration-300 focus:ring-2 focus:ring-(--primary) focus:ring-offset-2"
+                    >
                         Deposit
                     </Button>
                 </div>
