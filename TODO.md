@@ -1,1 +1,11 @@
-# About Page Implementation Plan&#10;&#10;## Steps:&#10;- [x] 1. User approved plan (only edit src/app/home/(main)/about/page.js)&#10;- [x] 2. Create full About page content in page.js with hero, mission/vision, partners, story, CTA&#10;- [x] 3. Test page renders correctly (changes applied successfully, matches home page design)&#10;- [x] 4. Mark complete and demo
+# Task Progress: Make sidebar button images white on hover
+
+## TODO Steps (Approved Plan):
+- [x] Create TODO.md with steps
+- [x] Step 1: Edit SideBarButton.js - Add 'group' class to button element to enable group-hover:invert on Image
+- [ ] Step 2: Verify change (user test in browser)
+- [ ] Step 3: Mark complete and cleanup TODO.md
+
+Current: Edit complete. Test in browser by hovering sidebar buttons - icons should now turn white on hover.
+
+
