@@ -28,7 +28,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
 
         console.log(referred_by, userID, amount);
 
-        //GET MEMBERS
+        // //GET MEMBERS
         const resApprove  = await fetch("/api/portal/admin/members", {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
@@ -39,7 +39,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
         console.log(dataApprove);
 
 
-        //TRANSACTIONS
+        // // //TRANSACTIONS
         const resTransaction  = await fetch("/api/portal/admin/transactions", {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
@@ -49,21 +49,34 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
         const dataTransaction  = await resTransaction.json();
         console.log(dataTransaction);
 
-        //REFERAL REWARDS
-        const resReferral  = await fetch("/api/portal/admin/transactions/referral-reward", {
+        //REFERRAL REWARDS (OUTDATED)
+        // const resReferral  = await fetch("/api/portal/admin/transactions/referral-reward", {
+        //     method: "POST",
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify({ referral_code: referred_by, referred_id: userID, reward_amount: amount })
+        // });
+
+        // const dataReferral  = await resReferral.json();
+        // console.log(dataReferral);
+
+        // console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
+
+        //REFERRAL REWARDS
+        const resReferral  = await fetch("/api/referrals/commission", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ referral_code: referred_by, referred_id: userID, reward_amount: amount })
+            body: JSON.stringify({ userId: userID, amount: initialAmount })
         });
 
         const dataReferral  = await resReferral.json();
         console.log(dataReferral);
 
-        console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
+        console.log({userId: userID, initialAmount: initialAmount});
 
         if (onRefresh) {
           onRefresh();
         }
+
     }
 
     const [isActive, setIsActive] = useState(false);

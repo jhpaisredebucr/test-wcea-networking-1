@@ -122,8 +122,6 @@ export default function About() {
             </button>
           </div>
         </section>
-
-        {/* <AdsSidebar /> */}
       </main>
 
       {/* ── FOOTER ── */}

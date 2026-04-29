@@ -197,6 +197,7 @@ export default function SignUpPayment({
 
             logState("TRANSACTION_PAYLOAD", transactionPayload);
 
+            
             const transactionRes = await fetch(
                 "/api/portal/member/transactions",
                 {

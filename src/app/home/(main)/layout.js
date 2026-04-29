@@ -1,6 +1,7 @@
 import "../../globals.css";
 import Navbar from "../../components/layout/NavBar";
 import TopBar from "../../components/layout/TopBar";
+import AdsSidebar from "@/app/components/ui/AdsSidebar";
 
 export const metadata = {
   title: "WCEA Home",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       {/* <TopBar/> */}
       <Navbar/>
       {children}
+      <AdsSidebar />
     </div>
   );
 }
