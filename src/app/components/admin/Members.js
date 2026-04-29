@@ -18,15 +18,15 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
 
     console.log(referrals);
 
-    async function Approve(userID, plan, referred_by) {
-        let initialAmount = 0;
-        if (plan === "1") initialAmount = 300;
-        else if (plan === "2") initialAmount = 900;
-        else if (plan === "3") initialAmount = 1500;
+    async function Approve(userID, packagePrice, referred_by) {
+        // let initialAmount = 0;
+        // if (plan === "1") initialAmount = 300;
+        // else if (plan === "2") initialAmount = 900;
+        // else if (plan === "3") initialAmount = 1500;
 
-        const amount = initialAmount * 0.20;
+        // const amount = initialAmount * 0.20;
 
-        console.log(referred_by, userID, amount);
+        console.log(referred_by, userID);
 
         // //GET MEMBERS
         const resApprove  = await fetch("/api/portal/admin/members", {
@@ -61,17 +61,29 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
 
         // console.log({referral_code: referred_by, referred_id: userID, reward_amount: amount});
 
-        //REFERRAL REWARDS
-        const resReferral  = await fetch("/api/referrals/commission", {
+        // Build referral tree using /api/referrals
+        const resReferrals = await fetch("/api/referrals", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ userId: userID, amount: initialAmount })
+            body: JSON.stringify({ 
+                newUserId: userID, 
+                referrerId: dataApprove.referrerId 
+            })
+        });
+        const dataReferrals = await resReferrals.json();
+        console.log(dataReferrals);
+
+        //REFERRAL REWARDS
+        const resCommission = await fetch("/api/referrals/commission", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ userId: userID, amount: packagePrice })
         });
 
-        const dataReferral  = await resReferral.json();
-        console.log(dataReferral);
+        const dataCommission = await resCommission.json();
+        console.log(dataCommission);
 
-        console.log({userId: userID, initialAmount: initialAmount});
+        console.log({userId: userID, initialAmount: packagePrice});
 
         if (onRefresh) {
           onRefresh();
@@ -149,7 +161,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                Approve(user.id, user.plan, user.referred_by);
+                                Approve(user.id, user.package, user.referred_by);
                             }}
                             className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm"
                         >
