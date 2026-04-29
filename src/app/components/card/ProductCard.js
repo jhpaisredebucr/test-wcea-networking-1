@@ -52,18 +52,17 @@ export default function ProductCard({ products, userData, setBuying, setSelected
             </button>}
 
             {quantity > 0 && 
-            <div className="grid grid-cols-3 items-center place-items-center">
-                <Image src="/icons/minus-circle-filled.svg" alt="icon" width={40} height={40}
+            <div className="flex items-center justify-between gap-2">
+                <Image src="/icons/minus-circle-filled.svg" alt="icon" width={32} height={32}
                     onClick={() => {
                         AddToCart(data, "del");
                         setQuantity(quantity - 1)
                     }} 
                 />
             
+                <p className="text-lg font-bold min-w-[20px] text-center">{quantity}</p>
 
-                <p className="text-lg font-bold">{quantity}</p>
-
-                <Image src="/icons/plus-circle-filled.svg" alt="icon" width={40} height={40}
+                <Image src="/icons/plus-circle-filled.svg" alt="icon" width={32} height={32}
                     onClick={() => {
                         AddToCart(data);
                         setQuantity(quantity + 1)

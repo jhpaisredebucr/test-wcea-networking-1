@@ -77,7 +77,7 @@ const handleSignOut = async () => {
     }, []);
 
     return (
-        <div className="relative z-20 flex h-15 items-center justify-between border-b border-gray-100 bg-white px-3 sm:px-5">
+        <div className="relative z-20 flex h-[60px] shrink-0 items-center justify-between border-b border-gray-100 bg-white px-3 sm:px-5">
 
             {/* LEFT SIDE */}
             <div className="flex items-center">

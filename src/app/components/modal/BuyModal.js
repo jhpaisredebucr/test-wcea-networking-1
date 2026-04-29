@@ -81,14 +81,14 @@ export default function BuyModal({
   // ----------------------------
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[450px]">
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-[450px] mx-4 sm:mx-0 max-h-[90vh] overflow-y-auto">
 
         <h2 className="text-xl font-bold text-center">
           Confirm Your Order
         </h2>
 
         {/* CART ITEMS */}
-        <div className="mt-6 space-y-3 max-h-60 overflow-y-auto">
+        <div className="mt-6 space-y-3 max-h-[40vh] sm:max-h-60 overflow-y-auto">
           {cart?.map((item) => (
             <div
               key={item.id}
@@ -131,12 +131,12 @@ export default function BuyModal({
         )}
 
         {/* BUTTONS */}
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-6 flex flex-col sm:flex-row sm:justify-end gap-3">
           {!success && (
             <button
               onClick={Buy}
               disabled={loading}
-              className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+              className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50 w-full sm:w-auto"
             >
               {loading ? "Processing..." : "Buy All"}
             </button>
@@ -144,7 +144,7 @@ export default function BuyModal({
 
           <button
             onClick={Close}
-            className="px-4 py-2 bg-gray-300 rounded"
+            className="px-4 py-2 bg-gray-300 rounded w-full sm:w-auto"
           >
             {success ? "Done" : "Close"}
           </button>

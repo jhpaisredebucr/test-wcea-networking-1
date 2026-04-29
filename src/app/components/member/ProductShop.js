@@ -63,12 +63,12 @@ export default function ProductShop({ products, dashboardData, userData }) {
         />
       )}
 
-      <div className="mb-5 p-3 text-blue-600 border border-blue-400 rounded-2xl flex justify-between items-center">
-        Explore and shop high-quality premium products!
+      <div className="mb-5 p-3 text-blue-600 border border-blue-400 rounded-2xl flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center">
+        <span>Explore and shop high-quality premium products!</span>
 
         {cart.length !== 0 && (
           <button
-            className="text-white text-lg font-bold bg-blue-500 py-1 px-4 rounded-lg"
+            className="text-white text-base sm:text-lg font-bold bg-blue-500 py-1 px-4 rounded-lg w-full sm:w-auto"
             onClick={() => setBuying(true)}
           >
             Cart ({totalItems}) ₱{total}
@@ -80,7 +80,7 @@ export default function ProductShop({ products, dashboardData, userData }) {
       {products.length === 0 ? (
         <p className="text-center text-gray-500">No products loaded</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="px-1 sm:px-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {products.map((product) => (
             <ProductCard
               key={product.id}
