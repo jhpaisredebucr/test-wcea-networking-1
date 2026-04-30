@@ -9,98 +9,94 @@ export default function About() {
 
   return (
     <div className="bg-background text-foreground font-sans selection:bg-[--success-color] selection:text-background">
-      <main className="relative min-h-screen">
+<main className="relative min-h-screen">
 
-        {/* ── MISSION & VISION ── */}
-        <section className="py-16 md:py-24 px-4 sm:px-6 bg-[var(--primary)/10]">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#191c1b] mb-4">
-                Our <span className="text-primary">Core</span> Purpose
-              </h2>
-              <p className="text-[#3f4941] text-base sm:text-lg max-w-2xl mx-auto">
-                Guided by a bold vision and unwavering mission.
-              </p>
+{/* ── HERO ── */}
+        <section className="py-16 px-4 bg-gradient-to-br from-[#5C4138] to-[#8D5D28] text-white">
+            <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
+                <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                    Learn more about our mission to deliver health care wellness to every family and community through direct selling.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 text-sm">
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                        <span className="font-bold">Wellness</span>
+                        <span className="ml-2 text-white/80">Mission</span>
+                    </div>
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                        <span className="font-bold">Direct Selling</span>
+                        <span className="ml-2 text-white/80">Method</span>
+                    </div>
+                    <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                        <span className="font-bold">Global</span>
+                        <span className="ml-2 text-white/80">Reach</span>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-stretch">
-              {/* VISION */}
-              <div className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-                <h3 className="text-lg md:text-xl font-serif font-bold text-[#191c1b] mb-3">
-                  VISION
-                </h3>
-                <blockquote className="text-sm sm:text-base text-[#555] italic leading-relaxed">
-                  THE NEXT BIG THING ON WELLNESS AND HEALTH CARE DIRECT SELLING COMPANY
-                </blockquote>
-              </div>
+{/* ── MISSION & VISION ── */}
+        <section className="py-16 md:py-24 px-4 sm:px-6">
+            <div className="max-w-6xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-6 md:gap-10">
+                    {/* VISION */}
+                    <div className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+                        <h3 className="text-lg md:text-xl font-bold text-[#5C4138] mb-3">
+                            VISION
+                        </h3>
+                        <blockquote className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
+                            "TO BE THE NEXT BIG THING ON WELLNESS AND HEALTH CARE DIRECT SELLING COMPANY"
+                        </blockquote>
+                    </div>
 
-              {/* MISSION */}
-              <div className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
-                <h3 className="text-lg md:text-xl font-serif font-bold text-[#191c1b] mb-3">
-                  MISSION
-                </h3>
-                <blockquote className="text-sm sm:text-base text-[#555] italic leading-relaxed">
-                  DELIVER HEALTH CARE WELLNESS IN EVERY FAMILY AND COMMUNITY
-                </blockquote>
-              </div>
+                    {/* MISSION */}
+                    <div className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-md hover:shadow-lg transition-all duration-300">
+                        <h3 className="text-lg md:text-xl font-bold text-[#5C4138] mb-3">
+                            MISSION
+                        </h3>
+                        <blockquote className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
+                            "DELIVER HEALTH CARE WELLNESS IN EVERY FAMILY AND COMMUNITY"
+                        </blockquote>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
+
+        {/* ── STORY ── */}
+        <section className="py-16 px-4">
+            <div className="max-w-3xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center">Our Story</h2>
+                <div className="space-y-4 text-gray-600">
+                    <p>
+                        We are transforming the wellness industry by combining cutting-edge health products
+                        with the power of direct selling. Our network empowers entrepreneurs to bring
+                        life-changing wellness solutions directly to families and communities.
+                    </p>
+                    <p>
+                        <span className="font-semibold text-gray-800">Global Reach:</span> Serving families worldwide through dedicated distributors.
+                    </p>
+                    <p>
+                        <span className="font-semibold text-gray-800">Proven Products:</span> Science-backed wellness solutions for every need.
+                    </p>
+                </div>
+            </div>
         </section>
 
         {/* ── PARTNERS ── */}
-        <section className="py-16 md:py-20 px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto flex flex-col items-center">
-            <h2 className="text-xs font-bold text-[--primary] mb-10 tracking-[0.2em] uppercase">
-              Trusted Partners
-            </h2>
+        <section className="py-16 md:py-20 px-4 sm:px-6 bg-gray-50">
+            <div className="max-w-7xl mx-auto flex flex-col items-center">
+                <h2 className="text-xs font-bold text-[#5C4138] mb-10 tracking-[0.2em] uppercase">
+                    Trusted Partners
+                </h2>
 
-            <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-20 grayscale opacity-90 hover:grayscale-0 transition-all duration-500">
-              <Image src="/images/logos/acsr.png" alt="ACSR" width={100} height={70} />
-              <Image src="/images/logos/memo-ni-dok.png" alt="Memo Ni Dok" width={100} height={70} />
-              <Image src="/images/logos/wcea.png" alt="WCEA" width={100} height={70} />
-              <Image src="/images/logos/whea.jpeg" alt="WHEA" width={100} height={70} />
-              <Image src="/images/logos/gaf-champ.png" alt="GAF Champ" width={100} height={70} />
+                <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-20 grayscale opacity-90 hover:grayscale-0 transition-all duration-500">
+                    <Image src="/images/logos/acsr.png" alt="ACSR" width={100} height={70} />
+                    <Image src="/images/logos/memo-ni-dok.png" alt="Memo Ni Dok" width={100} height={70} />
+                    <Image src="/images/logos/wcea.png" alt="WCEA" width={100} height={70} />
+                    <Image src="/images/logos/whea.jpeg" alt="WHEA" width={100} height={70} />
+                    <Image src="/images/logos/gaf-champ.png" alt="GAF Champ" width={100} height={70} />
+                </div>
             </div>
-          </div>
-        </section>
-
-        {/* ── STORY (FLOATING CARD) ── */}
-        <section className="py-20 md:py-28 px-4 sm:px-6 bg-[var(--primary)/10]">
-          <div className="max-w-5xl mx-auto">
-
-            <div className="bg-white rounded-2xl md:rounded-3xl shadow-lg md:shadow-xl 
-              px-6 sm:px-8 md:px-14 
-              py-10 sm:py-12 md:py-14 
-              text-center">
-
-              <span className="text-[var(--primary)/80] font-bold tracking-widest uppercase text-[10px] sm:text-xs mb-3 block">
-                Our Journey
-              </span>
-
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#191c1b] leading-snug mb-6">
-                Pioneering Wellness Through
-                <span className="text-[--primary] italic"> Direct Selling</span>
-              </h2>
-
-              <div className="space-y-4 sm:space-y-5 text-[#3f4941] text-sm sm:text-base max-w-2xl mx-auto">
-                <p>
-                  We are transforming the wellness industry by combining cutting-edge health products
-                  with the power of direct selling. Our network empowers entrepreneurs to bring
-                  life-changing wellness solutions directly to families and communities.
-                </p>
-
-                <p>
-                  <span className="font-semibold text-[#191c1b]">Global Reach:</span> Serving families worldwide through dedicated distributors.
-                </p>
-
-                <p>
-                  <span className="font-semibold text-[#191c1b]">Proven Products:</span> Science-backed wellness solutions for every need.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
         </section>
 
         {/* ── CTA ── */}
