@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { NavBarButton } from "../../../components/ui/Button";
 
 const membershipPlans = [
@@ -90,6 +91,7 @@ const membershipPlans = [
 
 export default function Membership() {
     const router = useRouter();
+    const [showAllPlans, setShowAllPlans] = useState(false);
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -129,7 +131,7 @@ export default function Membership() {
                 </div>
 
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {membershipPlans.map((plan, index) => (
+                    {membershipPlans.slice(0, showAllPlans ? membershipPlans.length : 3).map((plan, index) => (
                         <div 
                             key={index}
                             className="
@@ -179,8 +181,20 @@ export default function Membership() {
                                 Get Started
                             </button>
                         </div>
-                    ))}
+))}
                 </div>
+
+                {/* See More Button */}
+                {membershipPlans.length > 3 && (
+                    <div className="text-center mt-8">
+                        <button 
+                            onClick={() => setShowAllPlans(!showAllPlans)}
+                            className="px-6 py-3 bg-[#5C4138] text-white rounded-xl font-bold hover:bg-[#4a352d] hover:shadow-lg transition duration-300 active:scale-95"
+                        >
+                            {showAllPlans ? "Show Less" : "See More Plans"}
+                        </button>
+                    </div>
+                )}
             </div>
 
             {/* FAQ Section */}
