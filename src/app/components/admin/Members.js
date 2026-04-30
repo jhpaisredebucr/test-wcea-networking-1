@@ -124,7 +124,7 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
                 </button>
             </div>
 
-            <div className="grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">
+            <div className="hidden md:grid grid-cols-4 shadow-sm p-5 mt-5 rounded-lg bg-white font-semibold">
                 <div>Username</div>
                 <div>Full Name</div>
                 <div>Date Joined</div>
@@ -135,35 +135,47 @@ export default function MembersAdmin({ dashboardData, onRefresh }) {
                 <div
                     key={index}
                     onClick={() => PopUpMemberCard(user)}
-                    className="grid grid-cols-4 border-(--primary) 
+                    className="grid grid-cols-1 md:grid-cols-4 border-(--primary) 
                     shadow-sm p-5 rounded-lg bg-white mt-2
-                    hover:shadow-md hover:border cursor-pointer
+                    hover:shadow-md hover:border cursor-pointer gap-2 md:gap-0
                     "
                 >
-                    <div>{user.username}</div>
-                    <div>{user.first_name} {user.last_name}</div>
-                    <div>{format(new Date(user.created_at), "MMM dd, yyyy")}</div>
-                    <div className="flex items-center justify-between">
-                        <span
-                            className={
-                                user.status === "approved"
-                                ? "text-green-600"
-                                : user.status === "pending"
-                                ? "text-orange-500"
-                                : user.status === "declined"
-                                ? "text-red-600"
-                                : ""
-                            }
-                            >
-                            {user.status}
-                        </span>
+                    <div className="md:block">
+                        <span className="md:hidden font-semibold text-gray-500">Username: </span>
+                        {user.username}
+                    </div>
+                    <div className="md:block">
+                        <span className="md:hidden font-semibold text-gray-500">Full Name: </span>
+                        {user.first_name} {user.last_name}
+                    </div>
+                    <div className="md:block">
+                        <span className="md:hidden font-semibold text-gray-500">Date Joined: </span>
+                        {format(new Date(user.created_at), "MMM dd, yyyy")}
+                    </div>
+                    <div className="flex items-center justify-between md:block">
+                        <div className="flex items-center gap-2">
+                            <span className="md:hidden font-semibold text-gray-500">Status: </span>
+                            <span
+                                className={
+                                    user.status === "approved"
+                                    ? "text-green-600"
+                                    : user.status === "pending"
+                                    ? "text-orange-500"
+                                    : user.status === "declined"
+                                    ? "text-red-600"
+                                    : ""
+                                }
+                                >
+                                {user.status}
+                            </span>
+                        </div>
                         {user.status === "pending" &&
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
                                 Approve(user.id, user.package, user.referred_by);
                             }}
-                            className="p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm"
+                            className="mt-2 md:mt-0 p-1 rounded-sm hover:bg-(--primary)/80 bg-(--primary) cursor-pointer text-white text-sm"
                         >
                             Approve
                         </button>}
