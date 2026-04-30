@@ -108,11 +108,11 @@ export default function BuyModal({
           <p>₱{total}</p>
         </div>
 
-        {/* WALLET */}
+{/* WALLET */}
         <div className="mt-5">
           <p className="text-sm">Wallet Balance</p>
           <p className="border p-2 mt-1 rounded-lg">
-            ₱{dashboardData?.userBalance ?? 0}
+            ₱{dashboardData?.dashboardData?.userBalance ?? dashboardData?.userBalance ?? 0}
           </p>
         </div>
 

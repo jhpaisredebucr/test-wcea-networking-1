@@ -26,7 +26,7 @@ export default async function Page() {
     <ProductShop
       products={products.products}
       userData={userData}
-      dashboardData={dashboardData}
+      dashboardData={dashboardData.dashboardData}
     />
   );
 }

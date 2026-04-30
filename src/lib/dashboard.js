@@ -24,7 +24,11 @@ export async function getMemberDashboardData({
           u.created_at,
           p.first_name,
           p.last_name,
-          COUNT(*) OVER() AS total_count
+          (
+            SELECT COUNT(*) 
+            FROM users u2 
+            WHERE u2.referred_by = u.referral_code
+          ) AS total_count
       FROM users u
       JOIN user_profiles p ON p.user_id = u.id
       WHERE u.referred_by = $1

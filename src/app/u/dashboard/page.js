@@ -25,6 +25,7 @@ export default async function Page() {
   const dashboardData = await getMemberDashboardData({userReferralCode: referral_code});
   const userData = await getUserFromToken(userId);
   const transactions = await getTransactions({ userID: userId , role: role });
+  console.log(dashboardData);
 
   // MAIN
   return (

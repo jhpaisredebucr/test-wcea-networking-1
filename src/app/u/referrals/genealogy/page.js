@@ -84,8 +84,7 @@ export default function Page() {
           <ReferralTree
             data={rootTree}
             fetchChildren={async (refCode) => {
-              const res = await fetchJson(
-`/api/portal/member?referralCode=${refCode}&userId=${userData.userInfo.id}`
+              const res = await fetchJson(`/api/portal/member?referralCode=${refCode}&userId=${userData.userInfo.id}`
               );
               return res.data || [];
             }}

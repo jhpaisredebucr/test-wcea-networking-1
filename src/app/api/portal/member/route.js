@@ -31,7 +31,11 @@ export async function GET(req) {
 
           COALESCE(SUM(rr.reward_amount), 0) AS earnings_from_user,
 
-          COUNT(*) OVER() AS total_count
+          (
+            SELECT COUNT(*) 
+            FROM users u2 
+            WHERE u2.referred_by = u.referral_code
+          ) AS total_count
 
       FROM users u
 
@@ -47,7 +51,7 @@ export async function GET(req) {
 
       GROUP BY 
         u.id, u.username, u.status, u.referral_code, u.created_at,
-        p.first_name, p.last_name
+        p.first_name, p.last_name, u.referral_code
 
       ORDER BY u.created_at DESC
       LIMIT $2 OFFSET $3
