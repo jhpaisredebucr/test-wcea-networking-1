@@ -45,7 +45,7 @@ export default function About() {
                             VISION
                         </h3>
                         <blockquote className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
-                            "TO BE THE NEXT BIG THING ON WELLNESS AND HEALTH CARE DIRECT SELLING COMPANY"
+                            TO BE THE NEXT BIG THING ON WELLNESS AND HEALTH CARE DIRECT SELLING COMPANY
                         </blockquote>
                     </div>
 
@@ -55,7 +55,7 @@ export default function About() {
                             MISSION
                         </h3>
                         <blockquote className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
-                            "DELIVER HEALTH CARE WELLNESS IN EVERY FAMILY AND COMMUNITY"
+                            DELIVER HEALTH CARE WELLNESS IN EVERY FAMILY AND COMMUNITY
                         </blockquote>
                     </div>
                 </div>

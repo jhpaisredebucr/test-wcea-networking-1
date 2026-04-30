@@ -206,7 +206,7 @@ export default function Membership() {
                         <div className="border border-gray-200 rounded-xl p-4">
                             <h3 className="font-bold text-gray-800 mb-2">Is the membership lifetime?</h3>
                             <p className="text-gray-600">
-                                Yes, once you purchase a membership plan, it's yours for life. You only need to maintain your account in good standing.
+                                Yes, once you purchase a membership plan, it&apos;s yours for life. You only need to maintain your account in good standing.
                             </p>
                         </div>
 
